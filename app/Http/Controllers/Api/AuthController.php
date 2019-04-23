@@ -29,20 +29,16 @@ class AuthController extends Controller
         return response($response, 200);
     }
 
-    public function login (Request $request) {
+    public function login(Request $request)
+    {
 
         $user = User::where('phone', $request->phone)->first();
 
         if ($user) {
+            $token = $user->createToken('Laravel Password Grant Client')->accessToken;
+            $response = ['token' => $token];
+            return response($response, 200);
 
-            if (Hash::check($request->password, $user->password)) {
-                $token = $user->createToken('Laravel Password Grant Client')->accessToken;
-                $response = ['token' => $token];
-                return response($response, 200);
-            } else {
-                $response = "Password missmatch";
-                return response($response, 422);
-            }
 
         } else {
             $response = 'User does not exist';
@@ -50,4 +46,6 @@ class AuthController extends Controller
         }
 
     }
+
+
 }
