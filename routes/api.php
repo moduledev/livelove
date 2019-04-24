@@ -13,15 +13,16 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
 
 Route::group(['middleware' => ['json.response']], function () {
 
-    Route::middleware('auth:api')->get('/user', function (Request $request) {
-        return $request->user();
+//    Route::middleware('auth:api')->get('/user', function (Request $request) {
+//        return $request->user();
+//    });
+
+    Route::middleware('auth:api')->group(function (){
+       Route::post('/user/smsverify', 'Api\AuthController@verify');
     });
 
     // public routes
