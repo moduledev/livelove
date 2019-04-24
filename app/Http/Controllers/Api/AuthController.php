@@ -24,21 +24,18 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return response(['errors' => $validator->errors()->all()], 422);
         }
-
         $user = User::where('phone', $request->phone)->first();
+
         $sms = new SmsController();
 
-        if ($user) {
-            $token = $user->createToken('Laravel Password Grant Client')->accessToken;
-            $sms->store($request->phone, $user->id);
-            $response = ['token' => $token];
-            return response($response, 200);
-        } else {
+        if(!$user){
             $user = User::create($request->toArray());
             $sms->store($request->phone, $user->id);
             $token = $user->createToken('Laravel Password Grant Client')->accessToken;
             $response = ['token' => $token];
             return response($response, 200);
+        } else {
+            return response('User with this phone is already exists', 422);
         }
 
     }
@@ -50,36 +47,36 @@ class AuthController extends Controller
         ]);
 
         $user = $request->user();
-
-
+        $code = User::findOrFail($user->id);
         if ($validator->fails()) {
             return response(['errors' => $validator->errors()->all()], 422);
         }
-        if($request->code === '3333'){
+
+        if ($request->code === '3333') {
             $user = User::where('phone', $request->phone)->first();
             $token = $user->createToken('Laravel Password Grant Client')->accessToken;
             return response('code is true', 200);
         }
-
     }
 
-//    public function login(Request $request)
-//    {
-//
-//        $user = User::where('phone', $request->phone)->first();
-//
-//        if ($user) {
-//            $token = $user->createToken('Laravel Password Grant Client')->accessToken;
-//            $response = ['token' => $token];
-//            return response($response, 200);
-//
-//
-//        } else {
-//            $response = 'User does not exist';
-//            return response($response, 422);
-//        }
-//
-//    }
+    public function login(Request $request)
+    {
+
+        $user = User::where('phone', $request->phone)->first();
+        $sms = new SmsController();
+
+        if ($user) {
+            $token = $user->createToken('Laravel Password Grant Client')->accessToken;
+            $sms->store($request->phone, $user->id);
+            $response = ['token' => $token];
+            return response($response, 200);
+
+        } else {
+            $response = 'User does not exist';
+            return response($response, 422);
+        }
+
+    }
 
 
 }
