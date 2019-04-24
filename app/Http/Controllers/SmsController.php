@@ -15,5 +15,23 @@ class SmsController extends Controller
         $input['phone'] = $phone;
         $input['user_id'] = $userId;
         SmsCode::create($input);
+        $this->sendSms($input['code']);
+    }
+
+    public function sendSms($code)
+    {
+        $basic  = new \Nexmo\Client\Credentials\Basic('1f76bd4e', 'TIIrPiQkTQ6kf9FN');
+        $client = new \Nexmo\Client($basic);
+
+        $message = $client->message()->send([
+            'to' => '380672623783',
+            'from' => 'Nexmo',
+            'text' => 'Hello from Nexmo'
+        ]);
+    }
+
+    public function getLastCode()
+    {
+
     }
 }

@@ -40,6 +40,6 @@ class User extends Authenticatable
 
     public function codes()
     {
-        return $this->hasMany('App/SmsCode');
+        return $this->hasMany('App\SmsCode');
     }
 }

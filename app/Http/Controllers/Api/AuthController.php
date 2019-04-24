@@ -35,7 +35,6 @@ class AuthController extends Controller
             return response($response, 200);
         } else {
             $user = User::create($request->toArray());
-            dd($user->id);
             $sms->store($request->phone, $user->id);
             $token = $user->createToken('Laravel Password Grant Client')->accessToken;
             $response = ['token' => $token];
@@ -49,6 +48,10 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'code' => 'required|string|max:9',
         ]);
+
+        $user = $request->user();
+
+
         if ($validator->fails()) {
             return response(['errors' => $validator->errors()->all()], 422);
         }

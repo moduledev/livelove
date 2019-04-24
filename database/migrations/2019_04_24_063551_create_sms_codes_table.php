@@ -15,8 +15,7 @@ class CreateSmsCodesTable extends Migration
     {
         Schema::create('sms_codes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->bigInteger('user_id')->references('id')->on('users');
             $table->string('phone')->index();
             $table->string('code');
             $table->string('status')->default('pending');
