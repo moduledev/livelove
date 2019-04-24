@@ -30,8 +30,4 @@ class SmsController extends Controller
         curl_close($ch);
     }
 
-    public function getLastCode()
-    {
-
-    }
 }
