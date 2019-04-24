@@ -10,8 +10,56 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Validator;
 
+
+/**
+ * @SWG\Swagger(
+ *     schemes={"http","https"},
+ *     host="localhost",
+ *     basePath="/",
+ *     @SWG\Info(
+ *         version="1.0.0",
+ *         title="Livelove API",
+ *         description="Livelove API",
+ *         termsOfService="",
+ *         @SWG\Contact(
+ *             email=""
+ *         ),
+ *     ),
+ * )
+ */
 class AuthController extends Controller
 {
+
+    /**
+     * @SWG\Post(
+     *     path="/api/register",
+     *     summary="Register new user",
+     *     tags={"Register"},
+     *     description="Register new user",
+     *     @SWG\Parameter(
+     *         name="name",
+     *         in="path",
+     *         description="Post user name",
+     *         required=true,
+     *         type="string",
+     *     ),
+     *     @SWG\Parameter(
+     *         name="phone",
+     *         in="path",
+     *         description="Post user phone",
+     *         required=true,
+     *         type="string",
+     *     ),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="return user token",
+     *     ),
+     *     @SWG\Response(
+     *         response="422",
+     *         description="User with this phone has already been registered",
+     *     ),
+     * )
+     */
 
     /** Register user
      * @param Request $request
@@ -43,6 +91,38 @@ class AuthController extends Controller
 
     }
 
+    /**
+     * @SWG\Post(
+     *     path="/api/smsverify",
+     *     summary="Compare sms",
+     *     tags={"SmsVerify"},
+     *     description="Compare sms wich was recived from Nexmo service and compare with code in DB.
+     * if code is equal to recived sms and time diference between them not more then 5 minutes response user data",
+     *     @SWG\Parameter(
+     *         name="code",
+     *         in="path",
+     *         description="Post sms code",
+     *         required=true,
+     *         type="string",
+     *     ),
+     *     @SWG\Parameter(
+     *         name="Authorization",
+     *         in="header",
+     *         description="Bearer <token>",
+     *         required=true,
+     *         type="string",
+     *     ),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="return user data",
+     *     ),
+     *     @SWG\Response(
+     *         response="422",
+     *         description="sms code is not valid",
+     *     ),
+     * )
+     */
+
     /**Check is sms code exist in table
      * @param Request $request
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
@@ -67,6 +147,37 @@ class AuthController extends Controller
             return response('Error check sms code', 422);
         }
     }
+
+    /**
+     * @SWG\Post(
+     *     path="/api/login",
+     *     summary="Login user",
+     *     tags={"Login"},
+     *     description="Login user",
+     *     @SWG\Parameter(
+     *         name="name",
+     *         in="path",
+     *         description="Post user name",
+     *         required=true,
+     *         type="string",
+     *     ),
+     *     @SWG\Parameter(
+     *         name="phone",
+     *         in="path",
+     *         description="Post user phone",
+     *         required=true,
+     *         type="string",
+     *     ),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="return user token",
+     *     ),
+     *     @SWG\Response(
+     *         response="422",
+     *         description="User with this phone doesn't exist",
+     *     ),
+     * )
+     */
 
     /**Login user
      * @param Request $request
