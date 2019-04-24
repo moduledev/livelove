@@ -22,7 +22,6 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'phone' => 'required|string|min:9',
-            'policy' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -75,6 +74,15 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'phone' => 'required|string|min:9',
+        ]);
+
+        if ($validator->fails()) {
+            return response(['errors' => $validator->errors()->all()], 422);
+        }
+
         $user = User::where('phone', $request->phone)->first();
         $sms = new SmsController();
 
