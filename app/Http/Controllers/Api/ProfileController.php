@@ -21,11 +21,11 @@ class ProfileController extends Controller
      *     tags={"User Profile"},
      *     description="Show users profile",
      *     @SWG\Parameter(
-     *         name="name",
+     *         name="id",
      *         in="path",
      *         description="Get user id",
      *         required=true,
-     *         type="string",
+     *         type="integer",
      *     ),
      *     @SWG\Parameter(
      *         name="Authorization",
