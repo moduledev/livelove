@@ -15,8 +15,8 @@ class AddPositionBiographyColumsToUserTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->string('position');
-            $table->text('biography');
+            $table->string('position')->nullable();
+            $table->text('biography')->nullable();
         });
     }
 

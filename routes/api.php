@@ -19,6 +19,7 @@ Route::group(['middleware' => ['json.response']], function () {
 
     Route::middleware('auth:api')->group(function (){
        Route::post('/user/smsverify', 'Api\AuthController@verify');
+       Route::get('/users/{id}', 'Api\ProfileController@index');
     });
 
     Route::post('/login', 'Api\AuthController@login')->name('login.api');
