@@ -26,16 +26,22 @@
                 "parameters": [
                     {
                         "name": "name",
-                        "in": "path",
+                        "in": "body",
                         "description": "Post user name",
                         "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
                         "type": "string"
                     },
                     {
                         "name": "phone",
-                        "in": "path",
+                        "in": "body",
                         "description": "Post user phone",
                         "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
                         "type": "string"
                     }
                 ],
@@ -59,9 +65,12 @@
                 "parameters": [
                     {
                         "name": "code",
-                        "in": "path",
+                        "in": "body",
                         "description": "Post sms code",
                         "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
                         "type": "string"
                     },
                     {
@@ -124,10 +133,83 @@
                 "description": "Show users profile",
                 "parameters": [
                     {
-                        "name": "name",
+                        "name": "id",
                         "in": "path",
                         "description": "Get user id",
                         "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "return user data"
+                    },
+                    "401": {
+                        "description": "Unregistered user"
+                    }
+                }
+            }
+        },
+        "/api/users/edit/id": {
+            "put": {
+                "tags": [
+                    "Edit users Profile"
+                ],
+                "summary": "Edit users profile",
+                "description": "Show users profile",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Get user id",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "name",
+                        "in": "body",
+                        "description": "Users name",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "type": "string"
+                    },
+                    {
+                        "name": "phone",
+                        "in": "body",
+                        "description": "Users phone",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "type": "string"
+                    },
+                    {
+                        "name": "biography",
+                        "in": "body",
+                        "description": "Users biography",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "type": "string"
+                    },
+                    {
+                        "name": "position",
+                        "in": "body",
+                        "description": "Users position",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
                         "type": "string"
                     },
                     {

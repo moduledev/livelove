@@ -38,17 +38,19 @@ class AuthController extends Controller
      *     description="Register new user",
      *     @SWG\Parameter(
      *         name="name",
-     *         in="path",
+     *         in="body",
      *         description="Post user name",
      *         required=true,
      *         type="string",
+     *         @SWG\Schema(type="string")
      *     ),
      *     @SWG\Parameter(
      *         name="phone",
-     *         in="path",
+     *         in="body",
      *         description="Post user phone",
      *         required=true,
      *         type="string",
+     *         @SWG\Schema(type="string")
      *     ),
      *     @SWG\Response(
      *         response=200,
@@ -100,10 +102,11 @@ class AuthController extends Controller
      * if code is equal to recived sms and time diference between them not more then 5 minutes response user data",
      *     @SWG\Parameter(
      *         name="code",
-     *         in="path",
+     *         in="body",
      *         description="Post sms code",
      *         required=true,
      *         type="string",
+     *         @SWG\Schema(type="string")
      *     ),
      *     @SWG\Parameter(
      *         name="Authorization",
