@@ -42,4 +42,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\SmsCode');
     }
+
+    public function programs()
+    {
+        return $this->belongsToMany('App\Program');
+    }
 }
