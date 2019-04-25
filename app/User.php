@@ -38,6 +38,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public $with = ['programs'];
+
     public function codes()
     {
         return $this->hasMany('App\SmsCode');
@@ -45,6 +47,11 @@ class User extends Authenticatable
 
     public function programs()
     {
-        return $this->belongsToMany('App\Program');
+        return $this->belongsToMany('App\Program','user_program','user_id','program_id');
+    }
+
+    public function user()
+    {
+
     }
 }

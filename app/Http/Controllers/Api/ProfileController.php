@@ -47,9 +47,9 @@ class ProfileController extends Controller
     public function index($id)
     {
         $userId = filter_var($id,FILTER_SANITIZE_NUMBER_INT);
-        $user = User::where('id',$userId)->first();
-        if($user){
-            return response($user, 200);
+        $userData = User::with('programs')->find($userId);
+        if($userData){
+            return response($userData, 200);
         } else {
             return response('Unregistered user', 401);
         }
