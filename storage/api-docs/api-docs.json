@@ -100,13 +100,6 @@
                 "description": "Login user",
                 "parameters": [
                     {
-                        "name": "name",
-                        "in": "path",
-                        "description": "Post user name",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
                         "name": "phone",
                         "in": "path",
                         "description": "Post user phone",

@@ -158,13 +158,6 @@ class AuthController extends Controller
      *     tags={"Login"},
      *     description="Login user",
      *     @SWG\Parameter(
-     *         name="name",
-     *         in="path",
-     *         description="Post user name",
-     *         required=true,
-     *         type="string",
-     *     ),
-     *     @SWG\Parameter(
      *         name="phone",
      *         in="path",
      *         description="Post user phone",
@@ -189,7 +182,6 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
             'phone' => 'required|string|min:9',
         ]);
 
