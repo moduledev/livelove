@@ -95,7 +95,7 @@ class AuthController extends Controller
 
     /**
      * @SWG\Post(
-     *     path="/api/smsverify",
+     *     path="/api/user/smsverify",
      *     summary="Compare sms",
      *     tags={"SmsVerify"},
      *     description="Compare sms wich was recived from Nexmo service and compare with code in DB.
