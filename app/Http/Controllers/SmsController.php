@@ -24,7 +24,7 @@ class SmsController extends Controller
         curl_setopt($ch, CURLOPT_URL, "https://rest.nexmo.com/sms/json");
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS,
-            "from=Nexmo&text={$code}&to={$phone}&api_key=1f76bd4e&api_secret=TIIrPiQkTQ6kf9FN");
+            "from=Nexmo&text={$code}&to={$phone}&api_key=18965459&api_secret=ay8hoO09wO2p2Bmb");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_exec($ch);
         curl_close($ch);
