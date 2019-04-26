@@ -54,7 +54,7 @@ class AuthController extends Controller
      *     ),
      *     @SWG\Response(
      *         response=200,
-     *         description="User has been created",
+     *         description="return token",
      *     ),
      *     @SWG\Response(
      *         response="422",
@@ -83,10 +83,10 @@ class AuthController extends Controller
 
         if (!$user) {
             $user = User::create($request->toArray());
-//            $sms->store($request->phone, $user->id);
-//            $token = $user->createToken('Laravel Password Grant Client')->accessToken;
-//            $response = ['token' => $token];
-            return response('User has been created', 200);
+            $sms->store($request->phone, $user->id);
+            $token = $user->createToken('Laravel Password Grant Client')->accessToken;
+            $response = ['token' => $token];
+            return response($response, 200);
         } else {
             return response('User with this phone is already exists', 422);
         }
