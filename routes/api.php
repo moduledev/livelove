@@ -12,15 +12,15 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::delete('api/users/{id}', 'Api\ProfileController@delete');
 
 Route::group(['middleware' => ['json.response']], function () {
 
     Route::middleware('auth:api')->group(function () {
         Route::post('/user/smsverify', 'Api\AuthController@verify');
         Route::get('/users/{id}', 'Api\ProfileController@index');
-
         Route::put('/users/edit/{id}', 'Api\ProfileController@update');
+        Route::delete('/users/delete/{id}', 'Api\ProfileController@delete');
+
     });
 
     Route::post('/login', 'Api\AuthController@login')->name('login.api');
