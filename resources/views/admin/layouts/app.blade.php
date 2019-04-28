@@ -334,7 +334,8 @@
             <!-- /.search form -->
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu" data-widget="tree">
-                <li class="header"><a href="{{route('admin.dashboard')}}"> <i class="fa fa-home"></i> Главная страница</a></li>
+                <li class="header">Меню</li>
+                <li><a href="{{route('admin.dashboard')}}"> <i class="fa fa-home"></i> Главная страница</a></li>
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-users"></i> <span>Все пользователи</span>
