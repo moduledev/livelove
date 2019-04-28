@@ -40,7 +40,7 @@
     <ul class="nav navbar-nav navbar-right">
         <!-- Authentication Links -->
         @guest('admin')
-            <li><a href="{{ route('admin.auth.login') }}">Login</a></li>
+            {{--<li><a href="{{ route('admin.auth.login') }}">Login</a></li>--}}
             <li><a href="{{ route('admin.register') }}">Register</a></li>
         @else
             <li class="dropdown">
@@ -49,12 +49,10 @@
                 </a>
 
                 <ul class="dropdown-menu" role="menu">
-                    <li>
-                        <a href="{{ route('admin.auth.logout') }}"
+                    <li><a href="{{ route('admin.auth.logout') }}"
                            onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                            Logout
-                        </a>
+                            Logout</a>
 
                         <form id="logout-form" action="{{ route('admin.auth.logout') }}" method="POST" style="display: none;">
                             {{ csrf_field() }}
