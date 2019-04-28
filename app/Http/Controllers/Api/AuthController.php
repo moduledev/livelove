@@ -95,7 +95,7 @@ class AuthController extends Controller
 
     /**
      * @SWG\Post(
-     *     path="/api/user/smsverify",
+     *     path="/api/user/smsverify ",
      *     summary="Compare sms",
      *     tags={"SmsVerify"},
      *     description="Compare sms wich was recived from Nexmo service and compare with code in DB.
@@ -203,15 +203,5 @@ class AuthController extends Controller
         }
     }
 
-    public function delete($id)
-    {
-        $userId = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
-        $user = User::findOrFail($userId)->first();
-        if ($user) {
-            $user->delete();
-            return response('User ' . $user->name. ' has been deleted', 200);
-        } else {
-            return response('Unregistered user', 401);
-        }
-    }
+
 }

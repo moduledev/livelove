@@ -145,4 +145,17 @@ class ProfileController extends Controller
             return response('Unregistered user', 401);
         }
     }
+
+    public function delete($id)
+    {
+        $userId = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+        $user = User::findOrFail($userId)->first();
+        if ($user) {
+            $user->delete();
+            return response('User ' . $user->name. ' has been deleted', 200);
+        } else {
+            return response('Unregistered user', 401);
+        }
+    }
+
 }

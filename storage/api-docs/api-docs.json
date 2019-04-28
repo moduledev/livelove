@@ -47,7 +47,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "User has been created"
+                        "description": "return token"
                     },
                     "422": {
                         "description": "User with this phone has already been registered"
@@ -55,7 +55,7 @@
                 }
             }
         },
-        "/api/smsverify": {
+        "/api/user/smsverify ": {
             "post": {
                 "tags": [
                     "SmsVerify"
