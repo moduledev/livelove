@@ -334,7 +334,7 @@
             <!-- /.search form -->
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu" data-widget="tree">
-                <li class="header">Навигация</li>
+                <li class="header"><a href="{{route('admin.dashboard')}}"> <i class="fa fa-home"></i> Главная страница</a></li>
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-users"></i> <span>Все пользователи</span>
@@ -343,12 +343,12 @@
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="../index.html"><i class="fa fa-user"></i> Пользователи</a></li>
-                        <li><a href="../index2.html"><i class="fa fa-user-secret"></i> Администраторы</a></li>
+                        <li><a href="{{route('admin.users')}}"><i class="fa fa-user"></i> Пользователи</a></li>
+                        <li><a href="{{route('admin.admins')}}"><i class="fa fa-user-secret"></i> Администраторы</a></li>
                     </ul>
                 </li>
 
-                <li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
+                <li><a href="https://adminlte.io/docs"><i class="fa fa-window-restore"></i> <span>Программы</span></a></li>
                 <li class="header">LABELS</li>
                 <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
                 <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
@@ -362,14 +362,13 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>
-                Calendar
-                <small>Control panel</small>
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active">Calendar</li>
-            </ol>
+
+            @yield('content-header')
+            {{--<ol class="breadcrumb">--}}
+                {{--<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>--}}
+                {{--<li class="active">Calendar</li>--}}
+            {{--</ol>--}}
+
         </section>
         <section class="content">
             @yield('content')

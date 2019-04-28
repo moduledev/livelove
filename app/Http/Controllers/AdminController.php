@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Admin;
+use App\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:admin', ['only' => 'index', 'edit']);
+        $this->middleware('auth:admin');
     }
 
     /**
@@ -98,5 +99,17 @@ class AdminController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function users()
+    {
+        $users = User::all()->toArray();
+        return view('admin.pages.users',compact('users'));
+    }
+
+    public function admins()
+    {
+        $admins = Admin::all()->toArray();
+        return view('admin.pages.admins',compact('admins'));
     }
 }
