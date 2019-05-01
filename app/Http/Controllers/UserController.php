@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Admin;
 use App\User;
 use Illuminate\Http\Request;
 
-class AdminController extends Controller
+class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:admin')->except('create');
+        $this->middleware('auth:admin')->only('destroy');
     }
 
     /**
@@ -20,8 +19,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-
-        return view('admin.dashboard');
+        //
     }
 
     /**
@@ -31,36 +29,24 @@ class AdminController extends Controller
      */
     public function create()
     {
-        return view('admin.auth.register');
+        //
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        // validate the data
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required',
-            'password' => 'required'
-        ]);
-        // store in the database
-        $admins = new Admin;
-        $admins->name = $request->name;
-        $admins->email = $request->email;
-        $admins->password = bcrypt($request->password);
-        $admins->save();
-        return redirect()->route('admin.auth.login');
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -71,7 +57,7 @@ class AdminController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -82,8 +68,8 @@ class AdminController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -94,23 +80,15 @@ class AdminController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
-    }
-
-    public function users()
-    {
-        $users = User::all();
-        return view('admin.pages.users',compact('users'));
-    }
-
-    public function admins()
-    {
-        $admins = Admin::all()->toArray();
-        return view('admin.pages.admins',compact('admins'));
+        $userId = $request->id;
+//        dd($request->all());
+        $user = User::findOrFail($userId);
+        $user->delete();
+        return redirect()->back();
     }
 }

@@ -128,7 +128,7 @@ class ProfileController extends Controller
             'phone' => 'string|min:9',
             'biography' => 'string|max:1000',
             'position' => 'string|max:255',
-
+            'image' => 'file'
         ]);
 
         if ($validator->fails()) return response(['errors' => $validator->errors()->all()], 422);

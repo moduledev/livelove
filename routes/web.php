@@ -23,6 +23,8 @@ Route::prefix('admin')->group(function () {
 
     Route::get('users','AdminController@users')->name('admin.users');
     Route::get('admins','AdminController@admins')->name('admin.admins');
+
+    Route::post('users','UserController@destroy')->name('admin.user.delete');
 });
 
 Route::get('/', function () {

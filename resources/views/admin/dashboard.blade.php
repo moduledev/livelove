@@ -4,6 +4,7 @@
         Главная страница
     </h1>
     {{ Breadcrumbs::render('dashboard') }}
+
 @endsection
 @section('content')
 
