@@ -121,11 +121,14 @@ class ProfileController extends Controller
 
     public function update(Request $request, $id)
     {
+
+        dd('123');
         $validator = Validator::make($request->all(), [
             'name' => 'string|max:255',
             'phone' => 'string|min:9',
             'biography' => 'string|max:1000',
             'position' => 'string|max:255',
+            'image' => 'file'
         ]);
 
         if ($validator->fails()) return response(['errors' => $validator->errors()->all()], 422);
