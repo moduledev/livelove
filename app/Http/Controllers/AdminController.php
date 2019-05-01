@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Admin;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -104,7 +105,7 @@ class AdminController extends Controller
 
     public function users()
     {
-        $users = User::all();
+        $users = DB::table('users')->paginate(2);
         return view('admin.pages.users',compact('users'));
     }
 

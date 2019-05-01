@@ -26,8 +26,8 @@
                            <td>{{$user->id}}</td>
                            <td>{{$user->name}}</td>
                            <td>{{$user->phone}}</td>
-                           <td>{{$user->posistiob}}</td>
-                           <td><img src="{{asset('storage/' . $user->image)}}" class="img-responsive" alt="" style="width: 100px;height: 100px"></td>
+                           <td>{{$user->position}}</td>
+                           {{--<td><img src="{{asset('storage/' . $user->image)}}" class="img-responsive" alt="" style="width: 100px;height: 100px"></td>--}}
                            <td>
                                <div >
                                    <form method="post" action="{{ route('admin.user.delete') }}" style="display: inline-block">
@@ -47,6 +47,7 @@
                    </tbody>
                </table>
            @endisset
+               {{ $users->links() }}
        </div>
     </div>
 @endsection
