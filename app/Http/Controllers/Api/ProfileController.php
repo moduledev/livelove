@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use Validator;
 
 
@@ -56,8 +57,8 @@ class ProfileController extends Controller
         }
     }
 
-    /**
-     * @SWG\Put(
+    /**post
+     * @SWG\Post(
      *     path="/api/users/edit/id",
      *     summary="Edit users profile",
      *     tags={"Edit users Profile"},
@@ -122,13 +123,12 @@ class ProfileController extends Controller
     public function update(Request $request, $id)
     {
 
-        dd('123');
         $validator = Validator::make($request->all(), [
             'name' => 'string|max:255',
             'phone' => 'string|min:9',
             'biography' => 'string|max:1000',
             'position' => 'string|max:255',
-            'image' => 'file'
+
         ]);
 
         if ($validator->fails()) return response(['errors' => $validator->errors()->all()], 422);
@@ -136,12 +136,18 @@ class ProfileController extends Controller
         $userId = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
         $userData = User::with('programs')->find($userId);
 
-
         if ($userData) {
-            $userData->name = filter_var($request->name, FILTER_SANITIZE_SPECIAL_CHARS);
-            $userData->phone = filter_var($request->phone, FILTER_SANITIZE_NUMBER_INT);
-            $userData->biography = filter_var($request->biography, FILTER_SANITIZE_SPECIAL_CHARS);
-            $userData->position = filter_var($request->position, FILTER_SANITIZE_SPECIAL_CHARS);
+            $request->name ? $userData->name = filter_var($request->name, FILTER_SANITIZE_SPECIAL_CHARS) : $userData->name;
+            $request->phone ? $userData->phone = filter_var($request->phone, FILTER_SANITIZE_NUMBER_INT) : $userData->phone;
+            $request->biography ? $userData->biography = filter_var($request->biography, FILTER_SANITIZE_SPECIAL_CHARS) : $userData->biography;
+            $request->position ? $userData->position = filter_var($request->position, FILTER_SANITIZE_SPECIAL_CHARS) : $userData->position;
+
+            if ($request->hasFile('image')) {
+                if ($userData->image) unlink(storage_path('app/public/'.$userData->image));
+                $path = $request->file('image')->store('users', 'public');
+                $userData->image = $path;
+            }
+
             $userData->save();
             return response('Users date has been updated', 200);
         } else {
@@ -155,7 +161,7 @@ class ProfileController extends Controller
         $user = User::findOrFail($userId)->first();
         if ($user) {
             $user->delete();
-            return response('User ' . $user->name. ' has been deleted', 200);
+            return response('User ' . $user->name . ' has been deleted', 200);
         } else {
             return response('Unregistered user', 401);
         }
