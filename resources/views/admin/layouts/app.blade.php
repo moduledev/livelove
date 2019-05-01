@@ -372,6 +372,7 @@
 
         </section>
         <section class="content">
+            @include('admin.content.flash-message')
             @yield('content')
         </section>
     </div>

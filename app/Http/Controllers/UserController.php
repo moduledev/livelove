@@ -9,7 +9,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:admin')->only('destroy');
+        $this->middleware('auth:admin')->only('destroy','edit');
     }
 
     /**
@@ -63,6 +63,7 @@ class UserController extends Controller
     public function edit($id)
     {
         //
+        return '123';
     }
 
     /**
@@ -85,10 +86,10 @@ class UserController extends Controller
      */
     public function destroy(Request $request)
     {
-        $userId = $request->id;
-//        dd($request->all());
+        $userId = filter_var($request->id, FILTER_SANITIZE_NUMBER_INT);
         $user = User::findOrFail($userId);
+        if($user->image) unlink(storage_path('app/public/'.$user->image));
         $user->delete();
-        return redirect()->back();
+        return redirect()->back()->with('success','Пользователь ' . $user->name . ' был успешно удален!');;
     }
 }

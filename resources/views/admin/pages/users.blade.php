@@ -6,6 +6,7 @@
    {{ Breadcrumbs::render('users') }}
 @endsection
 @section('content')
+
     <div class="row">
        <div class="col-xs-12">
            @isset($users)
@@ -28,18 +29,20 @@
                            <td>{{$user->posistiob}}</td>
                            <td><img src="{{asset('storage/' . $user->image)}}" class="img-responsive" alt="" style="width: 100px;height: 100px"></td>
                            <td>
-                               <div class="d-inline">
-                                   <form method="post" action="{{ route('admin.user.delete') }}">
+                               <div >
+                                   <form method="post" action="{{ route('admin.user.delete') }}" style="display: inline-block">
                                        {!! csrf_field() !!}
                                        <input type="hidden" name="id" value="{{$user->id}}">
                                        <button href="#" class="btn btn-danger" type="submit"> <i class="fa fa-trash"></i> </button>
                                    </form>
 
+                                   <form method="get" action="{{ route('admin.user.edit',$user->id) }}" style="display: inline-block">
+                                       <button href="#" class="btn btn-danger" type="submit"> <i class="fa fa-pencil-square"></i> </button>
+                                   </form>
+
                                    <a href="#" class="btn" type="submit"></a>
                                    <a href="#" class="btn" type="submit"></a>
                                </div>
-                           </td>
-                       </tr>
                    @endforeach
                    </tbody>
                </table>
