@@ -54,11 +54,11 @@ class AuthController extends Controller
      *     ),
      *     @SWG\Response(
      *         response=200,
-     *         description="return token",
+     *         description="return message - you have registrated successfuly",
      *     ),
      *     @SWG\Response(
      *         response="422",
-     *         description="User with this phone has already been registered",
+     *         description="User with this phone has already been registrated",
      *     ),
      * )
      */
@@ -79,16 +79,11 @@ class AuthController extends Controller
         }
         $user = User::where('phone', $request->phone)->first();
 
-        $sms = new SmsController();
-
         if (!$user) {
-            $user = User::create($request->toArray());
-            $sms->store($request->phone, $user->id);
-            $token = $user->createToken('Laravel Password Grant Client')->accessToken;
-            $response = ['token' => $token];
-            return response($response, 200);
+            User::create($request->toArray());
+            return response(['success' => 'Вы успешно зарегестрировались'], 200);
         } else {
-            return response('User with this phone is already exists', 422);
+            return response(['failure' => 'Пользователь с таким номером телефона уже зарагестрирован'], 422);
         }
 
     }
@@ -101,6 +96,14 @@ class AuthController extends Controller
      *     description="Compare sms wich was recived from Nexmo service and compare with code in DB.
      * if code is equal to recived sms and time diference between them not more then 5 minutes response user data",
      *     @SWG\Parameter(
+     *         name="phone",
+     *         in="body",
+     *         description="Post user phone",
+     *         required=true,
+     *         type="string",
+     *         @SWG\Schema(type="string")
+     *     ),
+     *     @SWG\Parameter(
      *         name="code",
      *         in="body",
      *         description="Post sms code",
@@ -108,16 +111,9 @@ class AuthController extends Controller
      *         type="string",
      *         @SWG\Schema(type="string")
      *     ),
-     *     @SWG\Parameter(
-     *         name="Authorization",
-     *         in="header",
-     *         description="Bearer <token>",
-     *         required=true,
-     *         type="string",
-     *     ),
      *     @SWG\Response(
      *         response=200,
-     *         description="return user data",
+     *         description="asscess_token, token_type",
      *     ),
      *     @SWG\Response(
      *         response="422",
@@ -133,19 +129,22 @@ class AuthController extends Controller
     public function verify(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'code' => 'required|string|max:9',
+            'phone' => 'required|string|max:12',
+            'code' => 'required|string|min:4',
         ]);
-
-        $user = $request->user();
-        $code = User::findOrFail($user->id)->codes()->orderBy('id', 'desc')->where('status', 'pending')->first();
-
         if ($validator->fails()) return response(['errors' => $validator->errors()->all()], 422);
+
+        $phone = filter_var($request->phone, FILTER_SANITIZE_NUMBER_INT);
+        $user = User::where('phone', $phone)->first();
+        $code = $user->codes()->orderBy('id', 'desc')->where('status', 'pending')->first();
+
         $codeCreatedDate = Carbon::parse($code['created_at']);
         $now = Carbon::now();
         $timeDifference = $codeCreatedDate->diffInMinutes($now);
         if ($request->code === $code['code'] && $timeDifference < 5) {
+            $token = $user->createToken('Laravel Password Grant Client')->accessToken;
             SmsCode::findOrFail($code['id'])->update(['status' => 'activated']);
-            return response($user, 200);
+            return response(['access_token' => $token, 'token_type' => 'bearer'], 200);
         } else {
             return response('Error check sms code', 422);
         }
@@ -166,7 +165,7 @@ class AuthController extends Controller
      *     ),
      *     @SWG\Response(
      *         response=200,
-     *         description="return user token",
+     *         description="return sms code on phone",
      *     ),
      *     @SWG\Response(
      *         response="422",
@@ -188,17 +187,16 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return response(['errors' => $validator->errors()->all()], 422);
         }
+        $phone = filter_var($request->phone, FILTER_SANITIZE_NUMBER_INT);
 
-        $user = User::where('phone', $request->phone)->first();
+        $user = User::where('phone', $phone);
         $sms = new SmsController();
 
         if ($user) {
-            $token = $user->createToken('Laravel Password Grant Client')->accessToken;
             $sms->store($request->phone, $user->id);
-            $response = ['token' => $token];
-            return response($response, 200);
+            return response(['message' => 'Вам было оправлено сообщение с кодом подтверждения.'], 200);
         } else {
-            $response = 'User does not exist';
+            $response = 'Пользователя с указанным номером телефона не существует.';
             return response($response, 422);
         }
     }

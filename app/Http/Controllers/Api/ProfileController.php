@@ -160,6 +160,7 @@ class ProfileController extends Controller
         $userId = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
         $user = User::findOrFail($userId)->first();
         if ($user) {
+            if ($user->image) unlink(storage_path('app/public/'.$user->image));
             $user->delete();
             return response('User ' . $user->name . ' has been deleted', 200);
         } else {
