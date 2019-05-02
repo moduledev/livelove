@@ -47,10 +47,10 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "return token"
+                        "description": "return message - you have registrated successfuly"
                     },
                     "422": {
-                        "description": "User with this phone has already been registered"
+                        "description": "User with this phone has already been registrated"
                     }
                 }
             }
@@ -64,6 +64,16 @@
                 "description": "Compare sms wich was recived from Nexmo service and compare with code in DB.\n     * if code is equal to recived sms and time diference between them not more then 5 minutes response user data",
                 "parameters": [
                     {
+                        "name": "phone",
+                        "in": "body",
+                        "description": "Post user phone",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "type": "string"
+                    },
+                    {
                         "name": "code",
                         "in": "body",
                         "description": "Post sms code",
@@ -72,18 +82,11 @@
                             "type": "string"
                         },
                         "type": "string"
-                    },
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "description": "Bearer <token>",
-                        "required": true,
-                        "type": "string"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "return user data"
+                        "description": "asscess_token, token_type"
                     },
                     "422": {
                         "description": "sms code is not valid"
@@ -109,7 +112,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "return user token"
+                        "description": "return sms code on phone"
                     },
                     "422": {
                         "description": "User with this phone doesn't exist"
