@@ -209,6 +209,16 @@
                         "type": "string"
                     },
                     {
+                        "name": "image",
+                        "in": "body",
+                        "description": "Users image",
+                        "required": false,
+                        "schema": {
+                            "type": "file"
+                        },
+                        "type": "file"
+                    },
+                    {
                         "name": "Authorization",
                         "in": "header",
                         "description": "Bearer token",

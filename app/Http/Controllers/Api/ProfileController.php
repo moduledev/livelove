@@ -103,6 +103,14 @@ class ProfileController extends Controller
      *         @SWG\Schema(type="string")
      *     ),
      *     @SWG\Parameter(
+     *         name="image",
+     *         in="body",
+     *         description="Users image",
+     *         required=false,
+     *         type="file",
+     *         @SWG\Schema(type="file")
+     *     ),
+     *     @SWG\Parameter(
      *         name="Authorization",
      *         in="header",
      *         description="Bearer token",
