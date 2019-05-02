@@ -51,8 +51,8 @@ class AdminController extends Controller
         ]);
         // store in the database
         $admins = new Admin;
-        $admins->name = $request->name;
-        $admins->email = $request->email;
+        $admins->name = filter_var($request->name, FILTER_SANITIZE_SPECIAL_CHARS);
+        $admins->email = filter_var($request->email, FILTER_SANITIZE_EMAIL);
         $admins->password = bcrypt($request->password);
         $admins->save();
         return redirect()->route('admin.auth.login');
