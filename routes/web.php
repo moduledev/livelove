@@ -29,12 +29,12 @@ Route::prefix('admin')->group(function () {
 });
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('http://ll_front.jdev.com.ua/');
 });
 
-Auth::routes();
+//Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
 
 
 

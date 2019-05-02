@@ -151,7 +151,7 @@
             }
         },
         "/api/users/edit/id": {
-            "put": {
+            "post": {
                 "tags": [
                     "Edit users Profile"
                 ],

@@ -57,7 +57,7 @@ class ProfileController extends Controller
         }
     }
 
-    /**post
+    /**
      * @SWG\Post(
      *     path="/api/users/edit/id",
      *     summary="Edit users profile",

@@ -380,7 +380,7 @@
         <div class="pull-right hidden-xs">
             <b>Version</b> 2.4.0
         </div>
-        <strong>Copyright &copy; 2019 <a href="{{route('home')}}">LiveLove</a>.</strong> All rights
+        <strong>Copyright &copy; 2019 <a href="{{url('/')}}">LiveLove</a>.</strong> All rights
         reserved.
     </footer>
 
