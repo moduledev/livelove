@@ -189,9 +189,8 @@ class AuthController extends Controller
         }
         $phone = filter_var($request->phone, FILTER_SANITIZE_NUMBER_INT);
 
-        $user = User::where('phone', $phone);
+        $user = User::where('phone', $phone)->first();
         $sms = new SmsController();
-
         if ($user) {
             $sms->store($request->phone, $user->id);
             return response(['message' => 'Вам было оправлено сообщение с кодом подтверждения.'], 200);

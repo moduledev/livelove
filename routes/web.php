@@ -32,7 +32,9 @@ Route::get('/', function () {
     return redirect('http://ll_front.jdev.com.ua/');
 });
 
-//Auth::routes();
+
+
+Auth::routes();
 
 //Route::get('/home', 'HomeController@index')->name('home');
 
