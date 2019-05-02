@@ -21,11 +21,17 @@ Route::prefix('admin')->group(function () {
     Route::post('login', 'Auth\Admin\LoginController@loginAdmin')->name('admin.auth.loginAdmin');
     Route::post('logout', 'Auth\Admin\LoginController@logout')->name('admin.auth.logout');
 
-    Route::get('users','AdminController@users')->name('admin.users');
     Route::get('admins','AdminController@admins')->name('admin.admins');
+    Route::get('edit/{id}','AdminController@edit')->name('admin.admins.edit');
 
+
+
+    Route::get('users','AdminController@users')->name('admin.users');
     Route::post('users','UserController@destroy')->name('admin.user.delete');
     Route::get('users/{id}','UserController@edit')->name('admin.user.edit');
+
+
+
 });
 
 Route::get('/', function () {

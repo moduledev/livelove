@@ -6,6 +6,7 @@ use App\Admin;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
 {
@@ -78,6 +79,10 @@ class AdminController extends Controller
     public function edit($id)
     {
         //
+        $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+        $admin = Admin::findOrFail($id);
+        $roles = Role::pluck('name','name')->all();
+        return view('admin.admins.edit', compact('admin','roles'));
     }
 
     /**
@@ -111,7 +116,7 @@ class AdminController extends Controller
 
     public function admins()
     {
-        $admins = Admin::all()->toArray();
+        $admins = DB::table('admins')->paginate(2);
         return view('admin.pages.admins',compact('admins'));
     }
 }

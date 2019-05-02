@@ -18,14 +18,14 @@ class ProfileController extends Controller
 
     /**
      * @SWG\Get(
-     *     path="/api/users/id",
+     *     path="/api/users/phone",
      *     summary="Show users profile",
      *     tags={"User Profile"},
      *     description="Show users profile",
      *     @SWG\Parameter(
-     *         name="id",
+     *         name="phone",
      *         in="path",
-     *         description="Get user id",
+     *         description="User phone",
      *         required=true,
      *         type="integer",
      *     ),
@@ -46,10 +46,10 @@ class ProfileController extends Controller
      *     ),
      * )
      */
-    public function index($id)
+    public function index($phone)
     {
-        $userId = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
-        $userData = User::with('programs')->find($userId);
+        $phone = filter_var($phone, FILTER_SANITIZE_NUMBER_INT);
+        $userData = User::with('programs')->where('phone',$phone)->first();
         if ($userData) {
             return response($userData, 200);
         } else {

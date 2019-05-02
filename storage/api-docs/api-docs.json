@@ -120,7 +120,7 @@
                 }
             }
         },
-        "/api/users/id": {
+        "/api/users/phone": {
             "get": {
                 "tags": [
                     "User Profile"
@@ -129,9 +129,9 @@
                 "description": "Show users profile",
                 "parameters": [
                     {
-                        "name": "id",
+                        "name": "phone",
                         "in": "path",
-                        "description": "Get user id",
+                        "description": "User phone",
                         "required": true,
                         "type": "integer"
                     },
