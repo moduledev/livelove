@@ -13,3 +13,8 @@ Breadcrumbs::for('admins', function ($trail) {
     $trail->parent('dashboard');
     $trail->push('Администраторы', route('admin.admins'));
 });
+
+Breadcrumbs::for('edit', function ($trail, $id) {
+    $trail->parent('admins');
+    $trail->push('Изменить', route('admin.admins.edit', $id));
+});

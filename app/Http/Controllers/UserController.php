@@ -90,6 +90,6 @@ class UserController extends Controller
         $user = User::findOrFail($userId);
         if($user->image) unlink(storage_path('app/public/'.$user->image));
         $user->delete();
-        return redirect()->back()->with('success','Пользователь ' . $user->name . ' был успешно удален!');;
+        return redirect()->back()->with('success','Пользователь ' . $user->name . ' был успешно удален!');
     }
 }

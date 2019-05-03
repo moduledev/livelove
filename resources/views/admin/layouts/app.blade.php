@@ -345,11 +345,25 @@
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="{{route('admin.users')}}"><i class="fa fa-user"></i> Пользователи</a></li>
-                        <li><a href="{{route('admin.admins')}}"><i class="fa fa-user-secret"></i> Администраторы</a></li>
+                        <li><a href="{{route('admin.admins')}}"><i class="fa fa-user-secret"></i> Администраторы</a>
+                        </li>
                     </ul>
                 </li>
-
-                <li><a href="https://adminlte.io/docs"><i class="fa fa-window-restore"></i> <span>Программы</span></a></li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-arrows"></i> <span>Управление ролями</span>
+                        <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="{{route('roles.index')}}"><i class="fa fa-user"></i> Все роли</a></li>
+                        <li><a href="{{route('admin.admins')}}"><i class="fa fa-user-secret"></i> Администраторы</a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="https://adminlte.io/docs"><i class="fa fa-window-restore"></i> <span>Программы</span></a>
+                </li>
                 <li class="header">LABELS</li>
                 <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
                 <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
@@ -366,8 +380,8 @@
 
             @yield('content-header')
             {{--<ol class="breadcrumb">--}}
-                {{--<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>--}}
-                {{--<li class="active">Calendar</li>--}}
+            {{--<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>--}}
+            {{--<li class="active">Calendar</li>--}}
             {{--</ol>--}}
 
         </section>

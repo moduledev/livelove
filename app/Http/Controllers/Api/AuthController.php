@@ -73,11 +73,11 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'phone' => 'required|string|min:9',
         ]);
-
+        $phone = filter_var($request->phone, FILTER_SANITIZE_NUMBER_INT);
         if ($validator->fails()) {
             return response(['errors' => $validator->errors()->all()], 422);
         }
-        $user = User::where('phone', $request->phone)->first();
+        $user = User::where('phone', $phone)->first();
 
         if (!$user) {
             User::create($request->toArray());
