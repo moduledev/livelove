@@ -6,6 +6,7 @@ use App\Admin;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
@@ -14,8 +15,8 @@ class AdminController extends Controller
     {
 //        $this->middleware('permission:role-create', ['only' => ['index']]);
         $this->middleware('auth:admin')->except('create','store');
-        $this->middleware('permission:admin-list', ['only' => ['admins']]);
         $this->middleware('permission:admin-edit', ['only' => ['edit','update']]);
+//        $this->middleware('permission:role-list', ['only' => ['index']]);
     }
 
     /**
@@ -25,7 +26,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin.dashboard');
+//        return view('admin.dashboard');
     }
 
     /**
@@ -83,7 +84,9 @@ class AdminController extends Controller
     {
         $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
         $admin = Admin::findOrFail($id);
-        return view('admin.admins.edit', compact('admin'));
+        $adminsDermissions = $admin->getAllPermissions();
+        $permissions = Permission::all();
+        return view('admin.admins.edit', compact('admin','adminsDermissions','permissions'));
     }
 
     /**
@@ -133,15 +136,4 @@ class AdminController extends Controller
 
     }
 
-    public function users()
-    {
-        $users = DB::table('users')->paginate(2);
-        return view('admin.pages.users',compact('users'));
-    }
-
-    public function admins()
-    {
-        $admins = DB::table('admins')->paginate(5);
-        return view('admin.admins.index',compact('admins'));
-    }
 }

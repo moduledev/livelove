@@ -335,7 +335,7 @@
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">Меню</li>
-                <li><a href="{{route('admin.dashboard')}}"> <i class="fa fa-home"></i> Главная страница</a></li>
+                <li><a href="{{route('dashboard.index')}}"> <i class="fa fa-home"></i> Главная страница</a></li>
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-users"></i> <span>Все пользователи</span>
@@ -344,21 +344,8 @@
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{route('admin.users')}}"><i class="fa fa-user"></i> Пользователи</a></li>
-                        <li><a href="{{route('admin.admins')}}"><i class="fa fa-user-secret"></i> Администраторы</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-arrows"></i> <span>Управление ролями</span>
-                        <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{route('roles.index')}}"><i class="fa fa-user"></i> Все роли</a></li>
-                        <li><a href="{{route('admin.admins')}}"><i class="fa fa-user-secret"></i> Администраторы</a>
+                        <li><a href="{{route('dashboard.users')}}"><i class="fa fa-user"></i> Пользователи</a></li>
+                        <li><a href="{{route('dashboard.admins')}}"><i class="fa fa-user-secret"></i> Администраторы</a>
                         </li>
                     </ul>
                 </li>
