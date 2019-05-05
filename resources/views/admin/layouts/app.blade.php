@@ -142,7 +142,7 @@
                         </li>
                     </ul>
                 </li>
-                <li><a href="https://adminlte.io/docs"><i class="fa fa-window-restore"></i> <span>Программы</span></a>
+            <li><a href="{{route('dashboard.programs')}}"><i class="fa fa-window-restore"></i> <span>Программы</span></a>
                 </li>
                 <li class="header">LABELS</li>
                 <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>

@@ -16,6 +16,7 @@ Route::prefix('admin')->group(function () {
     Route::get('dashboard', 'DashboardController@index')->name('dashboard.index');
     Route::get('admins', 'DashboardController@admins')->name('dashboard.admins');
     Route::get('users', 'DashboardController@users')->name('dashboard.users');
+    Route::get('programs','DashboardController@programs')->name('dashboard.programs');
 
     Route::get('login', 'Auth\Admin\LoginController@login')->name('admin.auth.login');
     Route::post('login', 'Auth\Admin\LoginController@loginAdmin')->name('admin.auth.loginAdmin');
@@ -28,9 +29,12 @@ Route::prefix('admin')->group(function () {
 
     Route::post('users', 'UserController@destroy')->name('admin.user.delete');
     Route::get('users/{id}', 'UserController@edit')->name('admin.user.edit');
+    Route::put('users/edit/{id}','UserController@update')->name('admin.users.update');
 
     Route::post('admin/edit','PermissionController@removePermission')->name('remove.permission');
     Route::put('admin/edit','PermissionController@assignPermission')->name('assign.permission');
+
+    // Route::put('admin/edit','PermissionController@assignPermission')->name('assign.permission');
 
 });
 

@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Validator;
+
 
 class UserController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth:admin')->only('destroy','edit');
+        $this->middleware('permission:user-edit', ['only' => ['edit','update']]);
     }
 
     /**
@@ -77,7 +80,31 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // dd($request->all());  
+        $validator = Validator::make($request->all(), [
+            'name' => 'string|max:255',
+            'phone' => 'string|min:9',
+            'biography' => 'max:1000',
+            'position' => 'max:255',
+        ]);
+
+        if ($validator->fails()) return response(['errors' => $validator->errors()->all()], 422);
+
+        $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+        $userData = User::findOrFail($id);
+        if($userData){
+            $request->name ? $userData->name = filter_var($request->name, FILTER_SANITIZE_SPECIAL_CHARS) : $userData->name;
+            $request->phone ? $userData->phone = filter_var($request->phone, FILTER_SANITIZE_NUMBER_INT) : $userData->phone;
+            $request->biography ? $userData->biography = filter_var($request->biography, FILTER_SANITIZE_SPECIAL_CHARS) : $userData->biography;
+            $request->position ? $userData->position = filter_var($request->position, FILTER_SANITIZE_SPECIAL_CHARS) : $userData->position;
+            if ($request->hasFile('image')) {
+                if ($userData->image) unlink(storage_path('app/public/'.$userData->image));
+                $path = $request->file('image')->store('users', 'public');
+                $userData->image = $path;
+            }
+            $userData->save();
+            return redirect()->back()->with('success','Данные пользователя ' . $userData->name . ' были успешно обновлены!');
+        }
     }
 
     /**
