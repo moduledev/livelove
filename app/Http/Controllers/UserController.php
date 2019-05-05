@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Program;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -68,7 +69,9 @@ class UserController extends Controller
         //
         $id = filter_var($request->id, FILTER_SANITIZE_NUMBER_INT);
         $user = User::findOrFail($id);
-        return view('admin.users.edit', compact('user'));
+        $userPrograms = $user->programs()->get();
+        $programs = Program::all();
+        return view('admin.users.edit', compact('user','programs','userPrograms'));
     }
 
     /**

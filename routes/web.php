@@ -30,6 +30,8 @@ Route::prefix('admin')->group(function () {
     Route::post('users', 'UserController@destroy')->name('admin.user.delete');
     Route::get('users/{id}', 'UserController@edit')->name('admin.user.edit');
     Route::put('users/edit/{id}','UserController@update')->name('admin.users.update');
+    
+    Route::post('users/edit','ProgramController@removeProgram')->name('remove.program');
 
     Route::post('admin/edit','PermissionController@removePermission')->name('remove.permission');
     Route::put('admin/edit','PermissionController@assignPermission')->name('assign.permission');

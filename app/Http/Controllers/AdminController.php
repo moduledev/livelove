@@ -13,10 +13,8 @@ class AdminController extends Controller
 {
     public function __construct()
     {
-//        $this->middleware('permission:role-create', ['only' => ['index']]);
         $this->middleware('auth:admin')->except('create','store');
         $this->middleware('permission:admin-edit', ['only' => ['edit','update']]);
-//        $this->middleware('permission:role-list', ['only' => ['index']]);
     }
 
     /**

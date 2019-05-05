@@ -8,7 +8,7 @@
 @section('content')
 
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xs-12 ">
             <form class="form-horizontal" method="POST" action="{{route('admin.users.update',$user->id)}}" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 {{ method_field('PUT') }}
@@ -56,6 +56,23 @@
                     </div>
                 </div>
             </form>
+            <div class="col-xs-12">
+                    <label class="control-label col-sm-2">Программы пользователя:</label>
+                    <div class="col-sm-10">
+                        @foreach($userPrograms as $program)
+                            <form action="{{route('remove.program')}}" method="post" class="delete_role_form">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="user" value="{{$user->id}}">
+                                <label class="checkbox-inline position-relative">
+                                    <span>{{$program->name}}</span>
+                                    <button class="btn btn-danger delete_role_btn" type="submit" name="program" value="{{$program->id}}"> <i class="fa fa-trash"></i>
+                                    </button>
+                                </label>
+                            </form>
+                        @endforeach
+        
+                    </div>
+                 </div>
         </div>
     
     </div>

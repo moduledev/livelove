@@ -23,7 +23,7 @@ class Program extends Model
 
     public function users()
     {
-        return $this->belongsToMany('App\User');
+        return $this->belongsToMany('App\User','user_program','program_id','user_id');
     }
     
 
