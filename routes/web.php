@@ -34,9 +34,9 @@ Route::prefix('admin')->group(function () {
 
 });
 
-Route::group(['middleware' => ['auth:admin']], function () {
-    Route::resource('users', 'UserController');
-});
+// Route::group(['middleware' => ['auth:admin']], function () {
+//     Route::resource('users', 'UserController');
+// });
 
 Route::get('/', function () {
     return redirect('http://ll_front.jdev.com.ua/');

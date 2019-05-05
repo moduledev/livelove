@@ -15,7 +15,7 @@ class SmsController extends Controller
         $input['phone'] = str_replace('+','',$phone);
         $input['user_id'] = $userId;
         SmsCode::create($input);
-        $this->sendSms($input['code'],$input['phone'] = str_replace('+','',$phone));
+        // $this->sendSms($input['code'],$input['phone'] = str_replace('+','',$phone));
     }
 
     public function sendSms($code,$phone)

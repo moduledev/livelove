@@ -27,7 +27,7 @@ class DashboardController extends Controller
     public function users()
     {
         $users = DB::table('users')->paginate(5);
-        return view('admin.pages.users',compact('users'));
+        return view('admin.users.index',compact('users'));
     }
 
     public function admins()

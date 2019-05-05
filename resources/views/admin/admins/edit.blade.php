@@ -62,12 +62,12 @@
                 <label class="control-label col-sm-2">Доступные роли:</label>
                 <div class="col-sm-10">
                     @foreach($adminsDermissions as $permission)
-                        <form action="{{route('remove.permission')}}" method="post">
+                        <form action="{{route('remove.permission')}}" method="post" class="delete_role_form">
                             {{ csrf_field() }}
                             <input type="hidden" name="user" value="{{$admin->id}}">
                             <label class="checkbox-inline position-relative">
                                 <span>{{$permission->name}}</span>
-                                <button class="btn btn-danger" type="submit" name="permission" value="{{$permission->name}}"> <i class="fa fa-trash"></i>
+                                <button class="btn btn-danger delete_role_btn" type="submit" name="permission" value="{{$permission->name}}"> <i class="fa fa-trash"></i>
                                 </button>
                             </label>
                         </form>

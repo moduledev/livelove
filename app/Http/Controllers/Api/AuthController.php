@@ -80,7 +80,8 @@ class AuthController extends Controller
         $user = User::where('phone', $phone)->first();
 
         if (!$user) {
-            User::create($request->toArray());
+            $user = User::create($request->toArray());
+            $token = $user->createToken('Laravel Password Grant Client')->accessToken;
             return response(['success' => 'Вы успешно зарегестрировались'], 200);
         } else {
             return response(['failure' => 'Пользователь с таким номером телефона уже зарагестрирован'], 422);
@@ -143,6 +144,8 @@ class AuthController extends Controller
         $timeDifference = $codeCreatedDate->diffInMinutes($now);
         if ($request->code === $code['code'] && $timeDifference < 5) {
             $token = $user->createToken('Laravel Password Grant Client')->accessToken;
+            return response($token);
+
             SmsCode::findOrFail($code['id'])->update(['status' => 'activated']);
             return response(['access_token' => $token, 'token_type' => 'bearer'], 200);
         } else {

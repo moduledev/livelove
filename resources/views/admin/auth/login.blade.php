@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{{ asset('adminlte/libs/ionicons/css/ionicons.css') }}">
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/iCheck/square/blue.css') }}">
     <link rel="stylesheet" href="{{ asset('adminlte/libs/bootstrap/dist/css/bootstrap.css') }}">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <!-- iCheck -->
 

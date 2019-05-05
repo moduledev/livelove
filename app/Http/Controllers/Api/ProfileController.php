@@ -128,7 +128,7 @@ class ProfileController extends Controller
      * )
      */
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $userPhone)
     {
 
         $validator = Validator::make($request->all(), [
@@ -141,9 +141,9 @@ class ProfileController extends Controller
 
         if ($validator->fails()) return response(['errors' => $validator->errors()->all()], 422);
 
-        $userId = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
-        $userData = User::with('programs')->find($userId);
-
+        $userPhone = filter_var($userPhone, FILTER_SANITIZE_NUMBER_INT);
+        $userData = User::with('programs')->where('phone',$userPhone)->first();
+        // return response($userData);
         if ($userData) {
             $request->name ? $userData->name = filter_var($request->name, FILTER_SANITIZE_SPECIAL_CHARS) : $userData->name;
             $request->phone ? $userData->phone = filter_var($request->phone, FILTER_SANITIZE_NUMBER_INT) : $userData->phone;
