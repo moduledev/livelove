@@ -53,7 +53,9 @@ class LoginController extends Controller
         }
         // if unsuccessful, then redirect back to the login with the form data
 //        dd($request->only('email', 'remember'));
-        return redirect('admin/login')->withInput($request->only('email', 'remember'));
+        return redirect('admin/login')->withInput($request->only('email', 'remember'))->withErrors( [
+            'password' => 'Неверный пароль',
+        ]);
     }
     public function logout()
     {
