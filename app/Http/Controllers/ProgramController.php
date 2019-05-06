@@ -16,7 +16,7 @@ class ProgramController extends Controller
         $this->middleware('permission:program-edit', ['only' => ['editProgram','updateProgram']]);
         $this->middleware('permission:program-delete', ['only' => ['delete']]);
         $this->middleware('permission:program-create', ['only' => ['createProgram']]);
-
+        $this->middleware('permission:program-list', ['only' => ['showProgram']]);
     }
 
     public function createProgram(Request $request)

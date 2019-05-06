@@ -23,7 +23,8 @@ Route::prefix('admin')->group(function () {
     Route::post('logout', 'Auth\Admin\LoginController@logout')->name('admin.auth.logout');
 
     Route::post('admin/admins', 'AdminController@store')->name('admin.register.store');
-    Route::get('edit/{id}', 'AdminController@edit')->name('admin.admins.edit');
+    Route::get('edit/edit/{id}', 'AdminController@edit')->name('admin.admins.edit');
+    Route::get('edit/{id}', 'AdminController@show')->name('admin.admins.show');
     Route::put('admin/admins/edit/{id}','AdminController@update')->name('admin.admins.update');
     Route::delete('admin/admins/{id}','AdminController@destroy')->name('admin.admins.delete');
 

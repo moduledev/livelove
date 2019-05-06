@@ -48,6 +48,8 @@
                             <td></td>
                             <td>
                                 <div >
+                                    <a href="{{route('admin.admins.show', $admin->id)}}" class="btn btn-info"> <i class="fa fa-eye"></i> </a>
+
                                     <form method="post" action="{{ route('admin.admins.delete', $admin->id) }}" style="display: inline-block">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}

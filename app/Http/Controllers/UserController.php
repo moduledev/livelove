@@ -14,6 +14,7 @@ class UserController extends Controller
     {
         $this->middleware('auth:admin');
         $this->middleware('permission:user-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:user-list', ['only' => ['show']]);
         $this->middleware('permission:program-edit', ['only' => ['assignProgram']]);
         $this->middleware('permission:program-delete', ['only' => ['removeProgram']]);
     }

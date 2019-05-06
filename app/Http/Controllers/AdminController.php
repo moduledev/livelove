@@ -15,6 +15,7 @@ class AdminController extends Controller
     {
         $this->middleware('auth:admin')->except('create','store');
         $this->middleware('permission:admin-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:admin-list', ['only' => ['show']]);
     }
 
     /**
@@ -69,7 +70,10 @@ class AdminController extends Controller
      */
     public function show($id)
     {
-        //
+        $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+        $admin = Admin::findOrFail($id);
+        $adminsDermissions = $admin->getAllPermissions();
+        return view('admin.admins.show', compact('admin','adminsDermissions'));
     }
 
     /**
