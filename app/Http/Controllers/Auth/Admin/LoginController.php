@@ -55,6 +55,7 @@ class LoginController extends Controller
 //        dd($request->only('email', 'remember'));
         return redirect('admin/login')->withInput($request->only('email', 'remember'))->withErrors( [
             'password' => 'Неверный пароль',
+            'email' => 'Неверный E-mail'
         ]);
     }
     public function logout()

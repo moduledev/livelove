@@ -17,7 +17,7 @@
                        <th>Имя</th>
                        <th>Телефон</th>
                        <th>Должность</th>
-                       <th>Аватарка</th>
+                       <th>Операция</th>
                    </tr>
                    </thead>
                    <tbody>
@@ -37,7 +37,7 @@
                                    </form>
 
                                    <form method="get" action="{{ route('admin.user.edit',$user->id) }}" style="display: inline-block">
-                                       <button href="#" class="btn btn-danger" type="submit"> <i class="fa fa-pencil-square"></i> </button>
+                                       <button href="#" class="btn btn-success" type="submit"> <i class="fa fa-pencil-square"></i> </button>
                                    </form>
 
                                    <a href="#" class="btn" type="submit"></a>

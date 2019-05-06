@@ -36,6 +36,8 @@ Route::prefix('admin')->group(function () {
     Route::post('admin/edit','PermissionController@removePermission')->name('remove.permission');
     Route::put('admin/edit','PermissionController@assignPermission')->name('assign.permission');
 
+    Route::post('programs','ProgramController@createProgram')->name('add.program');
+
     // Route::put('admin/edit','PermissionController@assignPermission')->name('assign.permission');
 
 });
@@ -45,7 +47,7 @@ Route::prefix('admin')->group(function () {
 // });
 
 Route::get('/', function () {
-    return redirect('http://ll_front.jdev.com.ua/');
+    return redirect('http://ll.jdev.com.ua/admin/login');
 });
 
 
