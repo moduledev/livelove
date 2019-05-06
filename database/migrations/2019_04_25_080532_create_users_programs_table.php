@@ -14,8 +14,8 @@ class CreateUsersProgramsTable extends Migration
     public function up()
     {
         Schema::create('user_program', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('program_id');
+            $table->unsignedBigInteger('user_id')->index();
+            $table->unsignedBigInteger('program_id')->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('program_id')->references('id')->on('programs')->onDelete('cascade');
             $table->timestamps();

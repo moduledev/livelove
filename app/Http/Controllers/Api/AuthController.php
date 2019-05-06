@@ -130,7 +130,7 @@ class AuthController extends Controller
     public function verify(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'phone' => 'required|string|max:12',
+            'phone' => 'required|string|max:13',
             'code' => 'required|string|min:4',
         ]);
         if ($validator->fails()) return response(['errors' => $validator->errors()->all()], 422);

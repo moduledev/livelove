@@ -12,7 +12,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:admin')->only('destroy','edit');
+        $this->middleware('auth:admin');
         $this->middleware('permission:user-edit', ['only' => ['edit','update']]);
     }
 
@@ -58,13 +58,8 @@ class UserController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Request $request,$id)
+
+    public function edit(Request $request)
     {
         //
         $id = filter_var($request->id, FILTER_SANITIZE_NUMBER_INT);
@@ -123,5 +118,20 @@ class UserController extends Controller
         if($user->image) unlink(storage_path('app/public/'.$user->image));
         $user->delete();
         return redirect()->back()->with('success','Пользователь ' . $user->name . ' был успешно удален!');
+    }
+
+    public function assignProgram(Request $request)
+    {
+        $userId = filter_var($request->user, FILTER_SANITIZE_NUMBER_INT);
+        $program = filter_var($request->program, FILTER_SANITIZE_SPECIAL_CHARS);
+        $programs = User::findOrFail($userId)->programs()->get();
+        $programExist = $programs->where('id',$program);
+        if(!count($programExist) > 0){
+            User::findOrFail($userId)->programs()->attach($program);
+            return redirect()->back()->with('success', 'Программа была успешно добавлена!');
+        } else {
+            return redirect()->back()->with('error', 'Пользователью уже была добавлена программа!');
+        }
+
     }
 }

@@ -128,7 +128,7 @@ class ProfileController extends Controller
      * )
      */
 
-    public function update(Request $request, $userPhone)
+    public function update(Request $request, $id)
     {
 
         $validator = Validator::make($request->all(), [
@@ -138,11 +138,10 @@ class ProfileController extends Controller
             'position' => 'string|max:255',
             'image' => 'file'
         ]);
-
         if ($validator->fails()) return response(['errors' => $validator->errors()->all()], 422);
 
-        $userPhone = filter_var($userPhone, FILTER_SANITIZE_NUMBER_INT);
-        $userData = User::with('programs')->where('phone',$userPhone)->first();
+        $userPhone = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+        $userData = User::with('programs')->where('id',$id)->first();
         // return response($userData);
         if ($userData) {
             $request->name ? $userData->name = filter_var($request->name, FILTER_SANITIZE_SPECIAL_CHARS) : $userData->name;

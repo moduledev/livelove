@@ -92,9 +92,10 @@ class ProgramController extends Controller
     }
     public function delete(Request $request)
     {
-        dd($request->all());
+//        dd($request->all());
         $id = filter_var($request->id, FILTER_SANITIZE_NUMBER_INT);
-
+        Program::findOrFail($id)->delete();
+        return redirect()->back()->with('success', 'Программа была успешно удалена!');
     }
 
 }
