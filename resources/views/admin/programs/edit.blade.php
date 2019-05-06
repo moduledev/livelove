@@ -8,17 +8,18 @@
 @section('content')
     <div class="row">
         <div class="col-xs-12 ">
-            <form class="form-horizontal" method="POST"  enctype="multipart/form-data" action="{{route('update.program',$program->id)}}">
+            <form class="form-horizontal" method="POST" enctype="multipart/form-data"
+                  action="{{route('update.program',$program->id)}}">
                 {{ csrf_field() }}
                 {{ method_field('PUT') }}
-
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="email">Фото:</label>
-                    <div class="image_container col-sm-10">
-                        <img src="{{asset('storage/'. $program->image)}}" class="img-rounded img-responsive" alt="">
+                @isset($user->image)
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="email">Фото:</label>
+                        <div class="image_container col-sm-10">
+                            <img src="{{asset('storage/'. $program->image)}}" class="img-rounded img-responsive" alt="">
+                        </div>
                     </div>
-                </div>
-
+                @endisset
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="image">Изменить фото:</label>
                     <div class="col-sm-10">
@@ -36,13 +37,17 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="email">Старт программы:</label>
                     <div class="col-sm-10">
-                        <input type="date" value="{{\Carbon\Carbon::createFromDate($program->started)->format('Y-m-d')}}" name="started" class="form-control" placeholder="Телефон">
+                        <input type="date"
+                               value="{{\Carbon\Carbon::createFromDate($program->started)->format('Y-m-d')}}"
+                               name="started" class="form-control" placeholder="Телефон">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="email">Окончание программы:</label>
                     <div class="col-sm-10">
-                        <input type="date" value="{{\Carbon\Carbon::createFromDate($program->finished)->format('Y-m-d')}}" name="finished" class="form-control" placeholder="Телефон">
+                        <input type="date"
+                               value="{{\Carbon\Carbon::createFromDate($program->finished)->format('Y-m-d')}}"
+                               name="finished" class="form-control" placeholder="Телефон">
                     </div>
                 </div>
                 <div class="form-group">

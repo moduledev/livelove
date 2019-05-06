@@ -13,13 +13,14 @@
                   enctype="multipart/form-data">
                 {{ csrf_field() }}
                 {{ method_field('PUT') }}
+                @isset($user->image)
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="email">Фото:</label>
                     <div class="image_container col-sm-10">
                         <img src="{{asset('storage/'. $user->image)}}" class="img-rounded img-responsive" alt="">
                     </div>
                 </div>
-
+                @endisset
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="image">Изменить фото:</label>
                     <div class="col-sm-10">
@@ -91,7 +92,7 @@
            <h4 class="text-center">Программы пользователя:</h4>
        </div>
 
-    @foreach($userPrograms as $program)
+
             <div class="col-xs-12">
 
                 <table class="table table-hover">
@@ -99,25 +100,33 @@
                         <tr>
                             <td>Id</td>
                             <td>Название</td>
-                            <td>Jgthfwbz</td>
+                            <td>Операция</td>
                         </tr>
                     </thead>
+                    <tbody>
+                    @foreach($userPrograms as $program)
+                        <tr>
+                            <td>{{$program->id}}</td>
+                            <td> <a href="{{route('edit.program',$program->id)}}">{{$program->name}}</a></td>
+                            <td><form action="{{route('remove.program')}}" method="post" class="delete_role_form">
+                                    {{ csrf_field() }}
+                                    <div class="form-group ">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <input type="hidden" name="user" value="{{$user->id}}">
+                                            <button class="btn btn-danger delete_role_btn" type="submit" name="program"
+                                                    value="{{$program->id}}"><i class="fa fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form></td>
+                        </tr>
+                    @endforeach
+                    </tbody>
                 </table>
 
-                <form action="{{route('remove.program')}}" method="post" class="delete_role_form">
-                    {{ csrf_field() }}
-                    <div class="form-group ">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <input type="hidden" name="user" value="{{$user->id}}">
-                            <a href="{{route('edit.program',$program->id)}}">{{$program->name}}</a>
-                            <button class="btn btn-danger delete_role_btn" type="submit" name="program"
-                                    value="{{$program->id}}"><i class="fa fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
+
             </div>
-        @endforeach
+
 
 
     </div>

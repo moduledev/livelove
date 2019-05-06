@@ -45,6 +45,24 @@ class User extends Authenticatable
         return $this->hasMany('App\SmsCode');
     }
 
+   public function getPositionAttribute()
+   {
+       if($this->attributes['position'] === null){
+           return $this->attributes['position'] = '';
+       } else {
+           return $this->attributes['position'];
+       }
+   }
+
+    public function getBiographyAttribute()
+    {
+        if($this->attributes['biography'] === null){
+            return $this->attributes['biography'] = '';
+        } else {
+            return $this->attributes['biography'];
+        }
+    }
+
     public function programs()
     {
         return $this->belongsToMany('App\Program','user_program','user_id','program_id');
