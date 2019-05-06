@@ -12,12 +12,18 @@ class Program extends Model
         'name','description','image','finished','started','term'
     ];
 
-    protected $appends = ['term','members'];
+    protected $appends = ['term','memberscount','members'];
 
-    public function getMembersAttribute()
+    public function getMemberscountAttribute()
     {
         return $this->users()->count();
     }
+
+    public function getMembersAttribute()
+    {
+        return $this->users()->get();
+    }
+
     public function getTermAttribute()
     {
         $end = Carbon::parse($this->finished);
