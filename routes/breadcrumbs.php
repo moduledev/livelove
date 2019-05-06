@@ -23,7 +23,12 @@ Breadcrumbs::for('edit', function ($trail, $id) {
     $trail->parent('admins');
     $trail->push('Изменить', route('admin.admins.edit', $id));
 });
-Breadcrumbs::for('show', function ($trail, $id,$name) {
+Breadcrumbs::for('show-program', function ($trail, $id,$name) {
     $trail->parent('programs');
     $trail->push($name, route('show.program', $id));
+});
+
+Breadcrumbs::for('show-user', function ($trail, $id,$name) {
+    $trail->parent('users');
+    $trail->push($name, route('admin.user.show', $id));
 });

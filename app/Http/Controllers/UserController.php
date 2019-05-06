@@ -57,7 +57,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+        $user = User::findOrFail($id);
+        return view('admin.users.show', compact('user'));
     }
 
 
@@ -136,6 +138,7 @@ class UserController extends Controller
         }
 
     }
+
     public function removeProgram(Request $request)
     {
         $userId = filter_var($request->user, FILTER_SANITIZE_NUMBER_INT);

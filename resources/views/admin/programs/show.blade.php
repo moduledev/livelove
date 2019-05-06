@@ -3,7 +3,7 @@
     <h1>
          Программа "{{$program->name}}"
     </h1>
-     {{ Breadcrumbs::render('show',$program->id,$program->name) }}
+     {{ Breadcrumbs::render('show-program',$program->id,$program->name) }}
 @endsection
 @section('content')
     <div class="row">

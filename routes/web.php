@@ -28,7 +28,8 @@ Route::prefix('admin')->group(function () {
     Route::delete('admin/admins/{id}','AdminController@destroy')->name('admin.admins.delete');
 
     Route::post('users', 'UserController@destroy')->name('admin.user.delete');
-    Route::get('users/{id}', 'UserController@edit')->name('admin.user.edit');
+    Route::get('users/edit{id}', 'UserController@edit')->name('admin.user.edit');
+    Route::get('users/{id}', 'UserController@show')->name('admin.user.show');
     Route::put('users/edit/{id}','UserController@update')->name('admin.users.update');
     Route::put('users','UserController@assignProgram')->name('assign.program');
 

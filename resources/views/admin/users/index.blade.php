@@ -30,6 +30,8 @@
                            {{--<td><img src="{{asset('storage/' . $user->image)}}" class="img-responsive" alt="" style="width: 100px;height: 100px"></td>--}}
                            <td>
                                <div >
+                                   <a href="{{route('admin.user.show', $user->id)}}" class="btn btn-info"> <i class="fa fa-eye"></i> </a>
+
                                    <form method="post" action="{{ route('admin.user.delete') }}" style="display: inline-block">
                                        {!! csrf_field() !!}
                                        <input type="hidden" name="id" value="{{$user->id}}">

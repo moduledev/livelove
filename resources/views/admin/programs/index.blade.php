@@ -3,7 +3,7 @@
     <h1>
         Программы
     </h1>
-    {{-- {{ Breadcrumbs::render('users') }} --}}
+     {{ Breadcrumbs::render('users') }}
 @endsection
 @section('content')
     <div class="row">
@@ -75,7 +75,7 @@
                             <td>{{$program->term}}</td>
                             <td>
                                 <div>
-                                    <a href="{{route('show.program', $program->id)}}"> <button class="btn btn-info"> <i class="fa fa-eye"></i> </button> </a>
+                                    <a href="{{route('show.program', $program->id)}}" class="btn btn-info"> <i class="fa fa-eye"></i>  </a>
 
                                     <form method="post" action="{{ route('delete.program') }}"
                                           style="display: inline-block">
