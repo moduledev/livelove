@@ -37,6 +37,8 @@ Route::prefix('admin')->group(function () {
     Route::put('admin/edit','PermissionController@assignPermission')->name('assign.permission');
 
     Route::post('programs','ProgramController@createProgram')->name('add.program');
+    Route::get('programs/edit/{id}', 'ProgramController@editProgram')->name('edit.program');
+    Route::put('programs/edit/{id}','ProgramController@updateProgram')->name('update.program');
 
     // Route::put('admin/edit','PermissionController@assignPermission')->name('assign.permission');
 

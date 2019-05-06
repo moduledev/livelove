@@ -11,7 +11,7 @@
             <h4>Добавить новую программу</h4>
         </div>
         <div class="col-xs-12">
-            <form class="form-horizontal" method="POST" action="" enctype="multipart/form-data">
+            <form class="form-horizontal" method="POST" action="{{route('add.program')}}" enctype="multipart/form-data">
                 {{ csrf_field() }}
 
                 <div class="form-group">
@@ -83,7 +83,7 @@
                                                     class="fa fa-trash"></i></button>
                                     </form>
 
-                                    <form method="get" action="{{ route('admin.user.edit',$program->id) }}"
+                                    <form method="get" action="{{ route('edit.program',$program->id) }}"
                                           style="display: inline-block">
                                         <button href="#" class="btn btn-success" type="submit"><i
                                                     class="fa fa-pencil-square"></i></button>
