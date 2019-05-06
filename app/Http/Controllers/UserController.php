@@ -14,6 +14,8 @@ class UserController extends Controller
     {
         $this->middleware('auth:admin');
         $this->middleware('permission:user-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:program-edit', ['only' => ['assignProgram']]);
+        $this->middleware('permission:program-delete', ['only' => ['removeProgram']]);
     }
 
     /**
@@ -133,5 +135,12 @@ class UserController extends Controller
             return redirect()->back()->with('error', 'Пользователью уже была добавлена программа!');
         }
 
+    }
+    public function removeProgram(Request $request)
+    {
+        $userId = filter_var($request->user, FILTER_SANITIZE_NUMBER_INT);
+        $program = filter_var($request->program, FILTER_SANITIZE_SPECIAL_CHARS);
+        $user = User::findOrFail($userId)->programs()->detach($program);
+        return redirect()->back()->with('success', 'Программа была успешно удалена!');
     }
 }

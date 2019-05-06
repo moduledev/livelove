@@ -33,7 +33,7 @@ Route::prefix('admin')->group(function () {
     Route::put('users','UserController@assignProgram')->name('assign.program');
 
 
-    Route::post('users/edit','ProgramController@removeProgram')->name('remove.program');
+    Route::post('users/edit','UserController@removeProgram')->name('remove.program');
 
     Route::post('admin/edit','PermissionController@removePermission')->name('remove.permission');
     Route::put('admin/edit','PermissionController@assignPermission')->name('assign.permission');

@@ -14,6 +14,8 @@ class ProgramController extends Controller
     {
         $this->middleware('auth:admin');
         $this->middleware('permission:program-edit', ['only' => ['editProgram','updateProgram']]);
+        $this->middleware('permission:program-delete', ['only' => ['delete']]);
+        $this->middleware('permission:program-crete', ['only' => ['createProgram']]);
 
     }
 
@@ -43,14 +45,6 @@ class ProgramController extends Controller
         }
         $program->save();
         return redirect()->back()->with('success', 'Программа ' . $program->name . ' была успешно создана!');
-    }
-
-    public function removeProgram(Request $request)
-    {
-        $userId = filter_var($request->user, FILTER_SANITIZE_NUMBER_INT);
-        $program = filter_var($request->program, FILTER_SANITIZE_SPECIAL_CHARS);
-        $user = User::findOrFail($userId)->programs()->detach($program);
-        return redirect()->back()->with('success', 'Программа была успешно удалена!');
     }
 
     public function editProgram($id)
