@@ -75,9 +75,10 @@
                             <td>{{$program->term}}</td>
                             <td>
                                 <div>
-                                    <form method="post" action="{{ route('admin.user.delete') }}"
+                                    <form method="post" action="{{ route('delete.program') }}"
                                           style="display: inline-block">
                                         {!! csrf_field() !!}
+                                        {{ method_field('DELETE') }}
                                         <input type="hidden" name="id" value="{{$program->id}}">
                                         <button href="#" class="btn btn-danger" type="submit"><i
                                                     class="fa fa-trash"></i></button>

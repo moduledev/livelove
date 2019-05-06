@@ -29,5 +29,10 @@ class AdminTableSeeder extends Seeder
         $user->givePermissionTo('role-create');
         $user->givePermissionTo('role-edit');
         $user->givePermissionTo('role-delete');
+
+        $user->givePermissionTo('program-list');
+        $user->givePermissionTo('program-create');
+        $user->givePermissionTo('program-edit');
+        $user->givePermissionTo('program-delete');
     }
 }

@@ -16,8 +16,8 @@ class CreateUsersProgramsTable extends Migration
         Schema::create('user_program', function (Blueprint $table) {
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('program_id');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('program_id')->references('id')->on('programs');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('program_id')->references('id')->on('programs')->onDelete('cascade');
             $table->timestamps();
         });
     }

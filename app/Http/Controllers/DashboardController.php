@@ -11,6 +11,10 @@ class DashboardController extends Controller
     public function __construct()
     {
         $this->middleware('auth:admin');
+        $this->middleware('permission:program-list', ['only' => ['programs']]);
+        $this->middleware('permission:user-list', ['only' => ['users']]);
+        $this->middleware('permission:admin-list', ['only' => ['admins']]);
+
     }
 
     /**
