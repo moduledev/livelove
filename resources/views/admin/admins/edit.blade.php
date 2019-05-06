@@ -77,4 +77,9 @@
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+            $('#summernote').summernote();
+        });
+    </script>
 @endsection

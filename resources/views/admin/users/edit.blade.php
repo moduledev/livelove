@@ -51,8 +51,8 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="biography">Биография:</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" name="biography" id="biography" placeholder="Биография"
-                                  cols="5">{{$user->biography}}</textarea>
+                        <textarea class="form-control" name="biography" id="summernote" placeholder="Биография"
+                                  cols="5">{{htmlspecialchars_decode($user->biography)}}</textarea>
                     </div>
                 </div>
                 <div class="form-group">
@@ -126,8 +126,10 @@
 
 
             </div>
-
-
-
     </div>
+    <script>
+        $(document).ready(function() {
+            $('#summernote').summernote();
+        });
+    </script>
 @endsection

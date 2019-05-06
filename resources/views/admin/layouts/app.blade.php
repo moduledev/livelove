@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="{{ asset('adminlte/css/skins/_all-skins.min.css') }}">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -34,6 +35,9 @@
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script><!-- Bootstrap 3.3.7 -->
+
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 
@@ -75,7 +79,8 @@
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="{{route('admin.admins.edit',\Illuminate\Support\Facades\Auth::id())}}" class="btn btn-default btn-flat">Profile</a>
+                                    <a href="{{route('admin.admins.edit',\Illuminate\Support\Facades\Auth::id())}}"
+                                       class="btn btn-default btn-flat">Profile</a>
                                 </div>
                                 <ul>
                                     <div class="pull-right">
@@ -142,12 +147,10 @@
                         </li>
                     </ul>
                 </li>
-            <li><a href="{{route('dashboard.programs')}}"><i class="fa fa-window-restore"></i> <span>Программы</span></a>
+                <li><a href="{{route('dashboard.programs')}}"><i class="fa fa-window-restore"></i>
+                        <span>Программы</span></a>
                 </li>
-                <li class="header">LABELS</li>
-                <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
-                <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-                <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
+
             </ul>
         </section>
         <!-- /.sidebar -->
@@ -373,7 +376,6 @@
     <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script><!-- Bootstrap 3.3.7 -->
 <script src="{{asset('adminlte/libs/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 <!-- iCheck -->
 <script src="{{asset('adminlte/plugins/iCheck/icheck.min.js')}}"></script>
@@ -381,5 +383,7 @@
 <script src="{{asset('adminlte/libs/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
 <script src="{{asset('adminlte/libs/jquery-ui/jquery-ui.min.js')}}"></script>
 <script src="{{asset('adminlte/libs/fastclick/lib/fastclick.js')}}"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
+
 </body>
 </html>

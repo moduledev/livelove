@@ -43,7 +43,7 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="description">Описание:</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" name="description" id="description" placeholder="Описание программы"
+                        <textarea class="form-control" name="description" id="summernote" placeholder="Описание программы"
                                   cols="5"></textarea>
                     </div>
                 </div>
@@ -100,4 +100,9 @@
             {{ $programs->appends(['term'])->links() }}
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+            $('#summernote').summernote();
+        });
+    </script>
 @endsection

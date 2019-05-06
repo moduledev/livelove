@@ -12,7 +12,7 @@
                   action="{{route('update.program',$program->id)}}">
                 {{ csrf_field() }}
                 {{ method_field('PUT') }}
-                @isset($user->image)
+                @isset($program->image)
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="email">Фото:</label>
                         <div class="image_container col-sm-10">
@@ -53,8 +53,8 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="description">Описание:</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" name="description" id="description" placeholder="Описание"
-                                  cols="10">{{$program->description}}</textarea>
+                        <textarea class="form-control" name="description" id="summernote" placeholder="Описание"
+                                  cols="10">{{htmlspecialchars_decode($program->description)}}</textarea>
                     </div>
                 </div>
                 <div class="form-group">
@@ -67,4 +67,9 @@
         </div>
 
     </div>
+    <script>
+        $(document).ready(function() {
+            $('#summernote').summernote();
+        });
+    </script>
 @endsection

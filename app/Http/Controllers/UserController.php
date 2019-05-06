@@ -95,7 +95,7 @@ class UserController extends Controller
         if($userData){
             $request->name ? $userData->name = filter_var($request->name, FILTER_SANITIZE_SPECIAL_CHARS) : $userData->name;
             $request->phone ? $userData->phone = filter_var($request->phone, FILTER_SANITIZE_NUMBER_INT) : $userData->phone;
-            $request->biography ? $userData->biography = filter_var($request->biography, FILTER_SANITIZE_SPECIAL_CHARS) : $userData->biography;
+            $request->biography ? $userData->biography = htmlspecialchars($request->biography ): $userData->biography;
             $request->position ? $userData->position = filter_var($request->position, FILTER_SANITIZE_SPECIAL_CHARS) : $userData->position;
             if ($request->hasFile('image')) {
                 if ($userData->image) unlink(storage_path('app/public/'.$userData->image));
