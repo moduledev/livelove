@@ -14,7 +14,7 @@ class AddPlaceColumnToProgramTable extends Migration
     public function up()
     {
         Schema::table('programs', function (Blueprint $table) {
-            $table->string('place')->nullable();
+            $table->json('place')->nullable();
         });
     }
 

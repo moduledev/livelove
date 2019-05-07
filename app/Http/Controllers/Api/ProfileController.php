@@ -142,7 +142,6 @@ class ProfileController extends Controller
 
         $userPhone = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
         $userData = User::with('programs')->where('id',$id)->first();
-        // return response($userData);
         if ($userData) {
             $request->name ? $userData->name = filter_var($request->name, FILTER_SANITIZE_SPECIAL_CHARS) : $userData->name;
             $request->phone ? $userData->phone = filter_var($request->phone, FILTER_SANITIZE_NUMBER_INT) : $userData->phone;
@@ -156,7 +155,7 @@ class ProfileController extends Controller
             }
 
             $userData->save();
-            return response('Users date has been updated', 200);
+            return response(['success' => 'Users date has been updated','data' => $userData], 200);
         } else {
             return response('Unregistered user', 401);
         }
