@@ -13,8 +13,8 @@ class AdminController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:admin')->except('create','store');
-        $this->middleware('permission:admin-edit', ['only' => ['edit','update']]);
+        $this->middleware('auth:admin')->except('create', 'store');
+        $this->middleware('permission:admin-edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:admin-list', ['only' => ['show']]);
     }
 
@@ -25,7 +25,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-//        return view('admin.dashboard');
+        //        return view('admin.dashboard');
     }
 
     /**
@@ -59,7 +59,7 @@ class AdminController extends Controller
         $admins->email = filter_var($request->email, FILTER_SANITIZE_EMAIL);
         $admins->password = bcrypt($request->password);
         $admins->save();
-        return redirect()->back()->with('success','Администратор ' . $admins->name . ' был успешно добавлен!');
+        return redirect()->back()->with('success', 'Администратор ' . $admins->name . ' был успешно добавлен!');
     }
 
     /**
@@ -73,7 +73,7 @@ class AdminController extends Controller
         $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
         $admin = Admin::findOrFail($id);
         $adminsDermissions = $admin->getAllPermissions();
-        return view('admin.admins.show', compact('admin','adminsDermissions'));
+        return view('admin.admins.show', compact('admin', 'adminsDermissions'));
     }
 
     /**
@@ -88,7 +88,7 @@ class AdminController extends Controller
         $admin = Admin::findOrFail($id);
         $adminsDermissions = $admin->getAllPermissions();
         $permissions = Permission::all();
-        return view('admin.admins.edit', compact('admin','adminsDermissions','permissions'));
+        return view('admin.admins.edit', compact('admin', 'adminsDermissions', 'permissions'));
     }
 
     /**
@@ -107,7 +107,7 @@ class AdminController extends Controller
             'password' => 'required',
             'role' => 'string'
         ]);
-//        dd($request->all());
+        //        dd($request->all());
         // store in the database
         $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
         $admins = Admin::findOrFail($id);
@@ -115,7 +115,7 @@ class AdminController extends Controller
         $admins->email = filter_var($request->email, FILTER_SANITIZE_EMAIL);
         $admins->password = bcrypt($request->password);
         $admins->save();
-        return redirect()->back()->with('success','Администратор ' . $admins->name . ' был успешно изменен!');
+        return redirect()->back()->with('success', 'Администратор ' . $admins->name . ' был успешно изменен!');
     }
 
     /**
@@ -128,14 +128,11 @@ class AdminController extends Controller
     {
         $adminId = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
         $admin = Admin::findOrFail($adminId);
-        if($admin->id !== auth()->id()){
+        if ($admin->id !== auth()->id()) {
             $admin->delete();
-            return redirect()->back()->with('success','Пользователь ' . $admin->name . ' был успешно удален!');
+            return redirect()->back()->with('success', 'Пользователь ' . $admin->name . ' был успешно удален!');
         } else {
-            return redirect()->back()->with('error','Администратор не может удалить сам себя!');
-
+            return redirect()->back()->with('error', 'Администратор не может удалить сам себя!');
         }
-
     }
-
 }
