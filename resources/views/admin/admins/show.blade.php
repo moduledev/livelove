@@ -1,9 +1,9 @@
 @extends('admin.layouts.app')
 @section('content-header')
     <h1>
-        Программа "{{$admin->name}}"
+     "{{$admin->name}}"
     </h1>
-    {{ Breadcrumbs::render('show-program',$admin->id,$admin->name) }}
+    {{ Breadcrumbs::render('show-admin',$admin->id,$admin->name) }}
 @endsection
 @section('content')
     <div class="row">
@@ -15,10 +15,8 @@
             @endisset
                 <ul class="list-group">
                     <li class="list-group-item"><p class="text-bold">Id:<span> {{$admin->id}}</span></p></li>
-                    <li class="list-group-item"><p class="text-bold">Название:<span> {{$admin->name}}</span></p></li>
-                    <li class="list-group-item"><p class="text-bold">Старт программы:<span> {{$admin->started}}</span></p></li>
-                    <li class="list-group-item"><p class="text-bold">Окончание программы:<span> {{$admin->finished}}</span></p></li>
-                    <li class="list-group-item"><p class="text-bold">Длительность:<span> {{$admin->term}}</span></p></li>
+                    <li class="list-group-item"><p class="text-bold">Имя:<span> {{$admin->name}}</span></p></li>
+                    <li class="list-group-item"><p class="text-bold">Email:<span> {{$admin->email}}</span></p></li>
                     <li class="list-group-item"><p class="text-bold">Роли:
                         <ul class="list-group">
                             @foreach($adminsDermissions as $role)

@@ -12,6 +12,7 @@
                 <div class="image_container">
                     <a href="{{asset('storage/' . $program->image)}}" target="_blank"><img src="{{asset('storage/' . $program->image)}}" class="img-responsive img-rounded" alt=""></a>
                 </div>
+                @endisset
                 <ul class="list-group">
                     <li class="list-group-item"><p class="text-bold">Id:<span> {{$program->id}}</span></p></li>
                     <li class="list-group-item"><p class="text-bold">Название:<span> {{$program->name}}</span></p></li>
@@ -28,7 +29,7 @@
                         </ul>
                     </li>
                 </ul>
-           @endisset
+         
                <form method="get" action="{{ route('edit.program',$program->id) }}"
                      style="display: inline-block">
                    <button href="#" class="btn btn-success" type="submit"><i

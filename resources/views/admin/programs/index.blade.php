@@ -3,7 +3,7 @@
     <h1>
         Программы
     </h1>
-     {{ Breadcrumbs::render('users') }}
+     {{ Breadcrumbs::render('programs') }}
 @endsection
 @section('content')
     <div class="row">

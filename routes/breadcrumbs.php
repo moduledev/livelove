@@ -32,3 +32,8 @@ Breadcrumbs::for('show-user', function ($trail, $id,$name) {
     $trail->parent('users');
     $trail->push($name, route('admin.user.show', $id));
 });
+
+Breadcrumbs::for('show-admin', function ($trail, $id,$name) {
+    $trail->parent('admins');
+    $trail->push($name, route('admin.admins.show', $id));
+});
