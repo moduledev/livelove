@@ -24,7 +24,7 @@
                     <li class="list-group-item"><p class="text-bold">Участники:
                         <ul class="list-group">
                             @foreach($program->members as $member)
-                                <li class="list-group-item"><a href="">{{$member->name}}</a></li>
+                                <li class="list-group-item"><a href="{{route('admin.user.show',$member->id)}}">{{$member->name}}</a></li>
                             @endforeach
                         </ul>
                     </li>

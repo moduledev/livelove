@@ -29,7 +29,7 @@
         </div>
         <div class="col-xs-12">
             @isset($admins)
-                <table class="table table-hover">
+                <table class="table table-hover table-striped  text-center">
                     <thead>
                     <tr>
                         <th>ID</th>
@@ -47,7 +47,7 @@
                             <td>{{$admin->email}}</td>
                             <td></td>
                             <td>
-                                <div >
+                                <div class=" text-center">
                                     <a href="{{route('admin.admins.show', $admin->id)}}" class="btn btn-info"> <i class="fa fa-eye"></i> </a>
 
                                     <form method="post" action="{{ route('admin.admins.delete', $admin->id) }}" style="display: inline-block">

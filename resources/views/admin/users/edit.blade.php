@@ -95,7 +95,7 @@
 
             <div class="col-xs-12">
 
-                <table class="table table-hover">
+                <table class="table table-hover table-striped  text-center">
                     <thead>
                         <tr>
                             <td>Id</td>

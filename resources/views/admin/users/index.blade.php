@@ -10,7 +10,7 @@
     <div class="row">
        <div class="col-xs-12">
            @isset($users)
-               <table class="table table-hover">
+               <table class="table table-hover table-striped text-center">
                    <thead>
                    <tr>
                        <th>ID</th>
@@ -29,7 +29,7 @@
                            <td>{{$user->position}}</td>
                            {{--<td><img src="{{asset('storage/' . $user->image)}}" class="img-responsive" alt="" style="width: 100px;height: 100px"></td>--}}
                            <td>
-                               <div >
+                               <div class=" text-center">
                                    <a href="{{route('admin.user.show', $user->id)}}" class="btn btn-info"> <i class="fa fa-eye"></i> </a>
 
                                    <form method="post" action="{{ route('admin.user.delete') }}" style="display: inline-block">
@@ -42,8 +42,6 @@
                                        <button href="#" class="btn btn-success" type="submit"> <i class="fa fa-pencil-square"></i> </button>
                                    </form>
 
-                                   <a href="#" class="btn" type="submit"></a>
-                                   <a href="#" class="btn" type="submit"></a>
                                </div>
                    @endforeach
                    </tbody>

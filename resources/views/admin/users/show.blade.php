@@ -15,7 +15,7 @@
             @endisset
                 <ul class="list-group">
                     <li class="list-group-item"><p class="text-bold">Id:<span> {{$user->id}}</span></p></li>
-                    <li class="list-group-item"><p class="text-bold">Название:<span> {{$user->name}}</span></p></li>
+                    <li class="list-group-item"><p class="text-bold">Имя:<span> {{$user->name}}</span></p></li>
                     <li class="list-group-item"><p class="text-bold">Телефон:<span> {{$user->phone}}</span></p></li>
                     <li class="list-group-item"><p class="text-bold">Должность:<span> {{$user->position}}</span></p></li>
                     <li class="list-group-item"><p class="text-bold">Биография:</p>

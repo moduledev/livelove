@@ -58,7 +58,7 @@
     <div class="row">
         <div class="col-xs-12">
             @isset($programs)
-                <table class="table table-hover">
+                <table class="table table-hover table-striped text-center">
                     <thead>
                     <tr>
                         <th>ID</th>
@@ -74,7 +74,7 @@
                             <td>{{$program->name}}</td>
                             <td>{{$program->term}}</td>
                             <td>
-                                <div>
+                                <div class="text-center">
                                     <a href="{{route('show.program', $program->id)}}" class="btn btn-info"> <i class="fa fa-eye"></i>  </a>
 
                                     <form method="post" action="{{ route('delete.program') }}"
@@ -92,8 +92,7 @@
                                                     class="fa fa-pencil-square"></i></button>
                                     </form>
 
-                                    <a href="#" class="btn" type="submit"></a>
-                                    <a href="#" class="btn" type="submit"></a>
+
                                 </div>
                     @endforeach
                     </tbody>
