@@ -9,7 +9,7 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="{{ asset('adminlte/css/AdminLTE.min.css') }}">
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('adminlte/libs/ionicons/css/ionicons.css') }}">
+{{--    <link rel="stylesheet" href="{{ asset('adminlte/libs/ionicons/css/ionicons.css') }}">--}}
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/iCheck/square/blue.css') }}">
     <link rel="stylesheet" href="{{ asset('adminlte/libs/bootstrap/dist/css/bootstrap.css') }}">
     <!-- Tell the browser to be responsive to screen width -->
