@@ -381,7 +381,6 @@
 <script src="{{asset('adminlte/plugins/iCheck/icheck.min.js')}}"></script>
 <script src="{{asset('adminlte/js/adminlte.min.js')}}"></script>
 <script src="{{asset('adminlte/libs/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
-<script src="{{asset('adminlte/libs/jquery-ui/jquery-ui.min.js')}}"></script>
 <script src="{{asset('adminlte/libs/fastclick/lib/fastclick.js')}}"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
 
