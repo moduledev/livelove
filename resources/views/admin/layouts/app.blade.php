@@ -150,6 +150,9 @@
                 <li><a href="{{route('dashboard.programs')}}"><i class="fa fa-window-restore"></i>
                         <span>Программы</span></a>
                 </li>
+                <li><a href="{{route('dashboard.roles')}}"><i class="fa fa-arrows"></i>
+                        <span>Роли</span></a>
+                </li>
 
             </ul>
         </section>

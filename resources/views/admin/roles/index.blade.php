@@ -8,40 +8,42 @@
         <div class="col-lg-12 margin-tb">
             <div class="pull-right">
                 @can('role-create')
-                    <a class="btn btn-success" href="{{ route('roles.create') }}"> Create New Role</a>
+                    {{--<a class="btn btn-success" href="{{ route('roles.create') }}"> Create New Role</a>--}}
                 @endcan
             </div>
         </div>
     </div>
 
-    @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
-        </div>
-    @endif
 
 
-    <table class="table table-bordered">
+    <table class="table table-hover table-striped text-center">
         <tr>
-            <th>No</th>
-            <th>Name</th>
-            <th width="280px">Action</th>
+            <th>Id</th>
+            <th>Название</th>
+            <th>Операции</th>
         </tr>
-        @foreach ($roles as $key => $role)
+        @foreach ($roles as $role)
             <tr>
-                {{--<td>{{ ++$i }}</td>--}}
-                <td>{{ $role->name }}</td>
+                <td>{{$role->id}}</td>
+                <td>{{$role->name}}</td>
                 <td>
-                    <a class="btn btn-info" href="{{ route('roles.show',$role->id) }}">Show</a>
-                    @can('role-edit')
-                        <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Edit</a>
-                    @endcan
-                    @can('role-delete')
-                        {{--{!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}--}}
-                        {{--{!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}--}}
-                        {{--{!! Form::close() !!}--}}
-                        {{--<form action="{{route('')}}" method="DELETE"></form>--}}
-                    @endcan
+                    <a href="" class="btn btn-info"> <i class="fa fa-eye"></i>  </a>
+
+                    <form method="post" action=""
+                          style="display: inline-block">
+                        {!! csrf_field() !!}
+                        {{ method_field('DELETE') }}
+                        <input type="hidden" name="id" value="{{$role->id}}">
+                        <button href="#" class="btn btn-danger" type="submit"><i
+                                    class="fa fa-trash"></i></button>
+                    </form>
+
+                    <form method="get" action="{{route('admin.role.edit', $role->id)}}"
+                          style="display: inline-block">
+                        <button href="#" class="btn btn-success" type="submit"><i
+                                    class="fa fa-pencil-square"></i></button>
+                    </form>
+
                 </td>
             </tr>
         @endforeach

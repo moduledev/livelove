@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Program;
+use Spatie\Permission\Models\Role;
 
 class DashboardController extends Controller
 {
@@ -44,5 +45,11 @@ class DashboardController extends Controller
         $programs = Program::paginate(5);
 
         return view('admin.programs.index',compact('programs'));
+    }
+
+    public function roles()
+    {
+        $roles = Role::paginate(5);
+        return view('admin.roles.index',compact('roles'));
     }
 }
