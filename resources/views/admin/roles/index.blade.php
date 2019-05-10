@@ -5,12 +5,16 @@
     </h1>
 
     <div class="row">
-        <div class="col-lg-12 margin-tb">
-            <div class="pull-right">
-                @can('role-create')
-                    {{--<a class="btn btn-success" href="{{ route('roles.create') }}"> Create New Role</a>--}}
-                @endcan
-            </div>
+        <div class="col-xs-12">
+            <h3>Добавить роль:</h3>
+            <form method="POST" class="form-inline" action="{{route('add.role')}}">
+                {{ csrf_field() }}
+                <div class="form-group">
+                    <label for="name">Название:</label>
+                    <input id="name" type="text" class="form-control" name="role">
+                </div>
+                <button type="submit" class="btn btn-default">Добавить</button>
+            </form>
         </div>
     </div>
 

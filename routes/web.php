@@ -39,6 +39,9 @@ Route::prefix('admin')->group(function () {
     Route::post('users/edit','UserController@removeProgram')->name('remove.program');
 
     Route::get('roles/edit{id}', 'RoleController@edit')->name('admin.role.edit');
+    Route::put('roles/edit', 'RoleController@assignRole')->name('assign.role');
+    Route::post('roles/edit', 'RoleController@removeRole')->name('remove.role');
+    Route::post('roles', 'RoleController@store')->name('add.role');
 
 
 

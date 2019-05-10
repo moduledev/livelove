@@ -17,7 +17,12 @@
                     <li class="list-group-item"><p class="text-bold">Id:<span> {{$admin->id}}</span></p></li>
                     <li class="list-group-item"><p class="text-bold">Имя:<span> {{$admin->name}}</span></p></li>
                     <li class="list-group-item"><p class="text-bold">Email:<span> {{$admin->email}}</span></p></li>
-                    <li class="list-group-item"><p class="text-bold">Роли:
+                    <li class="list-group-item"><p class="text-bold">Роли:<span>
+                            @foreach($admin->roles as $role)
+                                    <span style="padding: 5px; background: #0d6aad;border-radius: 3px; color: #fff">{{$role->name}}</span>
+                            @endforeach
+                            </span></p></li>
+                    <li class="list-group-item"><p class="text-bold">Permissions:
                         <ul class="list-group">
                             @foreach($adminsDermissions as $role)
                                 <li class="list-group-item"><span>{{$role->name}}</span></li>

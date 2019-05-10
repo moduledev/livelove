@@ -148,6 +148,11 @@ class ProfileController extends Controller
             $request->biography ? $userData->biography = filter_var($request->biography, FILTER_SANITIZE_SPECIAL_CHARS) : $userData->biography;
             $request->position ? $userData->position = filter_var($request->position, FILTER_SANITIZE_SPECIAL_CHARS) : $userData->position;
 
+            $request->facebook ? $userData->facebook = filter_var($request->facebook, FILTER_SANITIZE_SPECIAL_CHARS) : $userData->facebook;
+            $request->instagram ? $userData->instagram = filter_var($request->instagram, FILTER_SANITIZE_SPECIAL_CHARS) : $userData->instagram;
+            $request->strava ? $userData->strava = filter_var($request->strava, FILTER_SANITIZE_SPECIAL_CHARS) : $userData->strava;
+
+
             if ($request->hasFile('image')) {
                 if ($userData->image) unlink(storage_path('app/public/'.$userData->image));
                 $path = $request->file('image')->store('users', 'public');

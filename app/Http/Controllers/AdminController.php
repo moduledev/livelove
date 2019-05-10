@@ -86,9 +86,12 @@ class AdminController extends Controller
     {
         $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
         $admin = Admin::findOrFail($id);
-        $adminsDermissions = $admin->getAllPermissions();
-        $permissions = Permission::all();
-        return view('admin.admins.edit', compact('admin', 'adminsDermissions', 'permissions'));
+//        $adminsDermissions = $admin->getAllPermissions();
+//        $permissions = Permission::all();
+        $roles = Role::all();
+        $adminsRoles = $admin->roles;
+//        return view('admin.admins.edit', compact('admin', 'adminsDermissions', 'permissions'));
+        return view('admin.admins.edit', compact('admin', 'adminsRoles', 'roles'));
     }
 
     /**
@@ -135,4 +138,5 @@ class AdminController extends Controller
             return redirect()->back()->with('error', 'Администратор не может удалить сам себя!');
         }
     }
+
 }

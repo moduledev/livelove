@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Program;
@@ -31,13 +32,16 @@ class DashboardController extends Controller
     public function users()
     {
         $users = DB::table('users')->paginate(5);
+
         return view('admin.users.index',compact('users'));
     }
 
     public function admins()
     {
-        $admins = DB::table('admins')->paginate(5);
-        return view('admin.admins.index',compact('admins'));
+//        $admins = DB::table('admins')->paginate(5);
+        $admins = Admin::with('roles')->paginate(5);
+        $roles = Admin::all();
+        return view('admin.admins.index',compact('admins','roles'));
     }
 
     public function programs()

@@ -45,7 +45,11 @@
                             <td>{{$admin->id}}</td>
                             <td>{{$admin->name}}</td>
                             <td>{{$admin->email}}</td>
-                            <td></td>
+                            <td>
+                                @foreach($admin->roles as $role)
+                                    <span style="padding: 5px; background: #0d6aad;border-radius: 3px; color: #fff">{{$role->name}}</span>
+                                @endforeach
+                            </td>
                             <td>
                                 <div class=" text-center">
                                     <a href="{{route('admin.admins.show', $admin->id)}}" class="btn btn-info"> <i class="fa fa-eye"></i> </a>

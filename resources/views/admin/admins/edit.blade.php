@@ -41,16 +41,16 @@
             <div class="form-group">
                 <label class="control-label col-sm-2">Выберите роль:</label>
                 <div class="col-sm-10">
-                    <form action="{{route('assign.permission')}}" method="post" class="form-horizontal">
+                    <form action="{{route('assign.role')}}" method="post" class="form-horizontal">
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
 
                         <div class="form-group col-xs-6">
                             <input type="hidden" value="{{$admin->id}}" name="user">
-                            <select class="form-control" name="permission" id="sel1" >
+                            <select class="form-control" name="role" id="sel1" >
                                 <option>Выберите роль</option>
-                                @foreach($permissions as $per)
-                                    <option value="{{$per->name}}">{{$per->name}}</option>
+                                @foreach($roles as $role)
+                                    <option value="{{$role->name}}">{{$role->name}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -61,13 +61,13 @@
             <div class="form-group">
                 <label class="control-label col-sm-2">Доступные роли:</label>
                 <div class="col-sm-10">
-                    @foreach($adminsDermissions as $permission)
-                        <form action="{{route('remove.permission')}}" method="post" class="delete_role_form">
+                    @foreach($adminsRoles as $adminRole)
+                        <form action="{{route('remove.role')}}" method="post" class="delete_role_form">
                             {{ csrf_field() }}
                             <input type="hidden" name="user" value="{{$admin->id}}">
                             <label class="checkbox-inline position-relative">
-                                <span>{{$permission->name}}</span>
-                                <button class="btn btn-danger delete_role_btn" type="submit" name="permission" value="{{$permission->name}}"> <i class="fa fa-trash"></i>
+                                <span>{{$adminRole->name}}</span>
+                                <button class="btn btn-danger delete_role_btn" type="submit" name="role" value="{{$adminRole->name}}"> <i class="fa fa-trash"></i>
                                 </button>
                             </label>
                         </form>

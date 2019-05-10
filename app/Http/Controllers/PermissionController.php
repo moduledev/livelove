@@ -29,8 +29,8 @@ class PermissionController extends Controller
         $adminId = filter_var($request->user, FILTER_SANITIZE_NUMBER_INT);
         $permission = filter_var($request->permission, FILTER_SANITIZE_SPECIAL_CHARS);
         $admin = Admin::findOrFail($adminId);
-        if($admin->hasPermissionTo($permission)) return redirect()->back()->with('warning', 'Роль ' . $permission . ' уже была добавлена!');
+        if($admin->hasPermissionTo($permission)) return redirect()->back()->with('warning', 'Permission ' . $permission . ' уже была добавлена!');
         $admin->givePermissionTo($permission);
-        return redirect()->back()->with('success', 'Роль ' . $permission . ' была успешно добавлена!');
+        return redirect()->back()->with('success', 'Permission ' . $permission . ' была успешно добавлена!');
     }
 }

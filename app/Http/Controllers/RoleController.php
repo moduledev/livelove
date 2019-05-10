@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Admin;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -41,7 +42,14 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'role' => 'required',
+        ]);
+        $name = filter_var($request->role,FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        // store in the database
+
+        $role = Role::create(['name' => $name,'guard_name' => 'web']);
+        return redirect()->back()->with('success', 'Роль ' . $role . ' была успешно добавлена!');
     }
 
     /**
@@ -92,5 +100,25 @@ class RoleController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function assignRole(Request $request)
+    {
+        $adminId = filter_var($request->user, FILTER_SANITIZE_NUMBER_INT);
+        $role = filter_var($request->role, FILTER_SANITIZE_SPECIAL_CHARS);
+        $admin = Admin::findOrFail($adminId);
+        if($admin->hasRole($role)) return redirect()->back()->with('warning', 'Роль ' . $role . ' уже была добавлена!');
+        $admin->assignRole($role);
+        return redirect()->back()->with('success', 'Роль ' . $role . ' была успешно добавлена!');
+    }
+
+    public function removeRole(Request $request)
+    {
+        $adminId = filter_var($request->user, FILTER_SANITIZE_NUMBER_INT);
+        $role = filter_var($request->role, FILTER_SANITIZE_SPECIAL_CHARS);
+        $admin = Admin::findOrFail($adminId);
+        $admin->removeRole($role);
+        return redirect()->back()->with('success', 'Роль ' . $role . ' была успешно удалена!');
+
     }
 }
