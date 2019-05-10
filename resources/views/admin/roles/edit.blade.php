@@ -34,7 +34,7 @@
                         {{ method_field('PUT') }}
 
                         <div class="form-group col-xs-6">
-                            <input type="hidden" value="{{$role->id}}" name="user">
+                            <input type="hidden" value="{{$role->id}}" name="role">
                             <select class="form-control" name="permission" id="sel1" >
                                 <option>Выберите permission</option>
                                 @foreach($permissions as $per)
@@ -52,7 +52,7 @@
                     @foreach($userPermissions as $permission)
                         <form action="{{route('remove.permission')}}" method="post" class="delete_role_form">
                             {{ csrf_field() }}
-                            <input type="hidden" name="user" value="{{$role->id}}">
+                            <input type="hidden" name="role" value="{{$role->id}}">
                             <label class="checkbox-inline position-relative">
                                 <span>{{$permission->name}}</span>
                                 <button class="btn btn-danger delete_role_btn" type="submit" name="permission" value="{{$permission->name}}"> <i class="fa fa-trash"></i>

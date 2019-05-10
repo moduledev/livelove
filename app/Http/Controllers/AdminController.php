@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Admin;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -13,9 +14,12 @@ class AdminController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:admin')->except('create', 'store');
+        $this->middleware('auth:admin')->except('create');
+//        $this->middleware('permission:admin-edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:admin-edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:admin-list', ['only' => ['show']]);
+//        $this->middleware('permission:admin-list', ['only' => ['show']]);
+//        $this->middleware('role:super-admin');
+
     }
 
     /**
@@ -46,20 +50,25 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        // validate the data
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required',
-            'password' => 'required'
-        ]);
-        // store in the database
+        if (Auth::user()->hasPermissionTo('admin-create')) {
+            // validate the data
+            $this->validate($request, [
+                'name' => 'required',
+                'email' => 'required',
+                'password' => 'required'
+            ]);
+            // store in the database
 
-        $admins = new Admin;
-        $admins->name = filter_var($request->name, FILTER_SANITIZE_SPECIAL_CHARS);
-        $admins->email = filter_var($request->email, FILTER_SANITIZE_EMAIL);
-        $admins->password = bcrypt($request->password);
-        $admins->save();
-        return redirect()->back()->with('success', 'Администратор ' . $admins->name . ' был успешно добавлен!');
+            $admins = new Admin;
+            $admins->name = filter_var($request->name, FILTER_SANITIZE_SPECIAL_CHARS);
+            $admins->email = filter_var($request->email, FILTER_SANITIZE_EMAIL);
+            $admins->password = bcrypt($request->password);
+            $admins->save();
+            return redirect()->back()->with('success', 'Администратор ' . $admins->name . ' был успешно добавлен!');
+        } else {
+            return redirect()->back()->with('error', 'У Вас нет прав для выполнения этой операции');
+
+        }
     }
 
     /**
@@ -84,14 +93,18 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
-        $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
-        $admin = Admin::findOrFail($id);
+        if (Auth::user()->hasPermissionTo('admin-edit')) {
+            $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+            $admin = Admin::findOrFail($id);
 //        $adminsDermissions = $admin->getAllPermissions();
 //        $permissions = Permission::all();
-        $roles = Role::all();
-        $adminsRoles = $admin->roles;
+            $roles = Role::all();
+            $adminsRoles = $admin->roles;
 //        return view('admin.admins.edit', compact('admin', 'adminsDermissions', 'permissions'));
-        return view('admin.admins.edit', compact('admin', 'adminsRoles', 'roles'));
+            return view('admin.admins.edit', compact('admin', 'adminsRoles', 'roles'));
+        } else {
+            return redirect()->back()->with('error', 'У Вас нет прав для выполнения этой операции');
+        }
     }
 
     /**
@@ -129,13 +142,17 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
-        $adminId = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
-        $admin = Admin::findOrFail($adminId);
-        if ($admin->id !== auth()->id()) {
-            $admin->delete();
-            return redirect()->back()->with('success', 'Пользователь ' . $admin->name . ' был успешно удален!');
+        if (Auth::user()->hasPermissionTo('admin-delete')) {
+            $adminId = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+            $admin = Admin::findOrFail($adminId);
+            if ($admin->id !== auth()->id()) {
+                $admin->delete();
+                return redirect()->back()->with('success', 'Пользователь ' . $admin->name . ' был успешно удален!');
+            } else {
+                return redirect()->back()->with('error', 'Администратор не может удалить сам себя!');
+            }
         } else {
-            return redirect()->back()->with('error', 'Администратор не может удалить сам себя!');
+            return redirect()->back()->with('error', 'У Вас нет прав для выполнения этой операции');
         }
     }
 

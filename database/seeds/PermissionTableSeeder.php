@@ -18,18 +18,27 @@ class PermissionTableSeeder extends Seeder
             'role-create',
             'role-edit',
             'role-delete',
+            'role-show',
             'user-list',
+            'user-show',
             'user-create',
             'user-edit',
             'user-delete',
             'admin-list',
+            'admin-show',
             'admin-create',
             'admin-edit',
             'admin-delete',
             'program-list',
+            'program-show',
             'program-create',
             'program-edit',
-            'program-delete'
+            'program-delete',
+            'program-assign',
+            'program-revoke',
+            'permission-assign',
+            'permission-revoke',
+
         ];
 
 

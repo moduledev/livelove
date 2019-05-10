@@ -31,9 +31,9 @@
                 <td>{{$role->id}}</td>
                 <td>{{$role->name}}</td>
                 <td>
-                    <a href="" class="btn btn-info"> <i class="fa fa-eye"></i>  </a>
+                    <a href="{{route('show.role',$role->id)}}" class="btn btn-info"> <i class="fa fa-eye"></i>  </a>
 
-                    <form method="post" action=""
+                    <form method="post" action="{{route('delete.role')}}"
                           style="display: inline-block">
                         {!! csrf_field() !!}
                         {{ method_field('DELETE') }}

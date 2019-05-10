@@ -9,6 +9,11 @@ Breadcrumbs::for('users', function ($trail) {
     $trail->push('Пользователи', route('dashboard.users'));
 });
 
+Breadcrumbs::for('roles', function ($trail) {
+    $trail->parent('dashboard');
+    $trail->push('Роли', route('dashboard.roles'));
+});
+
 Breadcrumbs::for('admins', function ($trail) {
     $trail->parent('dashboard');
     $trail->push('Администраторы', route('dashboard.admins'));
@@ -35,5 +40,9 @@ Breadcrumbs::for('show-user', function ($trail, $id,$name) {
 
 Breadcrumbs::for('show-admin', function ($trail, $id,$name) {
     $trail->parent('admins');
+    $trail->push($name, route('admin.admins.show', $id));
+});
+Breadcrumbs::for('show-role', function ($trail, $id,$name) {
+    $trail->parent('roles');
     $trail->push($name, route('admin.admins.show', $id));
 });

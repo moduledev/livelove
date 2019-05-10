@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Program;
 use Spatie\Permission\Models\Role;
@@ -13,10 +14,6 @@ class DashboardController extends Controller
     public function __construct()
     {
         $this->middleware('auth:admin');
-        $this->middleware('permission:program-list', ['only' => ['programs']]);
-        $this->middleware('permission:user-list', ['only' => ['users']]);
-        $this->middleware('permission:admin-list', ['only' => ['admins']]);
-
     }
 
     /**
@@ -31,29 +28,42 @@ class DashboardController extends Controller
 
     public function users()
     {
-        $users = DB::table('users')->paginate(5);
-
-        return view('admin.users.index',compact('users'));
+        if (Auth::user()->hasPermissionTo('user-list')) {
+            $users = DB::table('users')->paginate(5);
+            return view('admin.users.index', compact('users'));
+        } else {
+            return redirect()->back()->with('error', 'У Вас нет прав для выполнения этой операции');
+        }
     }
 
     public function admins()
     {
-//        $admins = DB::table('admins')->paginate(5);
-        $admins = Admin::with('roles')->paginate(5);
-        $roles = Admin::all();
-        return view('admin.admins.index',compact('admins','roles'));
+        if (Auth::user()->hasPermissionTo('admin-list')) {
+            $admins = Admin::with('roles')->paginate(5);
+            $roles = Role::all();
+            return view('admin.admins.index', compact('admins', 'roles'));
+        } else {
+            return redirect()->back()->with('error', 'У Вас нет прав для выполнения этой операции');
+        }
     }
 
     public function programs()
     {
-        $programs = Program::paginate(5);
-
-        return view('admin.programs.index',compact('programs'));
+        if (Auth::user()->hasPermissionTo('program-list')) {
+            $programs = Program::paginate(5);
+            return view('admin.programs.index', compact('programs'));
+        } else {
+            return redirect()->back()->with('error', 'У Вас нет прав для выполнения этой операции');
+        }
     }
 
     public function roles()
     {
-        $roles = Role::paginate(5);
-        return view('admin.roles.index',compact('roles'));
+        if (Auth::user()->hasPermissionTo('role-list')) {
+            $roles = Role::paginate(5);
+            return view('admin.roles.index', compact('roles'));
+        } else {
+            return redirect()->back()->with('error', 'У Вас нет прав для выполнения этой операции');
+        }
     }
 }
