@@ -79,10 +79,15 @@ class AdminController extends Controller
      */
     public function show($id)
     {
-        $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
-        $admin = Admin::findOrFail($id);
-        $adminsDermissions = $admin->getAllPermissions();
-        return view('admin.admins.show', compact('admin', 'adminsDermissions'));
+
+        if (Auth::user()->hasPermissionTo('admin-show')) {
+            $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+            $admin = Admin::findOrFail($id);
+            $adminsDermissions = $admin->getAllPermissions();
+            return view('admin.admins.show', compact('admin', 'adminsDermissions'));
+        } else {
+            return redirect()->back()->with('error', 'У Вас нет прав для выполнения этой операции');
+        }
     }
 
     /**

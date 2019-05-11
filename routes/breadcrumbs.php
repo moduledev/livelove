@@ -46,3 +46,8 @@ Breadcrumbs::for('show-role', function ($trail, $id,$name) {
     $trail->parent('roles');
     $trail->push($name, route('admin.admins.show', $id));
 });
+
+Breadcrumbs::for('search', function ($trail) {
+    $trail->parent('dashboard');
+    $trail->push('Результат поиска', route('search'));
+});

@@ -6,7 +6,23 @@
    {{ Breadcrumbs::render('users') }}
 @endsection
 @section('content')
+<div class="row">
+    <div class="col-xs-12">
+        <form action="{{route('search')}}" class="form-horizontal" method="post">
+            {{ csrf_field() }}
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="image">Найти:</label>
+                <div class="col-sm-6">
+                    <input type="search" name="q" class="form-control">
+                </div>
+                <div class="col-sm-2">
+                    <button type="submit" class="btn btn-default">Найти <i class="fa fa-search"></i></button>
+                </div>
+            </div>
 
+        </form>
+    </div>
+</div>
     <div class="row">
        <div class="col-xs-12">
            @isset($users)
