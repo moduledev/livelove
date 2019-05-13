@@ -18,17 +18,22 @@ class RolesTableSeeder extends Seeder
         //
 
         $permissions = \Spatie\Permission\Models\Permission::all()->pluck('name');
-        $role =  Role::updateOrCreate(['name' => 'super-admin']);
+        $role = Role::updateOrCreate(['name' => 'super-admin']);
 
         foreach ($permissions as $permission) {
             $role->givePermissionTo($permission);
         }
 
+        $user = Admin::where('email', 'admin@admin.com')->first();
+        if (!$user->hasRole('super-admin')) {
+            $user->assignRole('super-admin');
+        }
 
-       if(!Admin::where('email','admin@admin.com')->get()){
-           $user = Admin::updateOrCreate(['name' => 'admin','email' => 'admin@admin.com','password' => Hash::make('password')]);
-           $user->assignRole('super-admin');
-       }
+        if (!$user) {
+            $user = Admin::updateOrCreate(['name' => 'admin', 'email' => 'admin@admin.com', 'password' => Hash::make('password')]);
+            $user->assignRole('super-admin');
+        }
+
 
     }
 }
