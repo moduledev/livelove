@@ -12,6 +12,11 @@
   width: 150px;
 }
 
+.error_group .error_element {
+  color: #dd4b39;
+  padding: 5px;
+}
+
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);

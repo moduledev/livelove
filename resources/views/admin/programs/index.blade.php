@@ -21,9 +21,9 @@
                     </div>
                 </div>
                 @if ($errors->has('image'))
-                    <div class="form-group">
+                    <div class="form-group error_group">
                         <div class="col-xs-10 col-sm-offset-2">
-                            <p>{{$errors->first('image')}}</p>
+                            <p class="error_element">{{$errors->first('image')}}</p>
                         </div>
                 @endif
                 <div class="form-group">
@@ -39,9 +39,9 @@
                     </div>
                 </div>
                 @if ($message = Session::get('started_error'))
-                    <div class="form-group">
+                    <div class="form-group error_group">
                         <div class="col-xs-10 col-sm-offset-2">
-                        <p class="alert alert-error">{{ $message }}</p>
+                        <p class="error_element">{{ $message }}</p>
                     </div>
                 @endif
                 <div class="form-group">

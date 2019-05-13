@@ -14,11 +14,13 @@
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label for="name">Имя:</label>
-                    <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
+                    <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required
+                           autofocus>
                 </div>
                 <div class="form-group">
                     <label for="email">Email address:</label>
-                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}"
+                           required>
                 </div>
                 <div class="form-group">
                     <label for="pwd">Password:</label>
@@ -26,6 +28,13 @@
                 </div>
                 <button type="submit" class="btn btn-default">Добавить</button>
             </form>
+            @if ($errors->any())
+                <div class="form-group error_group">
+                    <div class="col-xs-10">
+                        <p class="error_element">{{$errors->first('email')}}</p>
+                    </div>
+                    @endif
+                </div>
         </div>
         <div class="col-xs-12">
             @isset($admins)
@@ -52,17 +61,22 @@
                             </td>
                             <td>
                                 <div class=" text-center">
-                                    <a href="{{route('admin.admins.show', $admin->id)}}" class="btn btn-info"> <i class="fa fa-eye"></i> </a>
+                                    <a href="{{route('admin.admins.show', $admin->id)}}" class="btn btn-info"> <i
+                                                class="fa fa-eye"></i> </a>
 
-                                    <form method="post" action="{{ route('admin.admins.delete', $admin->id) }}" style="display: inline-block">
+                                    <form method="post" action="{{ route('admin.admins.delete', $admin->id) }}"
+                                          style="display: inline-block">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
                                         <input type="hidden" name="id" value="{{$admin->id}}">
-                                        <button href="#" class="btn btn-danger" type="submit"> <i class="fa fa-trash"></i> </button>
+                                        <button href="#" class="btn btn-danger" type="submit"><i
+                                                    class="fa fa-trash"></i></button>
                                     </form>
 
-                                    <form method="get" action="{{ route('admin.admins.edit',$admin->id) }}" style="display: inline-block">
-                                        <button href="#" class="btn btn-success" type="submit"> <i class="fa fa-pencil-square"></i> </button>
+                                    <form method="get" action="{{ route('admin.admins.edit',$admin->id) }}"
+                                          style="display: inline-block">
+                                        <button href="#" class="btn btn-success" type="submit"><i
+                                                    class="fa fa-pencil-square"></i></button>
                                     </form>
 
                                 </div>

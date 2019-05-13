@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Admin;
+use App\Http\Requests\AdminStoreRequest;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -48,16 +49,11 @@ class AdminController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AdminStoreRequest $request)
     {
         if (Auth::user()->hasPermissionTo('admin-create')) {
-            // validate the data
-            $this->validate($request, [
-                'name' => 'required',
-                'email' => 'required',
-                'password' => 'required'
-            ]);
-            // store in the database
+
+            $validator = $request->validated();
 
             $admins = new Admin;
             $admins->name = filter_var($request->name, FILTER_SANITIZE_SPECIAL_CHARS);
