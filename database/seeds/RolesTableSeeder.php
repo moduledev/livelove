@@ -16,35 +16,19 @@ class RolesTableSeeder extends Seeder
     public function run()
     {
         //
-        $role =  Role::create(['name' => 'super-admin']);
 
-        $role->givePermissionTo('role-list');
-        $role->givePermissionTo('role-create');
-        $role->givePermissionTo('role-edit');
-        $role->givePermissionTo('role-delete');
-        $role->givePermissionTo('role-assign');
-        $role->givePermissionTo('role-revoke');
-        $role->givePermissionTo('role-show');
+        $permissions = \Spatie\Permission\Models\Permission::all()->pluck('name');
+        $role =  Role::updateOrCreate(['name' => 'super-admin']);
 
-        $role->givePermissionTo('user-list');
-        $role->givePermissionTo('user-create');
-        $role->givePermissionTo('user-edit');
-        $role->givePermissionTo('user-delete');
-        $role->givePermissionTo('user-show');
+        foreach ($permissions as $permission) {
+            $role->givePermissionTo($permission);
+        }
 
-        $role->givePermissionTo('admin-list');
-        $role->givePermissionTo('admin-create');
-        $role->givePermissionTo('admin-edit');
-        $role->givePermissionTo('admin-delete');
-        $role->givePermissionTo('admin-show');
 
-        $role->givePermissionTo('program-list');
-        $role->givePermissionTo('program-create');
-        $role->givePermissionTo('program-edit');
-        $role->givePermissionTo('program-delete');
-        $role->givePermissionTo('program-show');
+       if(!Admin::where('email','admin@admin.com')->get()){
+           $user = Admin::updateOrCreate(['name' => 'admin','email' => 'admin@admin.com','password' => Hash::make('password')]);
+           $user->assignRole('super-admin');
+       }
 
-        $user = Admin::create(['name' => 'admin','email' => 'admin@admin.com','password' => Hash::make('password')]);
-        $user->assignRole('super-admin');
     }
 }
