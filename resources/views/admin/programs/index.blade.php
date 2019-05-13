@@ -20,7 +20,12 @@
                         <input type="file" name="image" class="form-control">
                     </div>
                 </div>
-
+                @if ($errors->has('image'))
+                    <div class="form-group">
+                        <div class="col-xs-10 col-sm-offset-2">
+                            <p>{{$errors->first('image')}}</p>
+                        </div>
+                @endif
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="name">Имя:</label>
                     <div class="col-xs-6">
@@ -30,16 +35,27 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="started">Старт программы:</label>
                     <div class="col-xs-3">
-                        <input type="date" name="started" class="form-control" placeholder="Имя">
+                        <input type="date" name="started" class="@error('started_error') is-invalid @enderror form-control" placeholder="Имя">
                     </div>
                 </div>
+                @if ($message = Session::get('started_error'))
+                    <div class="form-group">
+                        <div class="col-xs-10 col-sm-offset-2">
+                        <p class="alert alert-error">{{ $message }}</p>
+                    </div>
+                @endif
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="finished">Окончание программы:</label>
                     <div class="col-xs-3">
                         <input type="date" name="finished" class="form-control" placeholder="Имя">
                     </div>
                 </div>
-
+               @if ($message = Session::get('finished_error'))
+                <div class="form-group">
+                 <div class="col-xs-10 col-sm-offset-2">
+                    <p class="alert alert-error">{{ $message }}</p>
+                 </div>
+               @endif
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="description">Описание:</label>
                     <div class="col-sm-10">

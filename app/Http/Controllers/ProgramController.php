@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProgramStoreRequest;
 use App\Program;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -13,30 +14,31 @@ class ProgramController extends Controller
     public function __construct()
     {
         $this->middleware('auth:admin');
-        $this->middleware('permission:program-edit', ['only' => ['editProgram','updateProgram']]);
+        $this->middleware('permission:program-edit', ['only' => ['editProgram', 'updateProgram']]);
         $this->middleware('permission:program-delete', ['only' => ['delete']]);
         $this->middleware('permission:program-create', ['only' => ['createProgram']]);
         $this->middleware('permission:program-list', ['only' => ['showProgram']]);
     }
 
-    public function createProgram(Request $request)
+    public function createProgram(ProgramStoreRequest $request)
     {
-        // validate the data
-        $this->validate($request, [
-            'name' => 'required',
-            'description' => 'required',
-            'image' => 'required',
-            'started' => 'required',
-            'finished' => 'required',
-
-        ]);
-        // store in the database
-
+        $validated = $request->validated();
         $program = new Program;
         $program->name = filter_var($request->name, FILTER_SANITIZE_SPECIAL_CHARS);
         $program->description = filter_var($request->description, FILTER_SANITIZE_SPECIAL_CHARS);
-        $program->started = Carbon::parse(filter_var($request->started, FILTER_SANITIZE_SPECIAL_CHARS));
-        $program->finished = Carbon::parse(filter_var($request->finished, FILTER_SANITIZE_SPECIAL_CHARS));
+
+        $started = Carbon::parse(filter_var($request->started, FILTER_SANITIZE_SPECIAL_CHARS));
+        $finished = Carbon::parse(filter_var($request->finished, FILTER_SANITIZE_SPECIAL_CHARS));
+
+        if ($started->isPast() !== false  ) {
+            return redirect()->back()->with('started_error', 'Программа не была создана, нельзя установить прошедшую дату!');
+        } else if($started->gt($finished) === true) {
+            return redirect()->back()->with('finished_error', 'Программа не была создана, дата завершения не должна быть раньше начальной!');
+        } else {
+            $program->started = $started;
+            $program->finished = $finished;
+        }
+
         if ($request->hasFile('image')) {
 
             $path = $request->file('image')->store('program', 'public');

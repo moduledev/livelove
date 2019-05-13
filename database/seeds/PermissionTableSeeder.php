@@ -40,9 +40,11 @@ class PermissionTableSeeder extends Seeder
             'program-revoke',
             'permission-assign',
             'permission-revoke',
-
         ];
 
+//        foreach ($permissions as $permission) {
+//            Permission::where(['name' => $permission])->delete();
+//        }
 
         foreach ($permissions as $permission) {
             Permission::create(['name' => $permission]);
