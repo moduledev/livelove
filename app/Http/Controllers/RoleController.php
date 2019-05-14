@@ -130,6 +130,7 @@ class RoleController extends Controller
     public function assignRole(Request $request)
     {
         if (Auth::user()->hasPermissionTo('role-assign')) {
+            if($request->role === 'Выберите роль') return redirect()->back();
             $adminId = filter_var($request->user, FILTER_SANITIZE_NUMBER_INT);
             $role = filter_var($request->role, FILTER_SANITIZE_SPECIAL_CHARS);
             $admin = Admin::findOrFail($adminId);
