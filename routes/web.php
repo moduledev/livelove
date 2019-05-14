@@ -19,7 +19,7 @@ Route::prefix('admin')->group(function () {
     Route::get('programs', 'DashboardController@programs')->name('dashboard.programs');
     Route::get('roles', 'DashboardController@roles')->name('dashboard.roles');
 
-    Route::get('login', 'Auth\Admin\LoginController@login')->name('admin.auth.login');
+    Route::get('login', 'Auth\Admin\LoginController@login')->name('login');
     Route::post('login', 'Auth\Admin\LoginController@loginAdmin')->name('admin.auth.loginAdmin');
     Route::post('logout', 'Auth\Admin\LoginController@logout')->name('admin.auth.logout');
 
