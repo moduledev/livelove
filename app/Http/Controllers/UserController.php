@@ -135,6 +135,9 @@ class UserController extends Controller
     public function assignProgram(Request $request)
     {
         if (Auth::user()->hasPermissionTo('program-assign')) {
+
+            if ($request->program === 'Выберите программу') return redirect()->back();
+
             $userId = filter_var($request->user, FILTER_SANITIZE_NUMBER_INT);
             $program = filter_var($request->program, FILTER_SANITIZE_SPECIAL_CHARS);
             $programs = User::findOrFail($userId)->programs()->get();
@@ -145,6 +148,7 @@ class UserController extends Controller
             } else {
                 return redirect()->back()->with('error', 'Пользователью уже была добавлена программа!');
             }
+
         } else {
             return redirect()->back()->with('error', 'У Вас нет прав для выполнения этой операции');
         }
