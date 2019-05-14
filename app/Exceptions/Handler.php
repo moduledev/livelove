@@ -61,10 +61,10 @@ class Handler extends ExceptionHandler
         $guard = array_get($exception->guards(), 0);
         switch ($guard) {
             case 'admin':
-                $login = 'admin.auth.login';
+                $login = 'login';
                 break;
             default:
-                $login = 'login';
+                $login = 'user.login';
                 break;
         }
         return redirect()->guest(route($login));
