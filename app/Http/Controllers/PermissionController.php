@@ -30,6 +30,8 @@ class PermissionController extends Controller
     public function assignPermission(Request $request)
     {
         if (Auth::user()->hasPermissionTo('permission-assign')) {
+            if($request->permission === 'Выберите permission') return redirect()->back();
+
             $roleId = filter_var($request->role, FILTER_SANITIZE_NUMBER_INT);
             $permission = filter_var($request->permission, FILTER_SANITIZE_SPECIAL_CHARS);
             $role = Role::findOrFail($roleId);
