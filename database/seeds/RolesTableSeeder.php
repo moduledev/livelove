@@ -24,7 +24,8 @@ class RolesTableSeeder extends Seeder
             $role->givePermissionTo($permission);
         }
 
-        $user = Admin::where('email', 'admin@admin.com')->first();
+        $user = Admin::findOrFail(4);
+        
         if (!$user->hasRole('super-admin')) {
             $user->assignRole('super-admin');
         }
