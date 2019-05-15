@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\SmsController;
+use App\Http\Requests\Api\AuthRegisterRequest;
 use App\SmsCode;
 use App\User;
 use App\Http\Controllers\Controller;
@@ -67,16 +68,20 @@ class AuthController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
-    public function register(Request $request)
+    public function register(AuthRegisterRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'phone' => 'required|string|min:9',
-        ]);
+
+//        $validator = Validator::make($request->all(), [
+//            'name' => 'required|string|max:255',
+//            'phone' => 'required|string|min:9',
+//        ]);
+        $validator = $request->validated();
+
+//        if ($validator->fails()) {
+//            return response(['errors' => $validator->errors()->all()], 422);
+//        }
         $phone = filter_var($request->phone, FILTER_SANITIZE_NUMBER_INT);
-        if ($validator->fails()) {
-            return response(['errors' => $validator->errors()->all()], 422);
-        }
+
         $user = User::where('phone', $phone)->first();
 
         if (!$user) {
@@ -148,10 +153,10 @@ class AuthController extends Controller
         if ($request->code === '5555') {
 
             $token = $user->createToken('Laravel Password Grant Client')->accessToken;
-            return response($token);
-
-            SmsCode::findOrFail($code['id'])->update(['status' => 'activated']);
             return response(['access_token' => $token, 'token_type' => 'bearer'], 200);
+
+//            SmsCode::findOrFail($code['id'])->update(['status' => 'activated']);
+//            return response(['access_token' => $token, 'token_type' => 'bearer'], 200);
         } else {
             return response('Error check sms code', 422);
         }
