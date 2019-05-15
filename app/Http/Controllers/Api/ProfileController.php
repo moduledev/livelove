@@ -49,7 +49,7 @@ class ProfileController extends Controller
     public function index($phone)
     {
         $phone = filter_var($phone, FILTER_SANITIZE_NUMBER_INT);
-        $userData = User::with('programs')->where('phone',$phone)->first();
+        $userData = User::with('programs')->where('phone',$phone)->get();
         if ($userData) {
             return response($userData, 200);
         } else {

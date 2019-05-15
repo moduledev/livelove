@@ -41,7 +41,7 @@
                                     <input type="date"
                                            name="started"
                                            class="form-control" placeholder="Имя"
-                                           :class="{error_group: startTimeError}"
+                                           :class="{error_input: startTimeError}"
                                            @change="start(startTime)"
                                            v-model="startTime" >
                                 </div>
@@ -64,7 +64,7 @@
                                                    name="finished"
                                                    placeholder="Имя"
                                                    class="form-control"
-                                                   :class="{error_group: startTimeError, error_group: finishTimeError}"
+                                                   :class="{error_input: finishTimeError}"
                                                    @change="finish(finishTime)"
                                                    v-model="finishTime">
                                         </div>

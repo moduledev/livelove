@@ -19,7 +19,6 @@ Route::group(['middleware' => ['json.response']], function () {
         Route::get('/users/{phone}', 'Api\ProfileController@index');
         Route::post('/users/edit/{id}', 'Api\ProfileController@update');
         Route::delete('/users/delete/{id}', 'Api\ProfileController@delete');
-
     });
 
     Route::post('/user/smsverify', 'Api\AuthController@verify');
