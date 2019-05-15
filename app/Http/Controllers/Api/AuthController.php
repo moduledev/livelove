@@ -68,18 +68,18 @@ class AuthController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
-    public function register(AuthRegisterRequest $request)
+    public function register(Request $request)
     {
 
-//        $validator = Validator::make($request->all(), [
-//            'name' => 'required|string|max:255',
-//            'phone' => 'required|string|min:9',
-//        ]);
-        $validator = $request->validated();
+       $validator = Validator::make($request->all(), [
+           'name' => 'required|string|max:255',
+           'phone' => 'required|string|min:9',
+       ]);
+        // $validator = $request->validated();
 
-//        if ($validator->fails()) {
-//            return response(['errors' => $validator->errors()->all()], 422);
-//        }
+       if ($validator->fails()) {
+           return response(['errors' => $validator->errors()->all()], 422);
+       }
         $phone = filter_var($request->phone, FILTER_SANITIZE_NUMBER_INT);
 
         $user = User::where('phone', $phone)->first();
