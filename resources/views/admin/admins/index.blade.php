@@ -10,17 +10,15 @@
     <div class="row">
         <div class="col-xs-12">
             <h3>Добавить нового администратора:</h3>
-            <form method="POST" class="form-inline" action="{{route('admin.register.store')}}">
+            <form method="POST" class="form-inline {{ $errors->has('email') ? 'error_group' :'' }}" action="{{route('admin.register.store')}}">
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label for="name">Имя:</label>
-                    <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required
-                           autofocus>
+                    <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required>
                 </div>
                 <div class="form-group">
                     <label for="email">Email address:</label>
-                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}"
-                           required>
+                    <input id="email" type="email" class="form-control {{ $errors->has('email') ? 'error_input' :'' }}" name="email" value="{{ old('email') }}" required>
                 </div>
                 <div class="form-group">
                     <label for="pwd">Password:</label>
