@@ -53,9 +53,12 @@
                             <td>{{$admin->name}}</td>
                             <td>{{$admin->email}}</td>
                             <td>
-                                @foreach($admin->roles as $role)
-                                    <span style="padding: 5px; background: #0d6aad;border-radius: 3px; color: #fff">{{$role->name}}</span>
-                                @endforeach
+                                @can('admin-show')
+                                    @foreach($admin->roles as $role)
+                                        <span style="padding: 5px; background: #0d6aad;border-radius: 3px; color: #fff">{{$role->name}}</span>
+                                    @endforeach
+                                @endcan
+
                             </td>
                             <td>
                                 <div class=" text-center">

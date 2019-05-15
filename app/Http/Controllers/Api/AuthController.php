@@ -81,7 +81,8 @@ class AuthController extends Controller
 
         if (!$user) {
             $user = User::create($request->toArray());
-            $token = $user->createToken('Laravel Password Grant Client')->accessToken;
+//            $token = $user->createToken('Laravel Password Grant Client')->accessToken;
+            $token = $user->createToken($phone)->accessToken;
             return response(['success' => 'Вы успешно зарегестрировались'], 200);
         } else {
             return response(['failure' => 'Пользователь с таким номером телефона уже зарагестрирован'], 422);
