@@ -12,7 +12,9 @@
                 <h4>Добавить новую программу</h4>
             </div>
             <div class="col-xs-12">
-                <form class="form-horizontal" method="POST" action="{{route('add.program')}}" enctype="multipart/form-data">
+                <form class="form-horizontal" method="POST" action="{{route('add.program')}}" enctype="multipart/form-data"
+                      {{--:class="{error_group: startTimeError, error_group: finishTimeError}">--}}
+                      :class="[startTimeError ? 'error_group' : '',finishTimeError ? 'error_group' : '']">
                     {{ csrf_field() }}
 
                     <div class="form-group">
@@ -33,11 +35,21 @@
                                     <input type="text" name="name" class="form-control" placeholder="Имя">
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" >
                                 <label class="control-label col-sm-2" for="started">Старт программы:</label>
                                 <div class="col-xs-3">
-                                    <input type="date" name="started" class="@error('started_error') is-invalid @enderror form-control" placeholder="Имя">
+                                    <input type="date"
+                                           name="started"
+                                           class="form-control" placeholder="Имя"
+                                           :class="{error_group: startTimeError}"
+                                           @change="start(startTime)"
+                                           v-model="startTime" >
                                 </div>
+                                <template v-if="startTimeError">
+                                    <div class="col-sm-10 col-sm-offset-2">
+                                        <p class="error_element">@{{errorStartTimeMessage}}</p>
+                                    </div>
+                                </template>
                             </div>
                             @if ($message = Session::get('started_error'))
                                 <div class="form-group error_group">
@@ -48,8 +60,19 @@
                                     <div class="form-group">
                                         <label class="control-label col-sm-2" for="finished">Окончание программы:</label>
                                         <div class="col-xs-3">
-                                            <input type="date" name="finished" class="form-control" placeholder="Имя">
+                                            <input type="date"
+                                                   name="finished"
+                                                   placeholder="Имя"
+                                                   class="form-control"
+                                                   :class="{error_group: startTimeError, error_group: finishTimeError}"
+                                                   @change="finish(finishTime)"
+                                                   v-model="finishTime">
                                         </div>
+                                        <template v-if="finishTimeError">
+                                            <div class="col-sm-10 col-sm-offset-2">
+                                                <p class="error_element">@{{errorFinishTimeMessage}}</p>
+                                            </div>
+                                        </template>
                                     </div>
                                     @if ($message = Session::get('finished_error'))
                                         <div class="form-group">
@@ -66,7 +89,8 @@
                                             </div>
                                             <div class="form-group">
                                                 <div class="col-sm-offset-2 col-sm-10">
-                                                    <button type="submit" class="btn btn-default">Добавить</button>
+                                                    <button type="submit" :class="{error_btn: finishTimeError,error_btn: startTimeError }" class="btn btn-default"
+                                                            :disabled="finishTimeError||startTimeError">Добавить</button>
                                                 </div>
                                             </div>
                 </form>
