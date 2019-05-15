@@ -12,23 +12,23 @@ class Program extends Model
         'name','description','image','finished','started','term'
     ];
 
-    protected $appends = ['term','memberscount','members'];
+    protected $appends = ['term','membersCount'];
 
-    public function getMemberscountAttribute()
+    public function getMembersCountAttribute()
     {
         return $this->users()->count();
     }
 
-    public function getMembersAttribute()
-    {
-        return $this->users()->get();
-    }
+    // public function getMembersAttribute()
+    // {
+    //     return $this->users()->get();
+    // }
 
     public function getTermAttribute()
     {
         $end = Carbon::parse($this->finished);
         $start = Carbon::parse($this->started);
-        return $this->attributes['term'] =  $end->diffInDays($start) . ' дней';
+        return $this->attributes['term'] =  $end->diffInMilliseconds($start);
     }
 
     public function users()
