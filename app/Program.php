@@ -23,7 +23,7 @@ class Program extends Model
     // {
     //     return $this->users()->get();
     // }
-
+    
     public function getTermAttribute()
     {
         $end = Carbon::parse($this->finished);
