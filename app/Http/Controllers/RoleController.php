@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use Validator;
 
 class RoleController extends Controller
 {
@@ -16,41 +17,23 @@ class RoleController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * Store new permission
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
         if (Auth::user()->hasPermissionTo('role-create')) {
-            $this->validate($request, [
+            $validator = Validator::make($request->all(), [
                 'role' => 'required',
             ]);
-            $name = filter_var($request->role,FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            // store in the database
+            if ($validator->fails()) {
+                return redirect()
+                    ->back()
+                    ->withErrors($validator);
+            }
 
-            $role = Role::create(['name' => $name,'guard_name' => 'web']);
+            Role::create(['name' => $request->role,'guard_name' => 'web']);
             return redirect()->back()->with('success', 'Роль была успешно добавлена!');
         } else {
             return redirect()->back()->with('error', 'У Вас нет прав для выполнения этой операции');
@@ -59,8 +42,7 @@ class RoleController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
+     * Display role.
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -73,7 +55,6 @@ class RoleController extends Controller
             return view('admin.roles.show',compact('role','permissions'));
         } else {
             return redirect()->back()->with('error', 'У Вас нет прав для выполнения этой операции');
-
         }
     }
 
@@ -105,17 +86,27 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // store in the database
+        $validator = Validator::make($request->all(), [
+            'role' => 'string',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator);
+        }
         $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
-        $admins = Admin::findOrFail($id);
-        $admins->name = filter_var($request->name, FILTER_SANITIZE_SPECIAL_CHARS);
-        $admins->email = filter_var($request->email, FILTER_SANITIZE_EMAIL);
-        $admins->password = bcrypt($request->password);
-        $admins->save();
-        return redirect()->back()->with('success', 'Администратор ' . $admins->name . ' был успешно изменен!');
+        $role = Role::findOrFail($id);
+        $role->name = $request->name;
+        $role->save();
+        return redirect()->back()->with('success', 'Роль ' . $role->name . ' был успешно изменен!');
     }
 
 
+    /**Delete role
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy(Request $request)
     {
         if (Auth::user()->hasPermissionTo('role-delete')) {
@@ -127,29 +118,57 @@ class RoleController extends Controller
         }
     }
 
+    /**Assign role to user
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function assignRole(Request $request)
     {
         if (Auth::user()->hasPermissionTo('role-assign')) {
             if($request->role === 'Выберите роль') return redirect()->back();
-            $adminId = filter_var($request->user, FILTER_SANITIZE_NUMBER_INT);
-            $role = filter_var($request->role, FILTER_SANITIZE_SPECIAL_CHARS);
-            $admin = Admin::findOrFail($adminId);
-            if($admin->hasRole($role)) return redirect()->back()->with('warning', 'Роль ' . $role . ' уже была добавлена!');
-            $admin->assignRole($role);
+
+            $validator = Validator::make($request->all(), [
+                'role' => 'string',
+                'user' => 'integer',
+            ]);
+
+            if ($validator->fails()) {
+                return redirect()
+                    ->back()
+                    ->withErrors($validator);
+            }
+
+            $admin = Admin::findOrFail($request->user);
+            if($admin->hasRole($request->role)) return redirect()->back()->with('warning', 'Роль ' . $request->role . ' уже была добавлена!');
+            $admin->assignRole($request->role);
             return redirect()->back()->with('success', 'Роль  была успешно добавлена!');
         } else {
             return redirect()->back()->with('error', 'У Вас нет прав для выполнения этой операции');
         }
     }
 
+    /**Revoke role from user
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function removeRole(Request $request)
     {
         if (Auth::user()->hasPermissionTo('role-revoke')) {
-            $adminId = filter_var($request->user, FILTER_SANITIZE_NUMBER_INT);
-            $role = filter_var($request->role, FILTER_SANITIZE_SPECIAL_CHARS);
-            $admin = Admin::findOrFail($adminId);
-            $admin->removeRole($role);
-            return redirect()->back()->with('success', 'Роль ' . $role . ' была успешно удалена!');
+
+            $validator = Validator::make($request->all(), [
+                'role' => 'string',
+                'user' => 'integer',
+            ]);
+
+            if ($validator->fails()) {
+                return redirect()
+                    ->back()
+                    ->withErrors($validator);
+            }
+
+            $admin = Admin::findOrFail($request->user);
+            $admin->removeRole($request->role);
+            return redirect()->back()->with('success', 'Роль ' . $request->role . ' была успешно удалена!');
         } else {
             return redirect()->back()->with('error', 'У Вас нет прав для выполнения этой операции');
         }

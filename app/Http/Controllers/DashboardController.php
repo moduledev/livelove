@@ -17,7 +17,7 @@ class DashboardController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display main dashboard page.
      *
      * @return \Illuminate\Http\Response
      */
@@ -26,6 +26,10 @@ class DashboardController extends Controller
         return view('admin.dashboard.index');
     }
 
+    /**
+     * Display users page
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
     public function users()
     {
         if (Auth::user()->hasPermissionTo('user-list')) {
@@ -36,6 +40,10 @@ class DashboardController extends Controller
         }
     }
 
+    /**
+     * Display admins page
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
     public function admins()
     {
         if (Auth::user()->hasPermissionTo('admin-list')) {
@@ -47,6 +55,10 @@ class DashboardController extends Controller
         }
     }
 
+    /**
+     * Display programs page
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
     public function programs()
     {
         if (Auth::user()->hasPermissionTo('program-list')) {
@@ -57,6 +69,10 @@ class DashboardController extends Controller
         }
     }
 
+    /**
+     * Display roles page
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
     public function roles()
     {
         if (Auth::user()->hasPermissionTo('role-list')) {

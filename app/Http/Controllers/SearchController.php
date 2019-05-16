@@ -13,6 +13,10 @@ class SearchController extends Controller
         $this->middleware('auth:admin');
     }
 
+    /** Search user by phone or name
+     * @param Request $request
+     * @return mixed
+     */
     public function search(Request $request)
     {
         $q = Input::get('q');

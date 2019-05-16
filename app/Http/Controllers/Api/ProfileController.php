@@ -47,6 +47,13 @@ class ProfileController extends Controller
      *     ),
      * )
      */
+
+
+    /**
+     * Show users date
+     * @param $phone
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\JsonResponse|\Illuminate\Http\Response
+     */
     public function index($phone)
     {
         $phone = filter_var($phone, FILTER_SANITIZE_NUMBER_INT);
@@ -128,6 +135,7 @@ class ProfileController extends Controller
      *     ),
      * )
      *
+     * Update users date
      * @param ProfileUpdateRequest $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse

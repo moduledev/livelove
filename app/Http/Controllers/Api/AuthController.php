@@ -122,7 +122,7 @@ class AuthController extends Controller
      */
 
     /**Check is sms code exist in table
-     * @param Request $request
+     * @param SmsVerifyRequest $request
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
     public function verify(SmsVerifyRequest $request)
@@ -172,7 +172,7 @@ class AuthController extends Controller
      */
 
     /**Login user
-     * @param Request $request
+     * @param AuthLoginRequest $request
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
     public function login(AuthLoginRequest $request)

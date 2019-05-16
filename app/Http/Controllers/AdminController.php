@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Admin;
 use App\Http\Requests\AdminStoreRequest;
+use App\Http\Requests\AdminUpdateRequest;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,25 +17,12 @@ class AdminController extends Controller
     public function __construct()
     {
         $this->middleware('auth:admin')->except('create');
-//        $this->middleware('permission:admin-edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:admin-edit', ['only' => ['edit', 'update']]);
-//        $this->middleware('permission:admin-list', ['only' => ['show']]);
-//        $this->middleware('role:super-admin');
-
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //        return view('admin.dashboard');
-    }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new admin.
      *
      * @return \Illuminate\Http\Response
      */
@@ -46,36 +34,29 @@ class AdminController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  AdminStoreRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store(AdminStoreRequest $request)
     {
         if (Auth::user()->hasPermissionTo('admin-create')) {
-
-            $validator = $request->validated();
-
             $admins = new Admin;
-            $admins->name = filter_var($request->name, FILTER_SANITIZE_SPECIAL_CHARS);
-            $admins->email = filter_var($request->email, FILTER_SANITIZE_EMAIL);
-            $admins->password = bcrypt($request->password);
+            $admins->fill($request->validated());
             $admins->save();
             return redirect()->back()->with('success', 'Администратор ' . $admins->name . ' был успешно добавлен!');
         } else {
             return redirect()->back()->with('error', 'У Вас нет прав для выполнения этой операции');
-
         }
     }
 
     /**
-     * Display the specified resource.
+     * Display Admins Data.
      *
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-
         if (Auth::user()->hasPermissionTo('admin-show')) {
             $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
             $admin = Admin::findOrFail($id);
@@ -87,7 +68,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the Admins data.
      *
      * @param  int $id
      * @return \Illuminate\Http\Response
@@ -97,42 +78,27 @@ class AdminController extends Controller
         if (Auth::user()->hasPermissionTo('admin-edit')) {
             $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
             $admin = Admin::findOrFail($id);
-//        $adminsDermissions = $admin->getAllPermissions();
-//        $permissions = Permission::all();
             $roles = Role::all();
             $adminsRoles = $admin->roles;
-//        return view('admin.admins.edit', compact('admin', 'adminsDermissions', 'permissions'));
             return view('admin.admins.edit', compact('admin', 'adminsRoles', 'roles'));
         } else {
             return redirect()->back()->with('error', 'У Вас нет прав для выполнения этой операции');
         }
     }
 
+
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param AdminUpdateRequest $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
      */
-    public function update(Request $request, $id)
+    public function update(AdminUpdateRequest $request, $id)
     {
-        // validate the data
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required',
-            'password' => 'required',
-            'role' => 'string'
-        ]);
-        //        dd($request->all());
-        // store in the database
-        $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
-        $admins = Admin::findOrFail($id);
-        $admins->name = filter_var($request->name, FILTER_SANITIZE_SPECIAL_CHARS);
-        $admins->email = filter_var($request->email, FILTER_SANITIZE_EMAIL);
-        $admins->password = bcrypt($request->password);
-        $admins->save();
-        return redirect()->back()->with('success', 'Администратор ' . $admins->name . ' был успешно изменен!');
+        $admin = Admin::findOrFail($id);
+        $admin->fill($request->validated());
+        $admin->save();
+        return redirect()->back()->with('success', 'Администратор ' . $admin->name . ' был успешно изменен!');
     }
 
     /**

@@ -9,7 +9,7 @@
 
     <div class="row">
         <div class="col-xs-12">
-            <form class="form-horizontal" method="POST" action="{{route('admin.admins.update',$role->id)}}">
+            <form class="form-horizontal" method="POST" action="{{route('admin.roles.update',$role->id)}}">
                 {{ csrf_field() }}
                 {{ method_field('PUT') }}
                 <div class="form-group">

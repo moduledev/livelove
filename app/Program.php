@@ -7,7 +7,9 @@ use Illuminate\Support\Carbon;
 
 class Program extends Model
 {
-    //
+    const PHOTOPATH = 'app/public/';
+
+
     protected $fillable = [
         'name','description','image','finished','started','term'
     ];

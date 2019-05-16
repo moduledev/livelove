@@ -6,6 +6,7 @@ use App\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
+use Validator;
 
 class PermissionController extends Controller
 {
@@ -14,30 +15,55 @@ class PermissionController extends Controller
         $this->middleware('auth:admin');
     }
 
+    /**Remove permission from role
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function removePermission(Request $request)
     {
         if (Auth::user()->hasPermissionTo('permission-revoke')) {
-            $roleId = filter_var($request->role, FILTER_SANITIZE_NUMBER_INT);
-            $permission = filter_var($request->permission, FILTER_SANITIZE_SPECIAL_CHARS);
-            $role = Role::findOrFail($roleId);
-            $role->revokePermissionTo($permission);
-            return redirect()->back()->with('success', 'Роль ' . $permission . ' была успешно удалена!');
+            $validator = Validator::make($request->all(), [
+                'role' => 'required|integer',
+                'permission' => 'required|string',
+            ]);
+
+            if ($validator->fails()) {
+                return redirect()
+                    ->back()
+                    ->withErrors($validator);
+            }
+
+            $role = Role::findOrFail($request->role);
+            $role->revokePermissionTo($request->permission);
+            return redirect()->back()->with('success', 'Роль ' . $request->permission . ' была успешно удалена!');
         } else {
             return redirect()->back()->with('error', 'У Вас нет прав для выполнения этой операции');
         }
     }
 
+    /**Assign permission to role
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function assignPermission(Request $request)
     {
         if (Auth::user()->hasPermissionTo('permission-assign')) {
-            if($request->permission === 'Выберите permission') return redirect()->back();
+            if ($request->permission === 'Выберите permission') return redirect()->back();
+            $validator = Validator::make($request->all(), [
+                'role' => 'required|integer',
+                'permission' => 'required|string',
+            ]);
 
-            $roleId = filter_var($request->role, FILTER_SANITIZE_NUMBER_INT);
-            $permission = filter_var($request->permission, FILTER_SANITIZE_SPECIAL_CHARS);
-            $role = Role::findOrFail($roleId);
-            if($role->hasPermissionTo($permission)) return redirect()->back()->with('warning', 'Permission ' . $permission . ' уже была добавлена!');
-            $role->givePermissionTo($permission);
-            return redirect()->back()->with('success', 'Permission ' . $permission . ' была успешно добавлена!');
+            if ($validator->fails()) {
+                return redirect()
+                    ->back()
+                    ->withErrors($validator);
+            }
+
+            $role = Role::findOrFail($request->role);
+            if ($role->hasPermissionTo($request->permission)) return redirect()->back()->with('warning', 'Permission ' . $request->permission . ' уже была добавлена!');
+            $role->givePermissionTo($request->permission);
+            return redirect()->back()->with('success', 'Permission ' . $request->permission . ' была успешно добавлена!');
         } else {
             return redirect()->back()->with('error', 'У Вас нет прав для выполнения этой операции');
         }
