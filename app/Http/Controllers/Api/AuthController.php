@@ -2,19 +2,21 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\User;
+use Validator;
+use App\SmsCode;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
+use Twilio\TwiML\Voice\Sms;
+use Illuminate\Http\Request;
+use App\SmsService\SmsService;
+use Illuminate\Support\Facades\App;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\SmsController;
 use App\Http\Requests\Api\AuthLoginRequest;
-use App\Http\Requests\Api\AuthRegisterRequest;
 use App\Http\Requests\Api\SmsVerifyRequest;
-use App\SmsCode;
-use App\SmsService\SmsService;
-use App\User;
-use App\Http\Controllers\Controller;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
-use Twilio\TwiML\Voice\Sms;
-use Validator;
+use App\Http\Requests\Api\AuthRegisterRequest;
 
 
 /**
@@ -79,7 +81,7 @@ class AuthController extends Controller
         $user = User::where('phone', $request->phone)->first();
 
         if (!$user) {
-            $user = User::create($request->toArray());
+            $user = User::create($request->all() + ['api_token' => Str::random(60)]);
             $user->createToken($request->phone)->accessToken;
             return response('', 200);
         } else {
@@ -129,6 +131,11 @@ class AuthController extends Controller
     {
         $request->validated();
         $user = User::where('phone', $request->phone)->first();
+        if(Auth::loginUsingId($user->id)){ 
+            $user = Auth::user(); 
+            $token =  $user->createToken('MyApp')->accessToken; 
+          
+        } 
         $code = $user->codes()->orderBy('id', 'desc')->where('status', 'pending')->first();
         $codeCreatedDate = Carbon::parse($code['created_at']);
         $nowDate = Carbon::now();
@@ -136,7 +143,7 @@ class AuthController extends Controller
 //        if ($request->code === $code['code'] && $timeDifference < 5) {
         if ($request->code === '5555') {
 
-            $token = $user->createToken('Laravel Password Grant Client')->accessToken;
+            // $token = $user->createToken('Laravel Password Grant Client')->accessToken;
             return response(['access_token' => $token, 'token_type' => 'bearer'], 200);
 
 //           SmsCode::findOrFail($code['id'])->update(['status' => 'activated']);
