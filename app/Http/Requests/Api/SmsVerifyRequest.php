@@ -24,7 +24,7 @@ class SmsVerifyRequest extends FormRequest
     public function rules()
     {
         return [
-            'phone' => 'required|integer|max:13',
+            'phone' => 'required|digits:12',
             'code' => 'required|integer|min:4',
         ];
     }
@@ -33,7 +33,7 @@ class SmsVerifyRequest extends FormRequest
     {
         return [
             'phone.required' => 'Телефон обязателен к заполнению!',
-            'phone.integer' => 'Телефон не должен содержать строковых символов!',
+            'phone.digits' => 'Неверный формат номера!',
             'phone.max' => 'Неверно введен номер телефона!',
             'code.required' => 'Введите полученый по sms код!',
             'code.integer' => 'Код не должен содержать строковых символов!',

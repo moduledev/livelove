@@ -132,7 +132,6 @@ class AuthController extends Controller
         $code = $user->codes()->orderBy('id', 'desc')->where('status', 'pending')->first();
         $codeCreatedDate = Carbon::parse($code['created_at']);
         $nowDate = Carbon::now();
-
         $timeDifference = $codeCreatedDate->diffInMinutes($nowDate);
 //        if ($request->code === $code['code'] && $timeDifference < 5) {
         if ($request->code === '5555') {
