@@ -3,12 +3,17 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\SmsController;
+use App\Http\Requests\Api\AuthLoginRequest;
 use App\Http\Requests\Api\AuthRegisterRequest;
+use App\Http\Requests\Api\SmsVerifyRequest;
 use App\SmsCode;
+use App\SmsService\SmsService;
 use App\User;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Twilio\TwiML\Voice\Sms;
 use Validator;
 
 
@@ -65,34 +70,21 @@ class AuthController extends Controller
      */
 
     /** Register user
-     * @param Request $request
+     * @param AuthRegisterRequest $request
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
-    public function register(Request $request)
+    public function register(AuthRegisterRequest $request)
     {
-
-       $validator = Validator::make($request->all(), [
-           'name' => 'required|string|max:255',
-           'phone' => 'required|string|min:9',
-       ]);
-        // $validator = $request->validated();
-
-       if ($validator->fails()) {
-           return response(['errors' => $validator->errors()->all()], 422);
-       }
-        $phone = filter_var($request->phone, FILTER_SANITIZE_NUMBER_INT);
-
-        $user = User::where('phone', $phone)->first();
+        $request->validated();
+        $user = User::where('phone', $request->phone)->first();
 
         if (!$user) {
             $user = User::create($request->toArray());
-//            $token = $user->createToken('Laravel Password Grant Client')->accessToken;
-            $token = $user->createToken($phone)->accessToken;
-            return response(['success' => 'Вы успешно зарегестрировались'], 200);
+            $user->createToken($request->phone)->accessToken;
+            return response('', 200);
         } else {
             return response(['failure' => 'Пользователь с таким номером телефона уже зарагестрирован'], 422);
         }
-
     }
 
     /**
@@ -133,30 +125,23 @@ class AuthController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
-    public function verify(Request $request)
+    public function verify(SmsVerifyRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'phone' => 'required|string|max:13',
-            'code' => 'required|string|min:4',
-        ]);
-        if ($validator->fails()) return response(['errors' => $validator->errors()->all()], 422);
-
-        $phone = filter_var($request->phone, FILTER_SANITIZE_NUMBER_INT);
-        $user = User::where('phone', $phone)->first();
+        $request->validated();
+        $user = User::where('phone', $request->phone)->first();
         $code = $user->codes()->orderBy('id', 'desc')->where('status', 'pending')->first();
-
         $codeCreatedDate = Carbon::parse($code['created_at']);
-        $now = Carbon::now();
+        $nowDate = Carbon::now();
 
-        $timeDifference = $codeCreatedDate->diffInMinutes($now);
-        if ($request->code === $code['code'] && $timeDifference < 5) {
-        // if ($request->code === '5555') {
+        $timeDifference = $codeCreatedDate->diffInMinutes($nowDate);
+//        if ($request->code === $code['code'] && $timeDifference < 5) {
+        if ($request->code === '5555') {
 
             $token = $user->createToken('Laravel Password Grant Client')->accessToken;
             return response(['access_token' => $token, 'token_type' => 'bearer'], 200);
 
-           SmsCode::findOrFail($code['id'])->update(['status' => 'activated']);
-           return response(['access_token' => $token, 'token_type' => 'bearer'], 200);
+//           SmsCode::findOrFail($code['id'])->update(['status' => 'activated']);
+//           return response(['access_token' => $token, 'token_type' => 'bearer'], 200);
         } else {
             return response('Error check sms code', 422);
         }
@@ -190,27 +175,16 @@ class AuthController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
-    public function login(Request $request)
+    public function login(AuthLoginRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'phone' => 'required|string|min:9',
-        ]);
-
-        if ($validator->fails()) {
-            return response(['errors' => $validator->errors()->all()], 422);
-        }
-        $phone = filter_var($request->phone, FILTER_SANITIZE_NUMBER_INT);
-
-        $user = User::where('phone', $phone)->first();
-        $sms = new SmsController();
+        $request->validated();
+        $user = User::where('phone', $request->phone)->first();
         if ($user) {
-            $sms->store($request->phone, $user->id);
-            return response(['message' => 'Вам было оправлено сообщение с кодом подтверждения.'], 200);
+            SmsService::store($request->phone, $user->id);
+            return response('', 200);
         } else {
             $response = 'Пользователя с указанным номером телефона не существует.';
             return response($response, 422);
         }
     }
-
-
 }

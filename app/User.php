@@ -38,7 +38,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-//    public $with = ['programs'];
+    const PHOTOPATH = 'app/public/';
 
     public function codes()
     {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\Api\ProfileUpdateRequest;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -49,9 +50,9 @@ class ProfileController extends Controller
     public function index($phone)
     {
         $phone = filter_var($phone, FILTER_SANITIZE_NUMBER_INT);
-        $userData = User::with('programs')->where('phone',$phone)->first();
+        $userData = User::with('programs')->where('phone', $phone)->first();
         if ($userData) {
-            return response($userData, 200);
+            return response()->json($userData);
         } else {
             return response('Unregistered user', 401);
         }
@@ -126,57 +127,38 @@ class ProfileController extends Controller
      *         description="Unregistered user",
      *     ),
      * )
+     *
+     * @param ProfileUpdateRequest $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
      */
 
-    public function update(Request $request, $id)
+    protected function update(ProfileUpdateRequest $request, $id)
     {
+        $userData = User::with('programs')->findOrFail($id);
+        $userData->fill($request->validated());
 
-        $validator = Validator::make($request->all(), [
-            'name' => 'string|max:255',
-            'phone' => 'string|min:9',
-            'biography' => 'string|max:1000',
-            'position' => 'string|max:255',
-            'image' => 'file'
-        ]);
-        if ($validator->fails()) return response(['errors' => $validator->errors()->all()], 422);
-
-        $userPhone = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
-        $userData = User::with('programs')->where('id',$id)->first();
-        if ($userData) {
-            $request->name ? $userData->name = filter_var($request->name, FILTER_SANITIZE_SPECIAL_CHARS) : $userData->name;
-            $request->phone ? $userData->phone = filter_var($request->phone, FILTER_SANITIZE_NUMBER_INT) : $userData->phone;
-            $request->biography ? $userData->biography = filter_var($request->biography, FILTER_SANITIZE_SPECIAL_CHARS) : $userData->biography;
-            $request->position ? $userData->position = filter_var($request->position, FILTER_SANITIZE_SPECIAL_CHARS) : $userData->position;
-
-            $request->facebook ? $userData->facebook = filter_var($request->facebook, FILTER_SANITIZE_SPECIAL_CHARS) : $userData->facebook;
-            $request->instagram ? $userData->instagram = filter_var($request->instagram, FILTER_SANITIZE_SPECIAL_CHARS) : $userData->instagram;
-            $request->strava ? $userData->strava = filter_var($request->strava, FILTER_SANITIZE_SPECIAL_CHARS) : $userData->strava;
-
-
-            if ($request->hasFile('image')) {
-                if ($userData->image) unlink(storage_path('app/public/'.$userData->image));
-                $path = $request->file('image')->store('users', 'public');
-                $userData->image = $path;
-            }
-
-            $userData->save();
-            return response(['success' => 'Users date has been updated','data' => $userData], 200);
-        } else {
-            return response('Unregistered user', 401);
+        if ($request->hasFile('image')) {
+            if (is_null($userData->image)) unlink(storage_path(User::PHOTOPATH . $userData->image));
+            $path = $request->file('image')->store('users', 'public');
+            $userData->image = $path;
         }
+
+        $userData->save();
+        return response()->json($userData);
     }
 
-    public function delete($id)
-    {
-        $userId = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
-        $user = User::findOrFail($userId)->first();
-        if ($user) {
-            if ($user->image) unlink(storage_path('app/public/'.$user->image));
-            $user->delete();
-            return response('User ' . $user->name . ' has been deleted', 200);
-        } else {
-            return response('Unregistered user', 401);
-        }
-    }
+//    public function delete($id)
+//    {
+//        $userId = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+//        $user = User::findOrFail($userId)->first();
+//        if ($user) {
+//            if ($user->image) unlink(storage_path('app/public/' . $user->image));
+//            $user->delete();
+//            return response('User ' . $user->name . ' has been deleted', 200);
+//        } else {
+//            return response('Unregistered user', 401);
+//        }
+//    }
 
 }

@@ -174,7 +174,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
-
+        App\Providers\SmsserviceServiceProvider::class,
     ],
 
     /*
@@ -225,7 +225,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        'SmsService' => App\SmsService\SmsServiceFacade::class,
     ],
 
 ];

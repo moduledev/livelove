@@ -1,15 +1,20 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Sergey
+ * Date: 016 16.05.19
+ * Time: 9:49
+ */
 
-namespace App\Http\Controllers;
+namespace App\SmsService;
+
 
 use App\SmsCode;
-use Illuminate\Http\Request;
 use Nexmo\Laravel\Facade\Nexmo;
 
-class SmsController extends Controller
+class SmsService
 {
-    //
-    public function store($phone, $userId)
+    public static function store($phone, $userId)
     {
         $input = [];
         $input['code'] = rand(1000, 9999);
@@ -27,5 +32,4 @@ class SmsController extends Controller
             'text' => $code
         ]);
     }
-
 }

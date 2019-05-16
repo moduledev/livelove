@@ -4,7 +4,7 @@ namespace App\Http\Requests\Api;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AuthRegisterRequest extends FormRequest
+class AuthLoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,6 @@ class AuthRegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255',
             'phone' => 'required|integer|min:9',
         ];
     }
@@ -32,8 +31,6 @@ class AuthRegisterRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Имя обязательно к заполнению!',
-            'name.max' => 'Имя не должно превышать 255 символов!',
             'phone.required' => 'Телефон обязателен к заполнению!',
             'phone.integer' => 'Телефон не должен содержать строковых символов!',
             'phone.min' => 'Неверно введен номер телефона!',
