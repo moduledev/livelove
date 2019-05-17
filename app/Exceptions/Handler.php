@@ -58,10 +58,14 @@ class Handler extends ExceptionHandler
         if ($request->expectsJson()) {
             return response()->json(['error' => 'Unauthenticated.'], 401);
         }
+
         $guard = array_get($exception->guards(), 0);
         switch ($guard) {
             case 'admin':
                 $login = 'login';
+                break;
+            case 'api':
+                $login = 'register';
                 break;
             default:
                 $login = 'user.login';

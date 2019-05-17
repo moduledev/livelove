@@ -60,6 +60,13 @@ class AuthController extends Controller
      *         type="string",
      *         @SWG\Schema(type="string")
      *     ),
+     *     @SWG\Parameter(
+     *         name="Accept",
+     *         in="header",
+     *         description="application/json",
+     *         required=true,
+     *         type="string",
+     *     ),
      *     @SWG\Response(
      *         response=200,
      *         description="return message - you have registrated successfuly",
@@ -112,6 +119,13 @@ class AuthController extends Controller
      *         type="string",
      *         @SWG\Schema(type="string")
      *     ),
+     *      @SWG\Parameter(
+     *         name="Accept",
+     *         in="header",
+     *         description="application/json",
+     *         required=true,
+     *         type="string",
+     *     ),
      *     @SWG\Response(
      *         response=200,
      *         description="asscess_token, token_type",
@@ -119,6 +133,10 @@ class AuthController extends Controller
      *     @SWG\Response(
      *         response="422",
      *         description="sms code is not valid",
+     *     ),
+     *     @SWG\Response(
+     *         response="401",
+     *         description="Unregistered",
      *     ),
      * )
      */
@@ -131,6 +149,11 @@ class AuthController extends Controller
     {
         $request->validated();
         $user = User::where('phone', $request->phone)->first();
+
+        if(empty($user)){
+            return response(['error' => 'Unregistered'], 401);
+        }
+
         if(Auth::loginUsingId($user->id)){ 
             $user = Auth::user(); 
             $token =  $user->createToken('MyApp')->accessToken; 

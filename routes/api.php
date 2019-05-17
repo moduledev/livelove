@@ -17,13 +17,13 @@ Route::group(['middleware' => ['json.response']], function () {
 
     Route::middleware('auth:api')->group(function () {
         Route::get('/users', 'Api\ProfileController@index');
-        Route::post('/users/edit/{id}', 'Api\ProfileController@update');
-        Route::delete('/users/delete/{id}', 'Api\ProfileController@delete');
+        Route::post('/users/edit', 'Api\ProfileController@update');
+//        Route::delete('/users/delete/{id}', 'Api\ProfileController@delete');
     });
 
     Route::post('/user/smsverify', 'Api\AuthController@verify');
     Route::post('/login', 'Api\AuthController@login')->name('login.api');
-    Route::post('/register', 'Api\AuthController@register')->name('register.api');
+    Route::post('/register', 'Api\AuthController@register')->name('register');
 
     Route::middleware('auth:api')->group(function () {
         Route::get('/logout', 'Api\AuthController@logout')->name('logout');

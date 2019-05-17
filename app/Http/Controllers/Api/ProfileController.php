@@ -20,21 +20,21 @@ class ProfileController extends Controller
 
     /**
      * @SWG\Get(
-     *     path="/api/users/phone",
+     *     path="/api/users",
      *     summary="Show users profile",
      *     tags={"User Profile"},
      *     description="Show users profile",
      *     @SWG\Parameter(
-     *         name="phone",
-     *         in="path",
-     *         description="User phone",
-     *         required=true,
-     *         type="integer",
-     *     ),
-     *     @SWG\Parameter(
      *         name="Authorization",
      *         in="header",
      *         description="Bearer token",
+     *         required=true,
+     *         type="string",
+     *     ),
+     *     @SWG\Parameter(
+     *         name="Accept",
+     *         in="header",
+     *         description="application/json",
      *         required=true,
      *         type="string",
      *     ),
@@ -44,20 +44,16 @@ class ProfileController extends Controller
      *     ),
      *     @SWG\Response(
      *         response="401",
-     *         description="Unregistered user",
+     *         description="Unauthenticated",
      *     ),
      * )
      */
 
 
-    /**
-     * Show users date
-     * @param $phone
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\JsonResponse|\Illuminate\Http\Response
-     */
+
     public function index()
     {
-        $user = Auth::user(); 
+        $user = Auth::user();
         return response()->json(['success' => $user], 200);
         // $phone = filter_var($phone, FILTER_SANITIZE_NUMBER_INT);
         // $userData = User::with('programs')->where('phone', $phone)->first();
@@ -74,17 +70,10 @@ class ProfileController extends Controller
 
     /**
      * @SWG\Post(
-     *     path="/api/users/edit/id",
+     *     path="/api/users/edit",
      *     summary="Edit users profile",
      *     tags={"Edit users Profile"},
      *     description="Show users profile",
-     *     @SWG\Parameter(
-     *         name="id",
-     *         in="path",
-     *         description="Get user id",
-     *         required=true,
-     *         type="integer",
-     *     ),
      *     @SWG\Parameter(
      *         name="name",
      *         in="body",
@@ -132,13 +121,20 @@ class ProfileController extends Controller
      *         required=true,
      *         type="string",
      *     ),
+     *     @SWG\Parameter(
+     *         name="Accept",
+     *         in="header",
+     *         description="application/json",
+     *         required=true,
+     *         type="string",
+     *     ),
      *     @SWG\Response(
      *         response=200,
      *         description="return user data",
      *     ),
      *     @SWG\Response(
      *         response="401",
-     *         description="Unregistered user",
+     *         description="Unauthenticated",
      *     ),
      * )
      *
@@ -148,9 +144,10 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
 
-    protected function update(ProfileUpdateRequest $request, $id)
+    protected function update(ProfileUpdateRequest $request)
     {
-        $userData = User::with('programs')->findOrFail($id);
+//        $userData = User::with('programs')->findOrFail($id);
+        $userData = Auth::user();
         $userData->fill($request->validated());
 
         if ($request->hasFile('image')) {
