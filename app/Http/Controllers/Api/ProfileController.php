@@ -50,22 +50,13 @@ class ProfileController extends Controller
      */
 
 
-
+    /**Return auth user data
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
         $user = Auth::user();
         return response()->json(['success' => $user], 200);
-        // $phone = filter_var($phone, FILTER_SANITIZE_NUMBER_INT);
-        // $userData = User::with('programs')->where('phone', $phone)->first();
-        // if(Auth::loginUsingId($userData->id)){ 
-        //     $user = Auth::user(); 
-        //     return response()->json('user', 200); 
-        // } 
-        // if ($userData) {
-        //     return response()->json($userData);
-        // } else {
-        //     return response('Unregistered user', 401);
-        // }
     }
 
     /**
