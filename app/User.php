@@ -30,22 +30,23 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
+     * Constant - part of path to image folder
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
     const PHOTOPATH = 'app/public/';
 
+
+    /** Relation one to many (between user model and SmsCode model)
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function codes()
     {
         return $this->hasMany('App\SmsCode');
     }
 
-   public function getPositionAttribute()
+    /**Getter return empty string instead of null
+     * @return string
+     */
+    public function getPositionAttribute()
    {
        if($this->attributes['position'] === null){
            return $this->attributes['position'] = '';
@@ -54,6 +55,9 @@ class User extends Authenticatable
        }
    }
 
+    /** Getter return empty string instead of null
+     * @return string
+     */
     public function getBiographyAttribute()
     {
         if($this->attributes['biography'] === null){
@@ -63,6 +67,9 @@ class User extends Authenticatable
         }
     }
 
+    /**Relation one to many (between user model and program model)
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function programs()
     {
         return $this->belongsToMany('App\Program','user_program','user_id','program_id');

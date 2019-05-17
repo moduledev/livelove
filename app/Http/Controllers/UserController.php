@@ -17,7 +17,6 @@ class UserController extends Controller
         $this->middleware('auth:admin');
     }
 
-
     /**
      * Show user data
      *

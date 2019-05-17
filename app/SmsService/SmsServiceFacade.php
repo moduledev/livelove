@@ -11,6 +11,9 @@ namespace App\SmsService;
 
 class SmsServiceFacade
 {
+    /**
+     * @return string
+     */
     protected static function getFacadeAccessor()
     {
         return 'smsservice';

@@ -14,6 +14,10 @@ use Nexmo\Laravel\Facade\Nexmo;
 
 class SmsService
 {
+    /** Generate and store sms code in DB
+     * @param $phone
+     * @param $userId
+     */
     public static function store($phone, $userId)
     {
         $input = [];
@@ -21,10 +25,14 @@ class SmsService
         $input['phone'] = str_replace('+','',$phone);
         $input['user_id'] = $userId;
         SmsCode::create($input);
-//        $this->sendSms($input['code'],$input['phone'] = str_replace('+','',$phone));
+//        SmsService::sendSms($input['code'],$input['phone'] = str_replace('+','',$phone));
     }
 
-    public function sendSms($code,$phone)
+    /** Send sms using nexmo package
+     * @param $code
+     * @param $phone
+     */
+    public static function sendSms($code, $phone)
     {
         Nexmo::message()->send([
             'to'   => $phone,
