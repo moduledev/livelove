@@ -55,8 +55,9 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $user = Auth::user()->with('programs');
-        return response()->json(['success' => $user], 200);
+        $user = Auth::user();
+        $userData = User::with('programs')->findOrFail($user);
+        return response()->json(['success' => $userData], 200);
     }
 
     /**
