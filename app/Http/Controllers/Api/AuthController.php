@@ -88,7 +88,7 @@ class AuthController extends Controller
         $user = User::where('phone', $request->phone)->first();
 
         if (!$user) {
-            $user = User::create($request->all() + ['api_token' => Str::random(60)]);
+            $user = User::create($request->all());
             $user->createToken($request->phone)->accessToken;
             return response('', 200);
         } else {
