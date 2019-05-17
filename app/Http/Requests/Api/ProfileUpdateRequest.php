@@ -26,8 +26,8 @@ class ProfileUpdateRequest extends FormRequest
         return [
             'name' => 'string|max:255',
             'phone' => 'integer|min:9',
-            'biography' => 'string|max:1000',
-            'position' => 'string|max:255',
+            'biography' => 'sometimes|max:1000',
+            'position' => 'sometimes|max:255',
             'image' => 'file|mimes:jpeg,jpg,png|max:3072',
         ];
     }
