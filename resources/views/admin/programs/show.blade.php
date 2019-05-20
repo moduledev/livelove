@@ -23,7 +23,7 @@
                         <textarea name="" id="summernote" cols="30" rows="10" disabled>{{htmlspecialchars_decode($program->description)}}</textarea> </li>
                     <li class="list-group-item"><p class="text-bold">Участники:
                         <ul class="list-group">
-                            @foreach($program->members as $member)
+                            @foreach($program->users as $member)
                                 <li class="list-group-item"><a href="{{route('admin.user.show',$member->id)}}">{{$member->name}}</a></li>
                             @endforeach
                         </ul>

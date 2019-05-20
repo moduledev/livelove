@@ -86,7 +86,7 @@ class ProgramController extends Controller
     public function showProgram($id)
     {
         $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
-        $program = Program::findOrFail($id);
+        $program = Program::with('users')->findOrFail($id);
         return view('admin.programs.show', compact('program'));
 
     }
