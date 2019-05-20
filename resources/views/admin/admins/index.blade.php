@@ -55,7 +55,7 @@
                             <td>
                                 @can('admin-show')
                                     @foreach($admin->roles as $role)
-                                        <span style="padding: 5px; background: #0d6aad;border-radius: 3px; color: #fff">{{$role->name}}</span>
+                                        <span class="role_name" >{{$role->name}}</span>
                                     @endforeach
                                 @endcan
 

@@ -113,7 +113,7 @@
                             <tr>
                                 <td>{{$program->id}}</td>
                                 <td>{{$program->name}}</td>
-                                <td>{{ date("d-m-Y", $program->term)}}</td>
+                                <td>{{\Carbon\CarbonInterval::second($program->term)->cascade()->forHumans()}}</td>
                                 <td>
                                     <div class="text-center">
                                         <a href="{{route('show.program', $program->id)}}" class="btn btn-info"> <i class="fa fa-eye"></i>  </a>

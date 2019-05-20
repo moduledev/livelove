@@ -49,7 +49,7 @@ class Program extends Model
     {
         $end = Carbon::parse($this->finished);
         $start = Carbon::parse($this->started);
-        return $this->attributes['term'] =  $end->diffInMilliseconds($start);
+        return $this->attributes['term'] =  $end->diffInSeconds($start);
     }
 
     /**Relation one to many (between user model and program model)

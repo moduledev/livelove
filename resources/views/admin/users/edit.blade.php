@@ -108,7 +108,7 @@
                         <tr>
                             <td>{{$program->id}}</td>
                             <td> <a href="{{route('show.program',$program->id)}}">{{$program->name}}</a></td>
-                            <td><form action="{{route('remove.program')}}" method="post" class="delete_role_form">
+                            <td><form action="{{route('remove.program')}}" method="post" class="delete_role_form clearfix">
                                     {{ csrf_field() }}
                                     <div class="form-group ">
                                         <div class="col-sm-offset-2 col-sm-10">
