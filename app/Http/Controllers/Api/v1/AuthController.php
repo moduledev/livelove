@@ -25,7 +25,7 @@ use App\Http\Requests\Api\AuthRegisterRequest;
  *     host="localhost",
  *     basePath="/",
  *     @SWG\Info(
- *         version="1.0.0",
+ *         version="1.0",
  *         title="Livelove API",
  *         description="Livelove API",
  *         termsOfService="",
@@ -37,6 +37,10 @@ use App\Http\Requests\Api\AuthRegisterRequest;
  */
 class AuthController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('api-version');
+    }
 
     /**
      * @SWG\Post(

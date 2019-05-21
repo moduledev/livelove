@@ -13,6 +13,9 @@ return [
     'versions' => [
         'users' => [
             '1.0'
+        ],
+        'auth' => [
+            '2.0'
         ]
     ]
 ];
