@@ -53,8 +53,8 @@
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "return message - you have registrated successfuly"
+                    "201": {
+                        "description": ""
                     },
                     "422": {
                         "description": "User with this phone has already been registrated"
@@ -62,7 +62,7 @@
                 }
             }
         },
-        "/api/user/smsverify ": {
+        "/api/smsverify ": {
             "post": {
                 "tags": [
                     "SmsVerify"
@@ -106,7 +106,7 @@
                         "description": "sms code is not valid"
                     },
                     "401": {
-                        "description": "Unregistered"
+                        "description": "Unregistered user"
                     }
                 }
             }
@@ -131,7 +131,7 @@
                     "200": {
                         "description": "return sms code on phone"
                     },
-                    "422": {
+                    "401": {
                         "description": "User with this phone doesn't exist"
                     }
                 }
@@ -168,10 +168,8 @@
                         "description": "Unauthenticated"
                     }
                 }
-            }
-        },
-        "/api/users/edit": {
-            "post": {
+            },
+            "put": {
                 "tags": [
                     "Edit users Profile"
                 ],

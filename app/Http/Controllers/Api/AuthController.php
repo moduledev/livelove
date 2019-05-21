@@ -68,8 +68,8 @@ class AuthController extends Controller
      *         type="string",
      *     ),
      *     @SWG\Response(
-     *         response=200,
-     *         description="return message - you have registrated successfuly",
+     *         response=201,
+     *         description="",
      *     ),
      *     @SWG\Response(
      *         response="422",
@@ -98,7 +98,7 @@ class AuthController extends Controller
 
     /**
      * @SWG\Post(
-     *     path="/api/user/smsverify ",
+     *     path="/api/smsverify ",
      *     summary="Compare sms",
      *     tags={"SmsVerify"},
      *     description="Compare sms wich was recived from Nexmo service and compare with code in DB.
@@ -136,7 +136,7 @@ class AuthController extends Controller
      *     ),
      *     @SWG\Response(
      *         response="401",
-     *         description="Unregistered",
+     *         description="Unregistered user",
      *     ),
      * )
      */
@@ -194,7 +194,7 @@ class AuthController extends Controller
      *         description="return sms code on phone",
      *     ),
      *     @SWG\Response(
-     *         response="422",
+     *         response="401",
      *         description="User with this phone doesn't exist",
      *     ),
      * )
@@ -213,7 +213,7 @@ class AuthController extends Controller
             return response('', 200);
         } else {
             $response = 'Пользователя с указанным номером телефона не существует.';
-            return response($response, 422);
+            return response($response, 401);
         }
     }
 }
