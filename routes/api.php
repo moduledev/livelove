@@ -16,8 +16,8 @@ use Illuminate\Http\Request;
 Route::group(['middleware' => ['json.response']], function () {
 
     Route::middleware('auth:api')->group(function () {
-        Route::get('/users', 'Api\ProfileController@index');
-        Route::put('/users', 'Api\ProfileController@update');
+        Route::get('/users', 'Api\v1\ProfileController@index');
+        Route::put('/users', 'Api\v1\ProfileController@update');
 //        Route::delete('/users/delete/{id}', 'Api\ProfileController@delete');
     });
 
