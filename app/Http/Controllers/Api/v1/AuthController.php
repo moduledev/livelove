@@ -87,7 +87,7 @@ class AuthController extends Controller
      *         description="User with this phone has already been registrated",
      *     ),
      *     @SWG\Response(
-     *         response="422",
+     *         response="410",
      *         description="Non valid api version",
      *     ),
      * )
@@ -161,7 +161,7 @@ class AuthController extends Controller
      *         description="Unregistered user",
      *     ),
      *     @SWG\Response(
-     *         response="422",
+     *         response="410",
      *         description="Non valid api version",
      *     ),
      * )
@@ -231,7 +231,7 @@ class AuthController extends Controller
      *         description="User with this phone doesn't exist",
      *     ),
      *     @SWG\Response(
-     *         response="422",
+     *         response="410",
      *         description="Non valid api version",
      *     ),
      * )

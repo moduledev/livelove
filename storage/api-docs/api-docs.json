@@ -65,6 +65,9 @@
                     },
                     "422": {
                         "description": "User with this phone has already been registrated"
+                    },
+                    "410": {
+                        "description": "Non valid api version"
                     }
                 }
             }
@@ -121,6 +124,9 @@
                     },
                     "401": {
                         "description": "Unregistered user"
+                    },
+                    "410": {
+                        "description": "Non valid api version"
                     }
                 }
             }
@@ -154,6 +160,9 @@
                     },
                     "401": {
                         "description": "User with this phone doesn't exist"
+                    },
+                    "410": {
+                        "description": "Non valid api version"
                     }
                 }
             }
@@ -194,6 +203,9 @@
                     },
                     "401": {
                         "description": "Unauthenticated"
+                    },
+                    "410": {
+                        "description": "Non valid api version"
                     }
                 }
             },
@@ -282,6 +294,9 @@
                     },
                     "401": {
                         "description": "Unauthenticated"
+                    },
+                    "410": {
+                        "description": "Non valid api version"
                     }
                 }
             }
