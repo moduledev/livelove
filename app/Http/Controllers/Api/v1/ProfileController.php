@@ -54,6 +54,10 @@ class ProfileController extends Controller
      *         response="401",
      *         description="Unauthenticated",
      *     ),
+     *     @SWG\Response(
+     *         response="422",
+     *         description="Non valid api version",
+     *     ),
      * )
      */
 
@@ -142,6 +146,10 @@ class ProfileController extends Controller
      *     @SWG\Response(
      *         response="401",
      *         description="Unauthenticated",
+     *     ),
+     *     @SWG\Response(
+     *         response="422",
+     *         description="Non valid api version",
      *     ),
      * )
      *
