@@ -50,6 +50,13 @@
                         "description": "application/json",
                         "required": true,
                         "type": "string"
+                    },
+                    {
+                        "name": "Api-version",
+                        "in": "header",
+                        "description": "1.0",
+                        "required": true,
+                        "type": "string"
                     }
                 ],
                 "responses": {
@@ -96,6 +103,13 @@
                         "description": "application/json",
                         "required": true,
                         "type": "string"
+                    },
+                    {
+                        "name": "Api-version",
+                        "in": "header",
+                        "description": "1.0",
+                        "required": true,
+                        "type": "string"
                     }
                 ],
                 "responses": {
@@ -123,6 +137,13 @@
                         "name": "phone",
                         "in": "path",
                         "description": "Post user phone",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "Api-version",
+                        "in": "header",
+                        "description": "1.0",
                         "required": true,
                         "type": "string"
                     }
@@ -156,6 +177,13 @@
                         "name": "Accept",
                         "in": "header",
                         "description": "application/json",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "Api-version",
+                        "in": "header",
+                        "description": "1.0",
                         "required": true,
                         "type": "string"
                     }
@@ -230,6 +258,13 @@
                         "name": "Authorization",
                         "in": "header",
                         "description": "Bearer token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "Api-version",
+                        "in": "header",
+                        "description": "1.0",
                         "required": true,
                         "type": "string"
                     },

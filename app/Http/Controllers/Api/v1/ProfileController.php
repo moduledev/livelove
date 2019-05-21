@@ -39,6 +39,13 @@ class ProfileController extends Controller
      *         required=true,
      *         type="string",
      *     ),
+     *     @SWG\Parameter(
+     *         name="Api-version",
+     *         in="header",
+     *         description="1.0",
+     *         required=true,
+     *         type="string",
+     *     ),
      *     @SWG\Response(
      *         response=200,
      *         description="return user data",
@@ -111,6 +118,13 @@ class ProfileController extends Controller
      *         name="Authorization",
      *         in="header",
      *         description="Bearer token",
+     *         required=true,
+     *         type="string",
+     *     ),
+     *     @SWG\Parameter(
+     *         name="Api-version",
+     *         in="header",
+     *         description="1.0",
      *         required=true,
      *         type="string",
      *     ),
