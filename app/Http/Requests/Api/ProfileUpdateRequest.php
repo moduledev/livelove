@@ -29,6 +29,9 @@ class ProfileUpdateRequest extends FormRequest
             'biography' => 'sometimes|max:1000',
             'position' => 'sometimes|max:255',
             'image' => 'file|mimes:jpeg,jpg,png|max:3072',
+            'facebook' => 'sometimes|max:255',
+            'strava' => 'sometimes|max:255',
+            'instagram' => 'sometimes|max:255',
         ];
     }
 
@@ -42,6 +45,9 @@ class ProfileUpdateRequest extends FormRequest
             'position.max' => 'Информация о биографии не должна превышать 255 символов!',
             'image.mimes' => 'Выберите фото подходящего формата (peg,jpg,png)',
             'image.max' => 'Размер фото не должен превышать 3mb',
+            'facebook.max' => 'facebook id не должен превышать 1000 символов!',
+            'instagram.max' => 'instagram id не должен превышать 1000 символов!',
+            'strava.max' => 'strava id не должен превышать 1000 символов!',
         ];
     }
 }
