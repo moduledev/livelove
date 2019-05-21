@@ -21,12 +21,12 @@ Route::group(['middleware' => ['json.response']], function () {
 //        Route::delete('/users/delete/{id}', 'Api\ProfileController@delete');
     });
 
-    Route::post('/smsverify', 'Api\AuthController@verify');
-    Route::post('/login', 'Api\AuthController@login')->name('login.api');
-    Route::post('/register', 'Api\AuthController@register')->name('register');
+    Route::post('/smsverify', 'Api\v1\AuthController@verify');
+    Route::post('/login', 'Api\v1\AuthController@login')->name('login.api');
+    Route::post('/register', 'Api\v1\AuthController@register')->name('register');
 
     Route::middleware('auth:api')->group(function () {
-        Route::get('/logout', 'Api\AuthController@logout')->name('logout');
+        Route::get('/logout', 'Api\v1\AuthController@logout')->name('logout');
     });
 
 });
