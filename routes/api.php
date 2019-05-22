@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::group(['middleware' => ['json.response']], function () {
+// Route::group(['middleware' => ['json.response']], function () {
 
     Route::middleware('auth:api')->group(function () {
         Route::get('/users', 'Api\v1\ProfileController@index');
@@ -29,4 +29,4 @@ Route::group(['middleware' => ['json.response']], function () {
         Route::get('/logout', 'Api\v1\AuthController@logout')->name('logout');
     });
 
-});
+// });

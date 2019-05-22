@@ -35,13 +35,6 @@ class ProfileController extends Controller
      *     @SWG\Parameter(
      *         name="Accept",
      *         in="header",
-     *         description="application/json",
-     *         required=true,
-     *         type="string",
-     *     ),
-     *     @SWG\Parameter(
-     *         name="Content-type",
-     *         in="header",
      *         description="application/json;v=1.0",
      *         required=true,
      *         type="string",
@@ -128,14 +121,14 @@ class ProfileController extends Controller
      *    @SWG\Parameter(
      *         name="Content-type",
      *         in="header",
-     *         description="application/json;v=1.0",
+     *         description="application/x-www-form-urlencoded",
      *         required=true,
      *         type="string",
      *     ),
      *     @SWG\Parameter(
      *         name="Accept",
      *         in="header",
-     *         description="application/json",
+     *         description="application/json;v=1.0",
      *         required=true,
      *         type="string",
      *     ),
@@ -162,6 +155,7 @@ class ProfileController extends Controller
     protected function update(ProfileUpdateRequest $request)
     {
 //        $userData = User::with('programs')->findOrFail($id);
+        // return response()->json($request->all());
         $userData = Auth::user();
         $userData->fill($request->validated());
 
