@@ -10,8 +10,6 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="box">
-                    <div class="box-header">
-                        <h3 class="box-title">Добавить новую программу</h3>
                         <div class="box-body">
                                 <form class="form-horizontal" method="POST" action="{{route('add.program')}}" enctype="multipart/form-data"
                                 {{--:class="{error_group: startTimeError, error_group: finishTimeError}">--}}
@@ -96,7 +94,6 @@
                                                       </div>
                           </form>
                         </div>
-                    </div>
                 </div>  
                
             </div>
