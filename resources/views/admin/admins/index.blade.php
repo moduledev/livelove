@@ -28,7 +28,7 @@
                             <label for="pwd">Password:</label>
                             <input id="password" type="password" class="form-control" name="password" required>
                         </div>
-                        <button type="submit" class="btn btn-default">Добавить</button>
+                        <button type="submit" class="btn btn-default">Добавить <i class="fa fa-plus"></i> </button>
                     </form>
                     @if ($errors->any())
                         <div class="form-group error_group">

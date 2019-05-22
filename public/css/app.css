@@ -1,6 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);.delete_role_btn {
   position: absolute;
-  left: 115px;
+  left: 150px;
   top: -6px;
 }
 
@@ -9,6 +9,14 @@
   background: #0d6aad;
   border-radius: 3px;
   color: #fff;
+}
+
+.delete_role_form {
+  margin: 16px 0;
+}
+
+.form-group .delete_role_form:first-child {
+  margin: 0 0 16px 0;
 }
 
 .image_container {

@@ -18,7 +18,7 @@
                     <li class="list-group-item"><p class="text-bold">Название:<span> {{$program->name}}</span></p></li>
                     <li class="list-group-item"><p class="text-bold">Старт программы:<span> {{$program->started}}</span></p></li>
                     <li class="list-group-item"><p class="text-bold">Окончание программы:<span> {{$program->finished}}</span></p></li>
-                    <li class="list-group-item"><p class="text-bold">Длительность:<span> {{$program->term}}</span></p></li>
+                    <li class="list-group-item"><p class="text-bold">Длительность:<span> {{\Carbon\CarbonInterval::second($program->term)->cascade()->forHumans()}}</span></p></li>
                     <li class="list-group-item"><p class="text-bold">Описание:</p>
                         <textarea name="" id="summernote" cols="30" rows="10" disabled>{{htmlspecialchars_decode($program->description)}}</textarea> </li>
                     <li class="list-group-item"><p class="text-bold">Участники:
