@@ -52,9 +52,9 @@
                         "type": "string"
                     },
                     {
-                        "name": "Api-version",
+                        "name": "Content-type",
                         "in": "header",
-                        "description": "1.0",
+                        "description": "application/json;v=1.0",
                         "required": true,
                         "type": "string"
                     }
@@ -108,9 +108,9 @@
                         "type": "string"
                     },
                     {
-                        "name": "Api-version",
+                        "name": "Content-type",
                         "in": "header",
-                        "description": "1.0",
+                        "description": "application/json;v=1.0",
                         "required": true,
                         "type": "string"
                     }
@@ -147,9 +147,9 @@
                         "type": "string"
                     },
                     {
-                        "name": "Api-version",
+                        "name": "Content-type",
                         "in": "header",
-                        "description": "1.0",
+                        "description": "application/json;v=1.0",
                         "required": true,
                         "type": "string"
                     }
@@ -190,9 +190,9 @@
                         "type": "string"
                     },
                     {
-                        "name": "Api-version",
+                        "name": "Content-type",
                         "in": "header",
-                        "description": "1.0",
+                        "description": "application/json;v=1.0",
                         "required": true,
                         "type": "string"
                     }
@@ -274,9 +274,9 @@
                         "type": "string"
                     },
                     {
-                        "name": "Api-version",
+                        "name": "Content-type",
                         "in": "header",
-                        "description": "1.0",
+                        "description": "application/json;v=1.0",
                         "required": true,
                         "type": "string"
                     },

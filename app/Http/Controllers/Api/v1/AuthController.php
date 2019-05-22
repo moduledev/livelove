@@ -72,9 +72,9 @@ class AuthController extends Controller
      *         type="string",
      *     ),
      *     @SWG\Parameter(
-     *         name="Api-version",
+     *         name="Content-type",
      *         in="header",
-     *         description="1.0",
+     *         description="application/json;v=1.0",
      *         required=true,
      *         type="string",
      *     ),
@@ -150,9 +150,9 @@ class AuthController extends Controller
      *         description="sms code is not valid",
      *     ),
      *     @SWG\Parameter(
-     *         name="Api-version",
+     *         name="Content-type",
      *         in="header",
-     *         description="1.0",
+     *         description="application/json;v=1.0",
      *         required=true,
      *         type="string",
      *     ),
@@ -219,10 +219,10 @@ class AuthController extends Controller
      *         response=200,
      *         description="return sms code on phone",
      *     ),
-     *     @SWG\Parameter(
-     *         name="Api-version",
+     *    @SWG\Parameter(
+     *         name="Content-type",
      *         in="header",
-     *         description="1.0",
+     *         description="application/json;v=1.0",
      *         required=true,
      *         type="string",
      *     ),

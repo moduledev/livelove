@@ -40,9 +40,9 @@ class ProfileController extends Controller
      *         type="string",
      *     ),
      *     @SWG\Parameter(
-     *         name="Api-version",
+     *         name="Content-type",
      *         in="header",
-     *         description="1.0",
+     *         description="application/json;v=1.0",
      *         required=true,
      *         type="string",
      *     ),
@@ -125,10 +125,10 @@ class ProfileController extends Controller
      *         required=true,
      *         type="string",
      *     ),
-     *     @SWG\Parameter(
-     *         name="Api-version",
+     *    @SWG\Parameter(
+     *         name="Content-type",
      *         in="header",
-     *         description="1.0",
+     *         description="application/json;v=1.0",
      *         required=true,
      *         type="string",
      *     ),
