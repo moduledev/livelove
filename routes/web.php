@@ -46,13 +46,13 @@ Route::prefix('admin')->group(function () {
     Route::get('roles/{id}', 'RoleController@show')->name('show.role');
     Route::put('roles/edit/{id}', 'RoleController@update')->name('admin.roles.update');
 
-
+    Route::get('programs/create', 'ProgramController@createProgram')->name('create.program');
     Route::post('programs', 'ProgramController@storeProgram')->name('add.program');
     Route::get('programs/edit/{id}', 'ProgramController@editProgram')->name('edit.program');
     Route::get('programs/{id}', 'ProgramController@showProgram')->name('show.program');
     Route::put('programs/edit/{id}', 'ProgramController@updateProgram')->name('update.program');
     Route::delete('programs', 'ProgramController@delete')->name('delete.program');
-    Route::get('programs/create', 'ProgramController@createProgram')->name('create.program');
+    
 
     Route::any('search', 'SearchController@search')->name('search');
 

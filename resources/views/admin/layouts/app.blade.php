@@ -139,8 +139,8 @@
                     <a href="#">
                         <i class="fa fa-users"></i> <span>Все пользователи</span>
                         <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                        </span>
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="{{route('dashboard.users')}}"><i class="fa fa-user"></i> Пользователи</a></li>
@@ -148,9 +148,22 @@
                         </li>
                     </ul>
                 </li>
-                <li><a href="{{route('dashboard.programs')}}"><i class="fa fa-window-restore"></i>
+                {{-- <li><a href="{{route('dashboard.programs')}}"><i class="fa fa-window-restore"></i>
                         <span>Программы</span></a>
-                </li>
+                </li> --}}
+                <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-window-restore"></i> <span>Программы</span>
+                            <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="{{route('dashboard.programs')}}"><i class="fa fa-window-restore"></i> Все программы</a></li>
+                            <li><a href="{{route('create.program')}}"><i class="fa fa-plus"></i> Добавить программу</a>
+                            </li>
+                        </ul>
+                    </li>
                 <li><a href="{{route('dashboard.roles')}}"><i class="fa fa-arrows"></i>
                         <span>Роли</span></a>
                 </li>

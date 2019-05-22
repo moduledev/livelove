@@ -21,7 +21,12 @@ Breadcrumbs::for('admins', function ($trail) {
 
 Breadcrumbs::for('programs', function ($trail) {
     $trail->parent('dashboard');
-    $trail->push('Программы', route('dashboard.programs'));
+    $trail->push('Все программы', route('dashboard.programs'));
+});
+
+Breadcrumbs::for('create-programs', function ($trail) {
+    $trail->parent('dashboard');
+    $trail->push('добавить программу', route('dashboard.programs'));
 });
 
 Breadcrumbs::for('edit', function ($trail, $id) {
