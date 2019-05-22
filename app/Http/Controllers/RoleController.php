@@ -1,4 +1,8 @@
 <?php
+    /**
+     * Store new permission
+     * @param Request $request
+     * */
 
 namespace App\Http\Controllers;
 
@@ -21,6 +25,7 @@ class RoleController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
+
     public function store(Request $request)
     {
         if (Auth::user()->hasPermissionTo('role-create')) {
