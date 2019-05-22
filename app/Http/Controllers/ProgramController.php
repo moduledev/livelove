@@ -17,16 +17,22 @@ class ProgramController extends Controller
         $this->middleware('auth:admin');
         $this->middleware('permission:program-edit', ['only' => ['editProgram', 'updateProgram']]);
         $this->middleware('permission:program-delete', ['only' => ['delete']]);
-        $this->middleware('permission:program-create', ['only' => ['createProgram']]);
+        $this->middleware('permission:program-create', ['only' => ['storeProgram']]);
         $this->middleware('permission:program-list', ['only' => ['showProgram']]);
     }
 
+
+    public function createProgram()
+    {
+        return view();
+    }
+
     /**
-     * Create program
+     * Store program
      * @param ProgramStoreRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function createProgram(ProgramStoreRequest $request)
+    public function storeProgram(ProgramStoreRequest $request)
     {
         $request->validated();
         $program = new Program;

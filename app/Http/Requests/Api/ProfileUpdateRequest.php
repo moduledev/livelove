@@ -28,7 +28,7 @@ class ProfileUpdateRequest extends FormRequest
             'phone' => 'integer|min:9',
             'biography' => 'sometimes|max:1000',
             'position' => 'sometimes|max:255',
-            'image' => 'file|mimes:jpeg,jpg,png|max:3072',
+            'image' => 'nullable|mimes:jpeg,jpg,png|max:3072',
             'facebook' => 'sometimes|max:255',
             'strava' => 'sometimes|max:255',
             'instagram' => 'sometimes|max:255',
