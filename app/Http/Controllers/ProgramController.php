@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\User;
 use Validator;
+use App\Http\Requests\ProgramUpdateRequest;
 
 class ProgramController extends Controller
 {
@@ -37,7 +38,7 @@ class ProgramController extends Controller
     {
         $request->validated();
         $program = new Program;
-        $program->name = $request->name;
+        $program->title = $request->title;
         $program->description = $request->description;
         $started = Carbon::parse($request->started);
         $finished = Carbon::parse($request->finished);
@@ -71,7 +72,7 @@ class ProgramController extends Controller
         return view('admin.programs.edit', compact('program'));
     }
 
-    public function updateProgram(ProfileUpdateRequest $request, $id)
+    public function updateProgram(ProgramUpdateRequest $request, $id)
     {
         $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
         $programData = Program::findOrFail($id);

@@ -29,9 +29,9 @@
                                       </div>
                                       @endif
                                       <div class="form-group">
-                                          <label class="control-label col-sm-2" for="name">Название:</label>
+                                          <label class="control-label col-sm-2" for="title">Название:</label>
                                           <div class="col-xs-6">
-                                              <input type="text" name="name" class="form-control" placeholder="Название">
+                                              <input type="text" name="title" class="form-control" placeholder="Название">
                                           </div>
                                       </div>
                                       <div class="form-group" >

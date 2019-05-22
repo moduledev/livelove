@@ -24,7 +24,7 @@ class ProgramStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
+            'title' => 'required',
             'description' => 'required',
             'image' => 'required|mimes:jpeg,jpg,png|max:3072',
             'started' => 'required',

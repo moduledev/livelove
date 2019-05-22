@@ -33,9 +33,9 @@ Breadcrumbs::for('edit', function ($trail, $id) {
     $trail->parent('admins');
     $trail->push('Изменить', route('admin.admins.edit', $id));
 });
-Breadcrumbs::for('show-program', function ($trail, $id,$name) {
+Breadcrumbs::for('show-program', function ($trail, $id,$title) {
     $trail->parent('programs');
-    $trail->push($name, route('show.program', $id));
+    $trail->push($title, route('show.program', $id));
 });
 
 Breadcrumbs::for('show-user', function ($trail, $id,$name) {

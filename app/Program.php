@@ -22,7 +22,7 @@ class Program extends Model
      * @var array
      */
     protected $fillable = [
-        'name','description','image','finished','started','term'
+        'title','description','image','finished','started','duration','location'
     ];
 
     /**
@@ -30,14 +30,14 @@ class Program extends Model
      *
      * @var array
      */
-    protected $appends = ['term','membersCount'];
+    protected $appends = ['duration','participants'];
 
 
     /**
      * Getter, add quantity of program members to response
      * @return int
      */
-    public function getMembersCountAttribute()
+    public function getParticipantsAttribute()
     {
         return $this->users()->count();
     }
@@ -45,7 +45,7 @@ class Program extends Model
     /**Getter returns term of program in milliseconds
      * @return int
      */
-    public function getTermAttribute()
+    public function getDurationAttribute()
     {
         $end = Carbon::parse($this->finished);
         $start = Carbon::parse($this->started);

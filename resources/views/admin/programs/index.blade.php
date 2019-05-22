@@ -28,8 +28,8 @@
                                     @foreach($programs as $program)
                                         <tr>
                                             <td>{{$program->id}}</td>
-                                            <td>{{$program->name}}</td>
-                                            <td>{{\Carbon\CarbonInterval::second($program->term)->cascade()->forHumans()}}</td>
+                                            <td>{{$program->title}}</td>
+                                            <td>{{\Carbon\CarbonInterval::second($program->duration)->cascade()->forHumans()}}</td>
                                             <td>
                                                 <div class="text-center">
                                                     <a href="{{route('show.program', $program->id)}}" class="btn btn-info"> <i class="fa fa-eye"></i>  </a>

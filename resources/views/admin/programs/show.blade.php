@@ -1,9 +1,9 @@
 @extends('admin.layouts.app')
 @section('content-header')
     <h1>
-         Программа "{{$program->name}}"
+         Программа "{{$program->title}}"
     </h1>
-     {{ Breadcrumbs::render('show-program',$program->id,$program->name) }}
+     {{ Breadcrumbs::render('show-program',$program->id,$program->title) }}
 @endsection
 @section('content')
     <div class="row">
@@ -15,10 +15,10 @@
                 @endisset
                 <ul class="list-group">
                     <li class="list-group-item"><p class="text-bold">Id:<span> {{$program->id}}</span></p></li>
-                    <li class="list-group-item"><p class="text-bold">Название:<span> {{$program->name}}</span></p></li>
+                    <li class="list-group-item"><p class="text-bold">Название:<span> {{$program->title}}</span></p></li>
                     <li class="list-group-item"><p class="text-bold">Старт программы:<span> {{$program->started}}</span></p></li>
                     <li class="list-group-item"><p class="text-bold">Окончание программы:<span> {{$program->finished}}</span></p></li>
-                    <li class="list-group-item"><p class="text-bold">Длительность:<span> {{\Carbon\CarbonInterval::second($program->term)->cascade()->forHumans()}}</span></p></li>
+                    <li class="list-group-item"><p class="text-bold">Длительность:<span> {{\Carbon\CarbonInterval::second($program->duration)->cascade()->forHumans()}}</span></p></li>
                     <li class="list-group-item"><p class="text-bold">Описание:</p>
                         <textarea name="" id="summernote" cols="30" rows="10" disabled>{{htmlspecialchars_decode($program->description)}}</textarea> </li>
                     <li class="list-group-item"><p class="text-bold">Участники:

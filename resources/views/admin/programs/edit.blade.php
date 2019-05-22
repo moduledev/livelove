@@ -34,7 +34,7 @@
                           <div class="form-group">
                               <label class="control-label col-sm-2" for="email">Имя:</label>
                               <div class="col-sm-10">
-                                  <input value="{{$program->name}}" type="text" name="name" class="form-control"
+                                  <input value="{{$program->title}}" type="text" name="title" class="form-control"
                                          placeholder="Имя">
                               </div>
                           </div>

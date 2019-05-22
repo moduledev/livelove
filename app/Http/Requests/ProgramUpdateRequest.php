@@ -24,7 +24,7 @@ class ProgramUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'string|max:255',
+            'title' => 'string|max:255',
             'description' => 'string|max:1000',
             'image' => 'file',
             'started' => 'required',
