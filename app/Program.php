@@ -51,6 +51,7 @@ class Program extends Model
         return $this->users()->count();
     }
 
+    
     /**
      * Getter, add next_date of event to response
      * @return int
