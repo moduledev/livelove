@@ -29,6 +29,7 @@ class ProgramUpdateRequest extends FormRequest
             'image' => 'file',
             'started' => 'required',
             'finished' => 'required',
+            'location' => 'required|max:255|string',
         ];
     }
 }

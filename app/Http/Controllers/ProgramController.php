@@ -40,6 +40,7 @@ class ProgramController extends Controller
         $program = new Program;
         $program->title = $request->title;
         $program->description = $request->description;
+        $program->location = $request->location;
         $started = Carbon::parse($request->started);
         $finished = Carbon::parse($request->finished);
 
@@ -74,6 +75,7 @@ class ProgramController extends Controller
 
     public function updateProgram(ProgramUpdateRequest $request, $id)
     {
+
         $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
         $programData = Program::findOrFail($id);
         $programData->fill($request->validated());

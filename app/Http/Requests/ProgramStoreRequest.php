@@ -29,6 +29,7 @@ class ProgramStoreRequest extends FormRequest
             'image' => 'required|mimes:jpeg,jpg,png|max:3072',
             'started' => 'required',
             'finished' => 'required',
+            'location' => 'required|max:255|string',
         ];
     }
 
@@ -47,6 +48,8 @@ class ProgramStoreRequest extends FormRequest
             'image.mimes' => 'Доступны для загрузки jpeg,jpg,png!',
             'started.required' => 'Поле старт программы обязательно к заполнению!',
             'finished.required' => 'Поле окончание программы обязательно к заполнению!',
+            'location.required' => 'Поле место проведения обязательно к заполнению!',
+            'location.max' => 'Поле место проведения не должно содержать более 255 символов!',
         ];
     }
 }

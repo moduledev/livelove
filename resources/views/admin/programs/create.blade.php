@@ -34,6 +34,12 @@
                                               <input type="text" name="title" class="form-control" placeholder="Название">
                                           </div>
                                       </div>
+                                      <div class="form-group">
+                                          <label class="control-label col-sm-2" for="location">Место проведения:</label>
+                                          <div class="col-xs-6">
+                                              <input type="text" name="location" class="form-control" placeholder="Место проведения">
+                                          </div>
+                                      </div>
                                       <div class="form-group" >
                                           <label class="control-label col-sm-2" for="started">Старт программы:</label>
                                           <div class="col-xs-3">
