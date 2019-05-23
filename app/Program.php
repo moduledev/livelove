@@ -57,7 +57,8 @@ class Program extends Model
      */
     public function getNextDateAttribute()
     {
-        return (integer) $this->duration + (integer) '86400' ;
+        $starterd = Carbon::parse($this->started)->addWeek(1);
+        return (string) $starterd;
     }
 
     /**Getter returns term of program in milliseconds

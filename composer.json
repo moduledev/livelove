@@ -14,6 +14,7 @@
         "darkaonline/l5-swagger": "5.8.*",
         "davejamesmiller/laravel-breadcrumbs": "5.x",
         "doctrine/dbal": "^2.9",
+        "facebook/graph-sdk": "^5.7",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.8.*",
         "laravel/passport": "^7.2",
