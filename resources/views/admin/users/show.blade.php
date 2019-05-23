@@ -23,7 +23,7 @@
                     <li class="list-group-item"><p class="text-bold">Программы:
                         <ul class="list-group">
                             @foreach($user->programs as $program)
-                                <li class="list-group-item"><a href="{{route('show.program',$program->id)}}">{{$program->name}}</a></li>
+                                <li class="list-group-item"><a href="{{route('show.program',$program->id)}}">{{$program->title}}</a></li>
                             @endforeach
                         </ul>
                     </li>

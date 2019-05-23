@@ -30,7 +30,7 @@ class Program extends Model
      *
      * @var array
      */
-    protected $appends = ['duration','participants'];
+    protected $appends = ['duration','participants','nextDate'];
 
 
     /**
@@ -40,6 +40,15 @@ class Program extends Model
     public function getParticipantsAttribute()
     {
         return $this->users()->count();
+    }
+
+    /**
+     * Getter, add next_date of event to response
+     * @return int
+     */
+    public function getNextDateAttribute()
+    {
+        return (integer) $this->duration + (integer) '86400' ;
     }
 
     /**Getter returns term of program in milliseconds

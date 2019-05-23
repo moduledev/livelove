@@ -120,7 +120,7 @@
                                     @foreach($userPrograms as $program)
                                         <tr>
                                             <td>{{$program->id}}</td>
-                                            <td> <a href="{{route('show.program',$program->id)}}">{{$program->name}}</a></td>
+                                            <td> <a href="{{route('show.program',$program->id)}}">{{$program->title}}</a></td>
                                             <td><form action="{{route('remove.program')}}" method="post" class="delete_role_form clearfix">
                                                     {{ csrf_field() }}
                                                     <div class="form-group ">
