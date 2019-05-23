@@ -30,7 +30,7 @@ class Program extends Model
      *
      * @var array
      */
-    protected $appends = ['duration','participants','nextDate'];
+    protected $appends = ['duration','participants','nextDate','comments'];
 
 
     /**
@@ -38,6 +38,15 @@ class Program extends Model
      * @return int
      */
     public function getParticipantsAttribute()
+    {
+        return $this->users()->count();
+    }
+
+    /**
+     * Getter, add quantity of comments to response
+     * @return int
+     */
+    public function getCommentsAttribute()
     {
         return $this->users()->count();
     }
@@ -68,6 +77,10 @@ class Program extends Model
     {
         return $this->belongsToMany('App\User','user_program','program_id','user_id');
     }
-    
+
+    public function comments()
+    {
+        return $this->morphMany('App\Comment', 'commentable');
+    }
 
 }
