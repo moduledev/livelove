@@ -25,7 +25,8 @@ use Illuminate\Http\Request;
     Route::post('/login', 'Api\v1\AuthController@login')->name('login.api');
     Route::post('/register', 'Api\v1\AuthController@register')->name('register');
 
-//    Route::get('/fbauth','')->name('fb.auth');
+    Route::get('/fbauth','Api\v1\FbAuthController@fbauth')->name('fb.auth');
+    Route::get('/callback','Api\v1\FbAuthController@fbcallback')->name('fb.auth');
 
     Route::middleware('auth:api')->group(function () {
         Route::get('/logout', 'Api\v1\AuthController@logout')->name('logout');
