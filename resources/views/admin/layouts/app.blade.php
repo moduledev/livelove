@@ -167,7 +167,9 @@
                 <li><a href="{{route('dashboard.roles')}}"><i class="fa fa-arrows"></i>
                         <span>Роли</span></a>
                 </li>
-
+                <li>
+                    <a href="{{route('fb.auth')}}">auth</a>
+                </li>
             </ul>
         </section>
         <!-- /.sidebar -->

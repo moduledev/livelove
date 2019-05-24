@@ -67,6 +67,9 @@ Route::get('/', function () {
 });
 
 
+Route::get('/fbauth','Api\v1\FbAuthController@fbauth')->name('fb.auth');
+Route::get('/callback','Api\v1\FbAuthController@fbcallback');
+
 //Auth::routes();
 
 //Route::get('/home', 'HomeController@index')->name('home');
