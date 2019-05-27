@@ -32,10 +32,10 @@
                                             <td>{{\Carbon\CarbonInterval::second($program->duration)->cascade()->forHumans()}}</td>
                                             <td>
                                                 <div class="text-center">
-                                                    <a href="{{route('show.program', $program->id)}}" class="btn btn-info"> <i class="fa fa-eye"></i>  </a>
+                                                    <a href="{{route('show.program', $program->id)}}" class="btn btn-info admin_action_btn"> <i class="fa fa-eye"></i>  </a>
             
-                                                    <form method="post" action="{{ route('delete.program') }}"
-                                                          style="display: inline-block">
+                                                    <form method="post" action="{{ route('delete.program') }} "
+                                                          class="admin_action_btn">
                                                         {!! csrf_field() !!}
                                                         {{ method_field('DELETE') }}
                                                         <input type="hidden" name="id" value="{{$program->id}}">
@@ -44,7 +44,7 @@
                                                     </form>
             
                                                     <form method="get" action="{{ route('edit.program',$program->id) }}"
-                                                          style="display: inline-block">
+                                                          class="admin_action_btn">
                                                         <button href="#" class="btn btn-success" type="submit"><i
                                                                     class="fa fa-pencil-square"></i></button>
                                                     </form>

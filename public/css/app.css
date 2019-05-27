@@ -19,6 +19,20 @@
   margin: 0 0 16px 0;
 }
 
+.vcenter {
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
+}
+
+.admin_action_btn {
+  display: inline-block;
+}
+
+.dataTable td {
+  vertical-align: middle !important;
+}
+
 .image_container {
   width: 150px;
 }
