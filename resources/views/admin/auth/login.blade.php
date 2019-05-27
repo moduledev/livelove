@@ -67,7 +67,7 @@
 </div>
 <div class="login-box">
     <div class="login-logo">
-        <a href="../../index2.html">LiveLove</a>
+        <a href="#">LiveLove</a>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">

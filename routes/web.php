@@ -63,7 +63,7 @@ Route::prefix('admin')->group(function () {
 // });
 
 Route::get('/', function () {
-    return redirect('http://ll.jdev.com.ua/admin/login');
+    return redirect(route('login'));
 });
 
 
