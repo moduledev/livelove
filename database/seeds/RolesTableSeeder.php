@@ -23,15 +23,16 @@ class RolesTableSeeder extends Seeder
         foreach ($permissions as $permission) {
             $role->givePermissionTo($permission);
         }
+        $user = Admin::updateOrCreate(['name' => 'admin', 'email' => 'admin@admin.com', 'password' => Hash::make('password')]);
 
-        $user = Admin::findOrFail(4);
+//        $user = Admin::findOrFail(4);
       
         if (!$user->hasRole('super-admin')) {
             $user->assignRole('super-admin');
         }
 
         if (!$user) {
-            $user = Admin::updateOrCreate(['name' => 'admin', 'email' => 'admin@admin.com', 'password' => Hash::make('password')]);
+//            $user = Admin::updateOrCreate(['name' => 'admin', 'email' => 'admin@admin.com', 'password' => Hash::make('password')]);
             $user->assignRole('super-admin');
         }
 
