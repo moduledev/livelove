@@ -29,6 +29,13 @@
     </div>
 @endif
 
+@if ($message = Session::get('search'))
+    <div class="alert alert-info alert-block">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong>{{ $message }}</strong>
+    </div>
+@endif
+
 
 @if ($errors->any())
     <div class="alert alert-danger">

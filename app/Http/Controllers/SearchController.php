@@ -21,8 +21,7 @@ class SearchController extends Controller
     {
         $q = Input::get('q');
         $user = User::where('name', 'LIKE', '%' . $q . '%')->orWhere('phone', 'LIKE', '%' . $q . '%')->get();
-        if (count($user) > 0)
-            return view('admin.content.search')->withDetails($user)->withQuery($q);
-        else return view('admin.content.search')->withMessage('No Details found. Try to search again !');
+        if (count($user) > 0) return view('admin.content.search')->withDetails($user)->withQuery($q);
+        else return view('admin.content.search')->withErrors(['search','По запросу '. $q .' ничего не найдело!']);
     }
 }

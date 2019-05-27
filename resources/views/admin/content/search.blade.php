@@ -21,7 +21,9 @@
                 </div>
 
             </form>
-            <p> Результат по запросу <b> {{ $query }} </b>:</p>
+            @isset($q)
+            <p> Результат по запросу <b> {{ $q }} </b>:</p>
+            @endisset
         </div>
     </div>
     <div class="row">
