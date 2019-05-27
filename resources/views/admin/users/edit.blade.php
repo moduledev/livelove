@@ -108,7 +108,7 @@
                         </h3>
                     </div>
                     <div class="box-body">
-                            <table class="table table-hover table-striped  text-center">
+                            <table class="table table-bordered table-hover dataTable">
                                     <thead>
                                         <tr>
                                             <td>Id</td>

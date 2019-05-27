@@ -12,6 +12,7 @@
 {{--    <link rel="stylesheet" href="{{ asset('adminlte/libs/ionicons/css/ionicons.css') }}">--}}
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/iCheck/square/blue.css') }}">
     <link rel="stylesheet" href="{{ asset('adminlte/libs/bootstrap/dist/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('adminlte/css/dataTables.bootstrap.css') }}">
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -401,6 +402,7 @@
 <script src="{{asset('adminlte/js/adminlte.min.js')}}"></script>
 <script src="{{asset('adminlte/libs/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
 <script src="{{asset('adminlte/libs/fastclick/lib/fastclick.js')}}"></script>
+
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
 
 </body>

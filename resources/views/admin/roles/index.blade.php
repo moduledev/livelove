@@ -25,7 +25,7 @@
                        Cписок ролей
                    </h3>
                    <div class="box-body">
-                        <table class="table table-hover table-striped text-center">
+                        <table class="table table-bordered table-hover  dataTable">
                                 <tr>
                                     <th>Id</th>
                                     <th>Название</th>
@@ -36,6 +36,7 @@
                                         <td>{{$role->id}}</td>
                                         <td>{{$role->name}}</td>
                                         <td>
+                                            <div class="text-center">
                                             <a href="{{route('show.role',$role->id)}}" class="btn btn-info"> <i class="fa fa-eye"></i>  </a>
                         
                                             <form method="post" action="{{route('delete.role')}}"
@@ -52,7 +53,7 @@
                                                 <button href="#" class="btn btn-success" type="submit"><i
                                                             class="fa fa-pencil-square"></i></button>
                                             </form>
-                        
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

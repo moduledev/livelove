@@ -15,7 +15,7 @@
                         <h3 class="box-title">Список всех программ</h3>
                         <div class="box-body">
                                 @isset($programs)
-                                <table class="table table-hover table-striped text-center">
+                                <table class="table table-bordered table-hover  dataTable" >
                                     <thead>
                                     <tr>
                                         <th>ID</th>

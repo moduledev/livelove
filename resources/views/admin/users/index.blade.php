@@ -38,7 +38,7 @@
                    <h3 class="box-title">Пользователи</h3>
                    <div class="box-body">
                         @isset($users)
-               <table class="table table-hover table-striped text-center">
+               <table class="table table-bordered table-hover  dataTable">
                    <thead>
                    <tr>
                        <th>ID</th>

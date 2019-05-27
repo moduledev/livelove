@@ -47,57 +47,59 @@
                         <div class="box-header">
                                 <h3 class="box-title">Список администраторов:</h3>
                         </div>
-                        @isset($admins)
-                            <table class="table table-hover table-striped  text-center">
-                                <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Имя</th>
-                                    <th>E-mail</th>
-                                    <th>Роль</th>
-                                    <th>Действие</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($admins as $admin)
+                        <div class="box-body">
+                            @isset($admins)
+                                <table class="table table-bordered table-hover  dataTable">
+                                    <thead>
                                     <tr>
-                                        <td>{{$admin->id}}</td>
-                                        <td>{{$admin->name}}</td>
-                                        <td>{{$admin->email}}</td>
-                                        <td>
-                                            @can('admin-show')
-                                                @foreach($admin->roles as $role)
-                                                    <span class="role_name" >{{$role->name}}</span>
-                                                @endforeach
-                                            @endcan
-            
-                                        </td>
-                                        <td>
-                                            <div class=" text-center">
-                                                <a href="{{route('admin.admins.show', $admin->id)}}" class="btn btn-info"> <i
-                                                            class="fa fa-eye"></i> </a>
-            
-                                                <form method="post" action="{{ route('admin.admins.delete', $admin->id) }}"
-                                                      style="display: inline-block">
-                                                    {{ csrf_field() }}
-                                                    {{ method_field('DELETE') }}
-                                                    <input type="hidden" name="id" value="{{$admin->id}}">
-                                                    <button href="#" class="btn btn-danger" type="submit"><i
-                                                                class="fa fa-trash"></i></button>
-                                                </form>
-            
-                                                <form method="get" action="{{ route('admin.admins.edit',$admin->id) }}"
-                                                      style="display: inline-block">
-                                                    <button href="#" class="btn btn-success" type="submit"><i
-                                                                class="fa fa-pencil-square"></i></button>
-                                                </form>
-            
-                                            </div>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        @endisset
-                        {{ $admins->links() }}
+                                        <th>ID</th>
+                                        <th>Имя</th>
+                                        <th>E-mail</th>
+                                        <th>Роль</th>
+                                        <th>Действие</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($admins as $admin)
+                                        <tr>
+                                            <td>{{$admin->id}}</td>
+                                            <td>{{$admin->name}}</td>
+                                            <td>{{$admin->email}}</td>
+                                            <td>
+                                                @can('admin-show')
+                                                    @foreach($admin->roles as $role)
+                                                        <span class="role_name" >{{$role->name}}</span>
+                                                    @endforeach
+                                                @endcan
+
+                                            </td>
+                                            <td>
+                                                <div class=" text-center">
+                                                    <a href="{{route('admin.admins.show', $admin->id)}}" class="btn btn-info"> <i
+                                                                class="fa fa-eye"></i> </a>
+
+                                                    <form method="post" action="{{ route('admin.admins.delete', $admin->id) }}"
+                                                          style="display: inline-block">
+                                                        {{ csrf_field() }}
+                                                        {{ method_field('DELETE') }}
+                                                        <input type="hidden" name="id" value="{{$admin->id}}">
+                                                        <button href="#" class="btn btn-danger" type="submit"><i
+                                                                    class="fa fa-trash"></i></button>
+                                                    </form>
+
+                                                    <form method="get" action="{{ route('admin.admins.edit',$admin->id) }}"
+                                                          style="display: inline-block">
+                                                        <button href="#" class="btn btn-success" type="submit"><i
+                                                                    class="fa fa-pencil-square"></i></button>
+                                                    </form>
+
+                                                </div>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            @endisset
+                            {{ $admins->links() }}
+                        </div>
                     </div>
         </div>
         
