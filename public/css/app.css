@@ -33,6 +33,10 @@
   vertical-align: middle !important;
 }
 
+.sidebar-menu a:focus {
+  text-decoration: none;
+}
+
 .image_container {
   width: 150px;
 }

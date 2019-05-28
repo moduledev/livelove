@@ -51,7 +51,7 @@
                                                      v-model="startTime" >
                                           </div>
                                           <template v-if="startTimeError">
-                                              <div class="col-sm-10 col-sm-offset-2">
+                                              <div class="col-xs-5">
                                                   <p class="error_element">@{{errorStartTimeMessage}}</p>
                                               </div>
                                           </template>
@@ -74,7 +74,7 @@
                                                              v-model="finishTime">
                                                   </div>
                                                   <template v-if="finishTimeError">
-                                                      <div class="col-sm-10 col-sm-offset-2">
+                                                      <div class="col-xs-5">
                                                           <p class="error_element">@{{errorFinishTimeMessage}}</p>
                                                       </div>
                                                   </template>
