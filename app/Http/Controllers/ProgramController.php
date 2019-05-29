@@ -40,27 +40,9 @@ class ProgramController extends Controller
      */
     public function storeProgram(ProgramStoreRequest $request)
     {
-        $request->validated();
         $program = new Program;
-        $program->title = $request->title;
-        $program->description = $request->description;
-        $program->location = $request->location;
-        $started = Carbon::parse($request->started);
-        $finished = Carbon::parse($request->finished);
-
-        if ($started->isPast() !== false) {
-            return redirect()->back()->with('started_error', 'Программа не была создана, нельзя установить прошедшую дату!');
-        } else if ($started->gt($finished) === true) {
-            return redirect()->back()->with('finished_error', 'Программа не была создана, дата завершения не должна быть раньше начальной!');
-        } else {
-            $program->started = $started;
-            $program->finished = $finished;
-        }
-
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('program', 'public');
-            $program->image = $path;
-        }
+        $program->fill($request->validated());
+        $program->image = $this->storeImage($request, 'image');
         $program->save();
         return redirect()->back()->with('success', 'Программа ' . $program->name . ' была успешно создана!');
     }
@@ -79,7 +61,7 @@ class ProgramController extends Controller
     public function updateProgram(ProgramUpdateRequest $request, $id)
     {
         $programData = Program::findOrFail($id);
-        unlink(storage_path(Program::PHOTOPATH . $programData->image));
+        if(!is_null($programData->image)) unlink(storage_path(Program::PHOTOPATH . $programData->image));
         $programData->fill($request->validated());
         $programData->image = $this->storeImage($request, 'image');
         $programData->save();

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserUpdateRequest;
+use App\Traits\StoreImageTrait;
 use App\User;
 use App\Program;
 use Illuminate\Http\Request;
@@ -12,6 +13,8 @@ use Validator;
 
 class UserController extends Controller
 {
+    use StoreImageTrait;
+
     public function __construct()
     {
         $this->middleware('auth:admin');
@@ -61,13 +64,9 @@ class UserController extends Controller
     {
         $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
         $userData = User::findOrFail($id);
+        if (is_null($userData)) unlink(storage_path(User::PHOTOPATH . $userData->image));
         $userData->fill($request->validated());
-
-        if ($request->hasFile('image')) {
-            if ($userData->image) unlink(storage_path(User::PHOTOPATH . $userData->image));
-            $path = $request->file('image')->store('users', 'public');
-            $userData->image = $path;
-        }
+        $userData->image = $this->storeImage($request, 'image');
         $userData->save();
         return redirect()->back()->with('success', 'Данные пользователя ' . $userData->name . ' были успешно обновлены!');
     }

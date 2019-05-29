@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+use App\Traits\StoreImageTrait;
 use App\User;
 use Validator;
 use Illuminate\Http\Request;
@@ -13,6 +14,8 @@ use App\Http\Requests\Api\ProfileUpdateRequest;
 
 class ProfileController extends Controller
 {
+    use StoreImageTrait;
+
     public function __construct()
     {
         $this->middleware('api-version');
@@ -154,17 +157,10 @@ class ProfileController extends Controller
 
     protected function update(ProfileUpdateRequest $request)
     {
-//        $userData = User::with('programs')->findOrFail($id);
-        // return response()->json($request->all());
         $userData = Auth::user();
+        if (!is_null($userData->image)) unlink(storage_path(User::PHOTOPATH . $userData->image));
         $userData->fill($request->validated());
-
-        if ($request->hasFile('image')) {
-            if (is_null($userData->image)) unlink(storage_path(User::PHOTOPATH . $userData->image));
-            $path = $request->file('image')->store('users', 'public');
-            $userData->image = $path;
-        }
-
+        $userData->image = $this->storeImage($request, 'image');
         $userData->save();
         return response()->json($userData);
     }

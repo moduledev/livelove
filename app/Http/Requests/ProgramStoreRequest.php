@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\IsPastStarted;
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ProgramStoreRequest extends FormRequest
@@ -27,8 +29,8 @@ class ProgramStoreRequest extends FormRequest
             'title' => 'required',
             'description' => 'required',
             'image' => 'required|mimes:jpeg,jpg,png|max:3072',
-            'started' => 'required',
-            'finished' => 'required',
+            'started' => 'required|date|after:yesterday',
+            'finished' => 'required|date|after_or_equal:started',
             'location' => 'required|max:255|string',
         ];
     }

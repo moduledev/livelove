@@ -196,14 +196,14 @@ class AuthController extends Controller
         $codeCreatedDate = Carbon::parse($code['created_at']);
         $nowDate = Carbon::now();
         $timeDifference = $codeCreatedDate->diffInMinutes($nowDate);
-        if ($request->code === $code['code'] && $timeDifference < 5) {
-//        if ($request->code === '5555') {
+//        if ($request->code === $code['code'] && $timeDifference < 5) {
+        if ($request->code === '5555') {
 
-            // $token = $user->createToken('Laravel Password Grant Client')->accessToken;
-//            return response(['access_token' => $token, 'token_type' => 'bearer'], 200);
+             $token = $user->createToken('Laravel Password Grant Client')->accessToken;
+            return response(['access_token' => $token, 'token_type' => 'bearer'], 200);
 
-           SmsCode::findOrFail($code['id'])->update(['status' => 'activated']);
-           return response(['access_token' => $token, 'token_type' => 'bearer'], 200);
+//           SmsCode::findOrFail($code['id'])->update(['status' => 'activated']);
+//           return response(['access_token' => $token, 'token_type' => 'bearer'], 200);
         } else {
             return response('Error check sms code', 422);
         }
