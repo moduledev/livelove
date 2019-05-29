@@ -17,7 +17,7 @@ class AdminController extends Controller
     public function __construct()
     {
         $this->middleware('auth:admin')->except('create');
-        $this->middleware('permission:admin-edit', ['only' => ['edit', 'update']]);
+//        $this->middleware('permission:admin-edit', ['only' => ['edit', 'update']]);
     }
 
 

@@ -13,6 +13,34 @@
 
 
 Route::prefix('admin')->group(function () {
+    Route::group(['middleware' => ['permission:program-edit']], function () {
+        Route::put('programs/edit/{id}', 'ProgramController@updateProgram')->name('update.program');
+        Route::get('programs/edit/{id}', 'ProgramController@editProgram')->name('edit.program');
+    });
+
+    Route::group(['middleware' => ['permission:program-delete']], function () {
+        Route::delete('programs', 'ProgramController@delete')->name('delete.program');
+    });
+
+    Route::group(['middleware' => ['permission:program-create']], function () {
+        Route::get('programs/create', 'ProgramController@createProgram')->name('create.program');
+        Route::post('programs', 'ProgramController@storeProgram')->name('add.program');
+    });
+
+    Route::group(['middleware' => ['permission:program-list']], function () {
+        Route::get('programs/{id}', 'ProgramController@showProgram')->name('show.program');
+    });
+
+    Route::group(['middleware' => ['permission:admin-edit']], function () {
+        Route::get('edit/edit/{id}', 'AdminController@edit')->name('admin.admins.edit');
+        Route::put('admin/admins/edit/{id}', 'AdminController@update')->name('admin.admins.update');
+    });
+
+    Route::group(['middleware' => ['permission:admin-edit']], function () {
+        Route::get('edit/edit/{id}', 'AdminController@edit')->name('admin.admins.edit');
+        Route::put('admin/admins/edit/{id}', 'AdminController@update')->name('admin.admins.update');
+    });
+
     Route::get('dashboard', 'DashboardController@index')->name('dashboard.index');
     Route::get('admins', 'DashboardController@admins')->name('dashboard.admins');
     Route::get('users', 'DashboardController@users')->name('dashboard.users');
@@ -24,9 +52,7 @@ Route::prefix('admin')->group(function () {
     Route::post('logout', 'Auth\Admin\LoginController@logout')->name('admin.auth.logout');
 
     Route::post('admin/admins', 'AdminController@store')->name('admin.register.store');
-    Route::get('edit/edit/{id}', 'AdminController@edit')->name('admin.admins.edit');
     Route::get('edit/{id}', 'AdminController@show')->name('admin.admins.show');
-    Route::put('admin/admins/edit/{id}', 'AdminController@update')->name('admin.admins.update');
     Route::delete('admin/admins/{id}', 'AdminController@destroy')->name('admin.admins.delete');
     Route::post('admin/edit', 'PermissionController@removePermission')->name('remove.permission');
     Route::put('admin/edit', 'PermissionController@assignPermission')->name('assign.permission');
@@ -46,13 +72,6 @@ Route::prefix('admin')->group(function () {
     Route::get('roles/{id}', 'RoleController@show')->name('show.role');
     Route::put('roles/edit/{id}', 'RoleController@update')->name('admin.roles.update');
 
-    Route::get('programs/create', 'ProgramController@createProgram')->name('create.program');
-    Route::post('programs', 'ProgramController@storeProgram')->name('add.program');
-    Route::get('programs/edit/{id}', 'ProgramController@editProgram')->name('edit.program');
-    Route::get('programs/{id}', 'ProgramController@showProgram')->name('show.program');
-    Route::put('programs/edit/{id}', 'ProgramController@updateProgram')->name('update.program');
-    Route::delete('programs', 'ProgramController@delete')->name('delete.program');
-    
 
     Route::any('search', 'SearchController@search')->name('search');
 

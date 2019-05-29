@@ -36,11 +36,17 @@
     </div>
 @endif
 
-
 @if ($errors->any())
     <div class="alert alert-danger">
         <button type="button" class="close" data-dismiss="alert">×</button>
-        Пожалуйста проверьте введенные данные
-        <strong>{{ $message }}</strong>
+        <strong>Пожалуйста проверьте введенные данные:</strong>
+        @isset($errors)
+            <ul>
+                @foreach($errors->all(':message') as $error)
+                    <li>{{$error}}</li>
+                @endforeach
+            </ul>
+        @endisset
     </div>
+
 @endif

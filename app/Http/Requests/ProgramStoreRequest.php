@@ -43,13 +43,15 @@ class ProgramStoreRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Название обязателено к заполнению!',
-            'description.required' => 'Описание !',
+            'title.required' => 'Название обязателено к заполнению!',
+            'description.required' => 'Описание обязателено к заполнению!',
             'image.required' => 'Изображение обязателено!',
             'image.max' => 'Изображение не должно быть больше 3 mb!',
             'image.mimes' => 'Доступны для загрузки jpeg,jpg,png!',
             'started.required' => 'Поле старт программы обязательно к заполнению!',
+            'started.after' => 'Нельзя выбрать прошедшую дату!',
             'finished.required' => 'Поле окончание программы обязательно к заполнению!',
+            'finished.after_or_equal' => 'Дата окончания программы не может быть раньше ее старта!',
             'location.required' => 'Поле место проведения обязательно к заполнению!',
             'location.max' => 'Поле место проведения не должно содержать более 255 символов!',
         ];
