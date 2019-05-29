@@ -26,7 +26,6 @@ class UserController extends Controller
     public function show($id)
     {
         if (Auth::user()->hasPermissionTo('user-show')) {
-            $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
             $user = User::findOrFail($id);
             return view('admin.users.show', compact('user'));
         } else {
@@ -42,7 +41,7 @@ class UserController extends Controller
     public function edit(Request $request)
     {
         if (Auth::user()->hasPermissionTo('user-edit')) {
-            $id = filter_var($request->id, FILTER_SANITIZE_NUMBER_INT);
+            $id = $request->id;
             $user = User::findOrFail($id);
             $userPrograms = $user->programs()->get();
             $programs = Program::all();

@@ -5,14 +5,18 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Api\ProfileUpdateRequest;
 use App\Http\Requests\ProgramStoreRequest;
 use App\Program;
+use App\Traits\StoreImageTrait;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Support\Facades\Storage;
 use Validator;
 use App\Http\Requests\ProgramUpdateRequest;
 
 class ProgramController extends Controller
 {
+    use StoreImageTrait;
+
     public function __construct()
     {
         $this->middleware('auth:admin');
@@ -68,22 +72,16 @@ class ProgramController extends Controller
      */
     public function editProgram($id)
     {
-        $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
         $program = Program::findOrFail($id);
         return view('admin.programs.edit', compact('program'));
     }
 
     public function updateProgram(ProgramUpdateRequest $request, $id)
     {
-
-        $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
         $programData = Program::findOrFail($id);
+        unlink(storage_path(Program::PHOTOPATH . $programData->image));
         $programData->fill($request->validated());
-        if ($request->hasFile('image')) {
-            if (is_null($programData->image)) unlink(storage_path(Program::PHOTOPATH . $programData->image));
-            $path = $request->file('image')->store('program', 'public');
-            $programData->image = $path;
-        }
+        $programData->image = $this->storeImage($request, 'image');
         $programData->save();
         return redirect()->back()->with('success', 'Программа ' . $programData->name . ' была успешно обновлена!');
     }
@@ -95,10 +93,8 @@ class ProgramController extends Controller
      */
     public function showProgram($id)
     {
-        $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
         $program = Program::with('users')->findOrFail($id);
         return view('admin.programs.show', compact('program'));
-
     }
 
     /**
@@ -108,7 +104,15 @@ class ProgramController extends Controller
      */
     public function delete(Request $request)
     {
-        $id = filter_var($request->id, FILTER_SANITIZE_NUMBER_INT);
+        $validator = Validator::make($request->all(), [
+            'id' => 'integer',
+        ]);
+        if ($validator->fails()) {
+            return redirect()
+                ->back();
+        }
+        $id = $request->id;
+
         Program::findOrFail($id)->delete();
         return redirect()->back()->with('success', 'Программа была успешно удалена!');
     }

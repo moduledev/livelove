@@ -54,7 +54,6 @@ class RoleController extends Controller
     public function show($id)
     {
         if (Auth::user()->hasPermissionTo('role-show')) {
-            $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
             $role = Role::findOrFail($id);
             $permissions = $role->permissions;
             return view('admin.roles.show',compact('role','permissions'));
@@ -72,7 +71,6 @@ class RoleController extends Controller
     public function edit($id)
     {
         if (Auth::user()->hasPermissionTo('role-edit')) {
-            $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
             $role = Role::findOrFail($id);
             $userPermissions = $role->permissions;
             $permissions = Permission::all();
@@ -100,7 +98,6 @@ class RoleController extends Controller
                 ->back()
                 ->withErrors($validator);
         }
-        $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
         $role = Role::findOrFail($id);
         $role->name = $request->name;
         $role->save();
@@ -115,7 +112,14 @@ class RoleController extends Controller
     public function destroy(Request $request)
     {
         if (Auth::user()->hasPermissionTo('role-delete')) {
-            $role = filter_var($request->id, FILTER_SANITIZE_SPECIAL_CHARS);
+            $validator = Validator::make($request->all(), [
+                'id' => 'integer',
+            ]);
+            if ($validator->fails()) {
+                return redirect()
+                    ->back();
+            }
+            $role = $request->id;
             Role::findOrFail($role)->delete();
             return redirect()->back()->with('success', 'Роль ' . $role . ' была успешно удалена!');
         } else {

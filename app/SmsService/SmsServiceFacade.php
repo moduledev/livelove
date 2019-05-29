@@ -16,6 +16,6 @@ class SmsServiceFacade
      */
     protected static function getFacadeAccessor()
     {
-        return 'smsservice';
+        return 'SmsService';
     }
 }

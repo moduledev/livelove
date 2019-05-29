@@ -25,7 +25,7 @@ class SmsService
         $input['phone'] = str_replace('+','',$phone);
         $input['user_id'] = $userId;
         SmsCode::create($input);
-//        SmsService::sendSms($input['code'],$input['phone'] = str_replace('+','',$phone));
+        SmsService::sendSms($input['code'],$input['phone'] = str_replace('+','',$phone));
     }
 
     /** Send sms using nexmo package

@@ -58,7 +58,6 @@ class AdminController extends Controller
     public function show($id)
     {
         if (Auth::user()->hasPermissionTo('admin-show')) {
-            $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
             $admin = Admin::findOrFail($id);
             $adminsDermissions = $admin->getAllPermissions();
             return view('admin.admins.show', compact('admin', 'adminsDermissions'));
@@ -76,7 +75,6 @@ class AdminController extends Controller
     public function edit($id)
     {
         if (Auth::user()->hasPermissionTo('admin-edit')) {
-            $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
             $admin = Admin::findOrFail($id);
             $roles = Role::all();
             $adminsRoles = $admin->roles;
@@ -110,8 +108,7 @@ class AdminController extends Controller
     public function destroy($id)
     {
         if (Auth::user()->hasPermissionTo('admin-delete')) {
-            $adminId = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
-            $admin = Admin::findOrFail($adminId);
+            $admin = Admin::findOrFail($id);
             if ($admin->id !== auth()->id()) {
                 $admin->delete();
                 return redirect()->back()->with('success', 'Пользователь ' . $admin->name . ' был успешно удален!');

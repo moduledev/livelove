@@ -14,7 +14,7 @@ class SmsserviceServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('smsservice',function(){
+        $this->app->bind('SmsService',function(){
             return new SmsService();
         });
     }

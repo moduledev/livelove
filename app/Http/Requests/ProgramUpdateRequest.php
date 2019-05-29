@@ -26,7 +26,7 @@ class ProgramUpdateRequest extends FormRequest
         return [
             'title' => 'string|max:255',
             'description' => 'string|max:1000',
-            'image' => 'mimes:jpeg,jpg,png|max:3072',
+            'image' => 'required|mimes:jpeg,jpg,png|max:3072',
             'started' => 'required',
             'finished' => 'required',
             'location' => 'required|max:255|string',
