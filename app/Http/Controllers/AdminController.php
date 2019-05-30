@@ -14,13 +14,6 @@ use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:admin')->except('create');
-//        $this->middleware('permission:admin-edit', ['only' => ['edit', 'update']]);
-    }
-
-
     /**
      * Show the form for creating a new admin.
      *

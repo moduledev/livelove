@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Api\ProfileUpdateRequest;
 use App\Http\Requests\ProgramStoreRequest;
 use App\Program;
+use App\Traits\ImagePath;
 use App\Traits\StoreImageTrait;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -16,17 +17,7 @@ use App\Http\Requests\ProgramUpdateRequest;
 class ProgramController extends Controller
 {
     use StoreImageTrait;
-
-    public function __construct()
-    {
-        $this->middleware('auth:admin');
-//        $this->middleware('permission:program-edit', ['only' => ['editProgram', 'updateProgram']]);
-//        $this->middleware('permission:program-delete', ['only' => ['delete']]);
-//        $this->middleware('permission:program-create', ['only' => ['storeProgram']]);
-//        $this->middleware('permission:program-create', ['only' => ['createProgram']]);
-//        $this->middleware('permission:program-list', ['only' => ['showProgram']]);
-    }
-
+    use ImagePath;
 
     public function createProgram()
     {
@@ -61,7 +52,8 @@ class ProgramController extends Controller
     public function updateProgram(ProgramUpdateRequest $request, $id)
     {
         $programData = Program::findOrFail($id);
-        if(!is_null($programData->image)) unlink(storage_path(Program::PHOTOPATH . $programData->image));
+
+        if(!is_null($programData->image)) unlink($this->imagePath(Program::PHOTOPATH, $programData->image));
         $programData->fill($request->validated());
         $programData->image = $this->storeImage($request, 'image');
         $programData->save();

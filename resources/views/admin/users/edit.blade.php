@@ -84,7 +84,7 @@
                                             <select class="form-control" name="program" id="sel1">
                                                 <option>Выберите программу</option>
                                                 @foreach($programs as $prog)
-                                                    <option value="{{$prog->id}}">{{$prog->name}}</option>
+                                                    <option value="{{$prog->id}}">{{$prog->title}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -108,6 +108,7 @@
                         </h3>
                     </div>
                     <div class="box-body">
+                        @if(count($userPrograms) > 0)
                             <table class="table table-bordered table-hover dataTable">
                                     <thead>
                                         <tr>
@@ -136,6 +137,9 @@
                                     @endforeach
                                     </tbody>
                                 </table>
+                            @else
+                            <p>Пользователю еще не назначена ни одна программа.</p>
+                        @endif
                     </div>
                 </div>
                 

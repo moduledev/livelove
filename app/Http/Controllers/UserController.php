@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserUpdateRequest;
+use App\Traits\ImagePath;
 use App\Traits\StoreImageTrait;
 use App\User;
 use App\Program;
@@ -14,12 +15,7 @@ use Validator;
 class UserController extends Controller
 {
     use StoreImageTrait;
-
-    public function __construct()
-    {
-        $this->middleware('auth:admin');
-    }
-
+    use ImagePath;
     /**
      * Show user data
      *
@@ -62,9 +58,8 @@ class UserController extends Controller
      */
     public function update(UserUpdateRequest $request, $id)
     {
-        $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
         $userData = User::findOrFail($id);
-        if (is_null($userData)) unlink(storage_path(User::PHOTOPATH . $userData->image));
+        if (is_null($userData)) unlink($this->imagePath(User::PHOTOPATH, $userData->images));
         $userData->fill($request->validated());
         $userData->image = $this->storeImage($request, 'image');
         $userData->save();
@@ -90,7 +85,7 @@ class UserController extends Controller
             }
 
             $user = User::findOrFail($request->id);
-            if ($user->image) unlink(storage_path('app/public/' . $user->image));
+            if ($user->image) unlink($this->imagePath(User::PHOTOPATH, $user->images));
             $user->delete();
             return redirect()->back()->with('success', 'Пользователь ' . $user->name . ' был успешно удален!');
         } else {
